@@ -7,8 +7,9 @@
 
 #include "commands/ToggleVisionLight.h"
 
-ToggleVisionLight::ToggleVisionLight() {
+ToggleVisionLight::ToggleVisionLight(Vision *vision) : m_vision(vision) {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements(vision);
 }
 
 // Called when the command is initially scheduled.

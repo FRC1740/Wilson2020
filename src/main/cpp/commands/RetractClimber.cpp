@@ -7,8 +7,9 @@
 
 #include "commands/RetractClimber.h"
 
-RetractClimber::RetractClimber() {
+RetractClimber::RetractClimber(Climber *climber) : m_climber(climber) {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements(climber);
 }
 
 // Called when the command is initially scheduled.

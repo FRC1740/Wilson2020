@@ -7,8 +7,9 @@
 
 #include "commands/SpinUpShooter.h"
 
-SpinUpShooter::SpinUpShooter() {
+SpinUpShooter::SpinUpShooter(Shooter *shooter) : m_shooter(shooter) {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements(shooter);
 }
 
 // Called when the command is initially scheduled.

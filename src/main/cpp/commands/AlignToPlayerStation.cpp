@@ -7,8 +7,9 @@
 
 #include "commands/AlignToPlayerStation.h"
 
-AlignToPlayerStation::AlignToPlayerStation() {
+AlignToPlayerStation::AlignToPlayerStation(Vision *vision) : m_vision(vision) {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements(vision);
 }
 
 // Called when the command is initially scheduled.

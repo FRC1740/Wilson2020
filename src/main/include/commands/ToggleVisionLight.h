@@ -9,6 +9,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include "subsystems/Vision.h"
 
 /**
  * An example command.
@@ -20,7 +21,7 @@
 class ToggleVisionLight
     : public frc2::CommandHelper<frc2::CommandBase, ToggleVisionLight> {
  public:
-  ToggleVisionLight();
+  explicit ToggleVisionLight(Vision *vision);
 
   void Initialize() override;
 
@@ -29,4 +30,7 @@ class ToggleVisionLight
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+
+ private:
+  Vision *m_vision;
 };

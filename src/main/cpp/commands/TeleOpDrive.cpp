@@ -7,8 +7,9 @@
 
 #include "commands/TeleOpDrive.h"
 
-TeleOpDrive::TeleOpDrive() {
+TeleOpDrive::TeleOpDrive(DriveTrain *drivetrain) : m_driveTrain(drivetrain) {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements(drivetrain);
 }
 
 // Called when the command is initially scheduled.

@@ -5,21 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/RotateThreeCPM.h"
+#include "commands/AutoDrive.h"
 
-RotateThreeCPM::RotateThreeCPM(ControlPanelManipulator *controlpanelmanipulator) : m_controlPanelManipulator(controlpanelmanipulator) {
+AutoDrive::AutoDrive() {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(controlpanelmanipulator);
 }
 
 // Called when the command is initially scheduled.
-void RotateThreeCPM::Initialize() {}
+void AutoDrive::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void RotateThreeCPM::Execute() {}
+void AutoDrive::Execute() {}
 
 // Called once the command ends or is interrupted.
-void RotateThreeCPM::End(bool interrupted) {}
+void AutoDrive::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool RotateThreeCPM::IsFinished() { return false; }
+bool AutoDrive::IsFinished() { return false; }

@@ -9,7 +9,6 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/Vision.h"
 
 /**
  * An example command.
@@ -18,10 +17,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class SwitchCamera
-    : public frc2::CommandHelper<frc2::CommandBase, SwitchCamera> {
+class AutoDrive
+    : public frc2::CommandHelper<frc2::CommandBase, AutoDrive> {
  public:
-  explicit SwitchCamera(Vision *vision);
+  AutoDrive();
 
   void Initialize() override;
 
@@ -30,7 +29,4 @@ class SwitchCamera
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-
- private:
-  Vision *m_vision;
 };

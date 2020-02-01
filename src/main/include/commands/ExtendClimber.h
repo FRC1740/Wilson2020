@@ -9,6 +9,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include "subsystems/Climber.h"
 
 /**
  * An example command.
@@ -20,7 +21,7 @@
 class ExtendClimber
     : public frc2::CommandHelper<frc2::CommandBase, ExtendClimber> {
  public:
-  ExtendClimber();
+  explicit ExtendClimber(Climber *climber);
 
   void Initialize() override;
 
@@ -29,4 +30,7 @@ class ExtendClimber
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+
+ private:
+  Climber *m_climber;
 };

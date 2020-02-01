@@ -9,6 +9,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include "subsystems/ControlPanelManipulator.h"
 
 /**
  * An example command.
@@ -20,7 +21,7 @@
 class GoToColorCPM
     : public frc2::CommandHelper<frc2::CommandBase, GoToColorCPM> {
  public:
-  GoToColorCPM();
+  explicit GoToColorCPM(ControlPanelManipulator *controlpanelmanipulator);
 
   void Initialize() override;
 
@@ -29,4 +30,7 @@ class GoToColorCPM
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+
+ private:
+  ControlPanelManipulator *m_controlPanelManipulator;
 };

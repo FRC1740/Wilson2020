@@ -7,8 +7,9 @@
 
 #include "commands/ExtendClimber.h"
 
-ExtendClimber::ExtendClimber() {
+ExtendClimber::ExtendClimber(Climber *climber) : m_climber(climber) {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements(climber);
 }
 
 // Called when the command is initially scheduled.

@@ -7,8 +7,9 @@
 
 #include "commands/GoToColorCPM.h"
 
-GoToColorCPM::GoToColorCPM() {
+GoToColorCPM::GoToColorCPM(ControlPanelManipulator *controlpanelmanipulator) : m_controlPanelManipulator(controlpanelmanipulator) {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements(controlpanelmanipulator);
 }
 
 // Called when the command is initially scheduled.
