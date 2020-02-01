@@ -7,8 +7,9 @@
 
 #include "commands/SwitchCamera.h"
 
-SwitchCamera::SwitchCamera() {
+SwitchCamera::SwitchCamera(Vision *vision) : m_vision(vision) {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements(vision);
 }
 
 // Called when the command is initially scheduled.

@@ -7,8 +7,9 @@
 
 #include "commands/RotateManualCPM.h"
 
-RotateManualCPM::RotateManualCPM() {
+RotateManualCPM::RotateManualCPM(ControlPanelManipulator *controlpanelmanipulator) : m_controlPanelManipulator(controlpanelmanipulator) {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements(controlpanelmanipulator);
 }
 
 // Called when the command is initially scheduled.

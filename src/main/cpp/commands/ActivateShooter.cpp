@@ -7,8 +7,9 @@
 
 #include "commands/ActivateShooter.h"
 
-ActivateShooter::ActivateShooter() {
+ActivateShooter::ActivateShooter(Shooter *shooter) : m_shooter(shooter) {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements(shooter);
 }
 
 // Called when the command is initially scheduled.

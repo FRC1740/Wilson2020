@@ -9,7 +9,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-
+#include "subsystems/Vision.h"
 /**
  * An example command.
  *
@@ -20,7 +20,7 @@
 class AlignToPlayerStation
     : public frc2::CommandHelper<frc2::CommandBase, AlignToPlayerStation> {
  public:
-  AlignToPlayerStation();
+  explicit AlignToPlayerStation(Vision *vision);
 
   void Initialize() override;
 
@@ -29,4 +29,7 @@ class AlignToPlayerStation
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+
+ private:
+  Vision *m_vision;
 };

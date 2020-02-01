@@ -7,8 +7,9 @@
 
 #include "commands/RotateThreeCPM.h"
 
-RotateThreeCPM::RotateThreeCPM() {
+RotateThreeCPM::RotateThreeCPM(ControlPanelManipulator *controlpanelmanipulator) : m_controlPanelManipulator(controlpanelmanipulator) {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements(controlpanelmanipulator);
 }
 
 // Called when the command is initially scheduled.

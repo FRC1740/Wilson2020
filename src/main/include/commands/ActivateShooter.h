@@ -9,6 +9,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include "subsystems/Shooter.h"
 
 /**
  * An example command.
@@ -20,7 +21,7 @@
 class ActivateShooter
     : public frc2::CommandHelper<frc2::CommandBase, ActivateShooter> {
  public:
-  ActivateShooter();
+  explicit ActivateShooter(Shooter *shooter);
 
   void Initialize() override;
 
@@ -29,4 +30,7 @@ class ActivateShooter
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+
+ private:
+  Shooter *m_shooter;
 };
