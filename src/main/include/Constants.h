@@ -16,3 +16,68 @@
  * command-specific namespaces within this header, which can then be used where
  * they are needed.
  */
+
+//THESE ARE ALL DUMMY VALUES FOR A SIMPLE AUTO
+namespace ConAuto {
+
+}
+
+namespace ConClimber {
+    //Motors
+    constexpr int CLIMB_MOTOR = 9;
+}
+
+namespace ConControlPanelManipulator {
+    // Motor
+    constexpr int MOTOR = 3;
+    constexpr double MOTOR_SPEED = 0.324; // FIXME: Guess & Check
+}
+
+namespace ConDrivetrain {
+    //Motors
+    constexpr int RIGHT_MOTOR = 4;
+    constexpr int LEFT_MOTOR = 5;
+}
+
+namespace ConMath {
+    constexpr double PI = 3.141592;
+    constexpr double METERS_2_INCH = .0254; // m/in
+    constexpr double MINUTES_2_SECONDS = 1/60.; // sec/min
+}
+
+namespace ConNEO {
+    constexpr int MAXIMUM_RPM = 5676;
+    constexpr int GEAR_RATIO = 10.71;
+}
+
+namespace ConShooter {
+   
+}
+
+namespace ConXBOXController {
+    //Axis inputs
+    constexpr int LEFT_JOYSTICK_X = 0;    
+    constexpr int LEFT_JOYSTICK_Y = 1;
+    constexpr int LEFT_TRIGGER_ID = 2;
+    constexpr int RIGHT_TRIGGER_ID = 3;
+    constexpr int RIGHT_JOYSTICK_X = 4;    
+    constexpr int RIGHT_JOYSTICK_Y = 5;
+    //Buttons
+    constexpr int A = 1;
+    constexpr int B = 2;
+    constexpr int X = 3;
+    constexpr int Y = 4;
+    constexpr int LEFT_BUMPER = 5;
+    constexpr int RIGHT_BUMPER = 6;
+    constexpr int SELECT = 7;
+    constexpr int START = 8;
+    constexpr int LEFT_JOYSTICK = 9;
+    constexpr int RIGHT_JOYSTICK = 10;
+
+    //CREATE A WIDGEt FOR THESE TO CHANGE
+    //Dead zone
+    constexpr double DEAD_ZONE = 0.5; //approximate value
+    //Driver controller Port
+    constexpr int DRIVER_CONTROLLER_PORT = 0;
+}
+
