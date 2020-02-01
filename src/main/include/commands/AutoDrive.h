@@ -9,7 +9,6 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/Climber.h"
 
 /**
  * An example command.
@@ -18,10 +17,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class ExtendClimber
-    : public frc2::CommandHelper<frc2::CommandBase, ExtendClimber> {
+class AutoDrive
+    : public frc2::CommandHelper<frc2::CommandBase, AutoDrive> {
  public:
-  explicit ExtendClimber(Climber *climber);
+  AutoDrive();
 
   void Initialize() override;
 
@@ -30,7 +29,4 @@ class ExtendClimber
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-
- private:
-  Climber *m_climber;
 };

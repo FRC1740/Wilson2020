@@ -11,6 +11,10 @@
 
 #include "commands/AutoDriveDistance.h"
 #include "subsystems/DriveTrain.h"
+#include "subsystems/Climber.h"
+#include "subsystems/Shooter.h"
+#include "subsystems/ControlPanelManipulator.h"
+#include "subsystems/Vision.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -28,6 +32,10 @@ class RobotContainer {
  private:
   // The robot's subsystems and commands are defined here...
   DriveTrain m_driveTrain;
+  Climber m_climber;
+  Shooter m_shooter;
+  ControlPanelManipulator m_controlPanelManipulator;
+  Vision m_vision;
 
   //FIXME: change to AutoDrive instead of AutoDriveDistance for the auto command group
   AutoDriveDistance m_autoDriveDistance;

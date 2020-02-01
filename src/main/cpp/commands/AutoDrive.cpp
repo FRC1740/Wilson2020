@@ -5,21 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/ExtendClimber.h"
+#include "commands/AutoDrive.h"
 
-ExtendClimber::ExtendClimber(Climber *climber) : m_climber(climber) {
+AutoDrive::AutoDrive() {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(climber);
 }
 
 // Called when the command is initially scheduled.
-void ExtendClimber::Initialize() {}
+void AutoDrive::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ExtendClimber::Execute() {}
+void AutoDrive::Execute() {}
 
 // Called once the command ends or is interrupted.
-void ExtendClimber::End(bool interrupted) {}
+void AutoDrive::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool ExtendClimber::IsFinished() { return false; }
+bool AutoDrive::IsFinished() { return false; }
