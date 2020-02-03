@@ -54,12 +54,12 @@ namespace ConShooter {
    
 }
 
-namespace ConXBOXController {
+namespace ConXBOXControl {
     //Axis inputs
     constexpr int LEFT_JOYSTICK_X = 0;    
     constexpr int LEFT_JOYSTICK_Y = 1;
-    constexpr int LEFT_TRIGGER_ID = 2;
-    constexpr int RIGHT_TRIGGER_ID = 3;
+    constexpr int LEFT_TRIGGER = 2;
+    constexpr int RIGHT_TRIGGER = 3;
     constexpr int RIGHT_JOYSTICK_X = 4;    
     constexpr int RIGHT_JOYSTICK_Y = 5;
     //Buttons
@@ -74,10 +74,12 @@ namespace ConXBOXController {
     constexpr int LEFT_JOYSTICK = 9;
     constexpr int RIGHT_JOYSTICK = 10;
 
-    //CREATE A WIDGEt FOR THESE TO CHANGE
+    // FIXME: CREATE A TEMPLATE TO ENABLE THIS
     //Dead zone
     constexpr double DEAD_ZONE = 0.5; //approximate value
+
     //Driver controller Port
     constexpr int DRIVER_CONTROLLER_PORT = 0;
+    constexpr int CODRIVER_CONTROLLER_PORT = 1;
 }
 
