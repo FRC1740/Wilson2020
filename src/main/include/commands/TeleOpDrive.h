@@ -21,16 +21,20 @@
 class TeleOpDrive
     : public frc2::CommandHelper<frc2::CommandBase, TeleOpDrive> {
  public:
-  explicit TeleOpDrive(DriveTrain *drivetrain);
+  explicit TeleOpDrive(DriveTrain *drivetrain,
+                       std::function<double()> speed,
+                       std::function<double()> rotation);
 
-  void Initialize() override;
+  //void Initialize() override;
 
   void Execute() override;
 
-  void End(bool interrupted) override;
+  //void End(bool interrupted) override;
 
-  bool IsFinished() override;
+  //bool IsFinished() override;
 
  private:
   DriveTrain *m_driveTrain;
+  std::function<double()> m_speed;
+  std::function<double()> m_rotation;
 };
