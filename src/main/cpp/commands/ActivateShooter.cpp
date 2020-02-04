@@ -16,10 +16,17 @@ ActivateShooter::ActivateShooter(Shooter *shooter) : m_shooter(shooter) {
 void ActivateShooter::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ActivateShooter::Execute() {}
+void ActivateShooter::Execute() {
+  m_shooter->SpinTop(ConShooter::TOP_MOTOR_SPEED);
+  m_shooter->SpinBottom(ConShooter::BOTTOM_MOTOR_SPEED);
+
+}
 
 // Called once the command ends or is interrupted.
-void ActivateShooter::End(bool interrupted) {}
+void ActivateShooter::End(bool interrupted) {
+  m_shooter->StopTop();
+  m_shooter->StopBottom();
+}
 
 // Returns true when the command should end.
 bool ActivateShooter::IsFinished() { return false; }

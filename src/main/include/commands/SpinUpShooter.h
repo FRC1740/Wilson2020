@@ -33,4 +33,5 @@ class SpinUpShooter
 
  private:
   Shooter *m_shooter;
+  
 };

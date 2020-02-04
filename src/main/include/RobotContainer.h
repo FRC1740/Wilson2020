@@ -8,8 +8,13 @@
 #pragma once
 
 #include <frc2/command/Command.h>
+#include <frc/XboxController.h>
 
 #include "commands/AutoDriveDistance.h"
+#include "commands/SpinUpShooter.h"
+#include "commands/ActivateShooter.h"
+#include "commands/ExtendClimber.h"
+#include "commands/RetractClimber.h"
 #include "subsystems/DriveTrain.h"
 #include "subsystems/Climber.h"
 #include "subsystems/Shooter.h"
@@ -39,6 +44,12 @@ class RobotContainer {
 
   //FIXME: change to AutoDrive instead of AutoDriveDistance for the auto command group
   AutoDriveDistance m_autoDriveDistance;
+
+  frc::XboxController driver_controller{ConXBOXController::DRIVER_CONTROLLER_PORT};
+
+  frc::XboxController codriver_controller{ConXBOXController::CODRIVER_CONTROLLER_PORT};
+
+
   /*
   EXAMPLE:
   int m_x;
