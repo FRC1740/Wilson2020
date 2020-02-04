@@ -17,8 +17,8 @@
 class Shooter : public frc2::SubsystemBase {
  public:
   Shooter(); 
-  void SetBottomMotorSpeed(double velocity);
-  void SetTopMotorSpeed(double velocity);
+  void SetBottomMotorSpeed(double);
+  void SetTopMotorSpeed(double);
   double GetBottomMotorSpeed();
   double GetTopMotorSpeed();
 
@@ -32,18 +32,6 @@ class Shooter : public frc2::SubsystemBase {
   // declared private and exposed only through public methods.
   // frc::Ultrasonic powerCellDetector{0,1};
 
-  frc::TimeOfFlight::TimeOfFlight m_powerCellDetector{0};
-
-  // Motors for spinning top and bottom wheels of the shooter
-  rev::CANSparkMax m_topMotor{ConShooter::Top::MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_bottomMotor{ConShooter::Bottom::MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
-
-  // Built-in encoders on the NEO Motors above
-  rev::CANEncoder m_topEncoder = m_topMotor.GetEncoder();
-  rev::CANEncoder m_bottomEncoder = m_bottomMotor.GetEncoder();
-
-  //PID controller
-  rev::CANPIDController m_topVelocityPID = m_topMotor.GetPIDController();
-  rev::CANPIDController m_bottomVelocityPID = m_bottomMotor.GetPIDController();
+  frc::TimeOfFlight m_powerCellDetector{0};
 
 };
