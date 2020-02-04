@@ -16,14 +16,10 @@
 
 class Shooter : public frc2::SubsystemBase {
  public:
-  Shooter();
-
+  Shooter(); 
   void SetBottomMotorSpeed(double velocity);
-
   void SetTopMotorSpeed(double velocity);
-
   double GetBottomMotorSpeed();
-
   double GetTopMotorSpeed();
 
   /**
@@ -36,19 +32,18 @@ class Shooter : public frc2::SubsystemBase {
   // declared private and exposed only through public methods.
   // frc::Ultrasonic powerCellDetector{0,1};
 
-  frc::TimeOfFlight::TimeOfFlight powerCellDetector{0};
+  frc::TimeOfFlight::TimeOfFlight m_powerCellDetector{0};
 
   // Motors for spinning top and bottom wheels of the shooter
-  rev::CANSparkMax top_motor{ConShooter::Top::MOTOR, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax bottom_motor{ConShooter::Bottom::MOTOR, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_topMotor{ConShooter::Top::MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_bottomMotor{ConShooter::Bottom::MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
 
   // Built-in encoders on the NEO Motors above
-  rev::CANEncoder top_encoder = top_motor.GetEncoder();
-  rev::CANEncoder bottom_encoder = bottom_motor.GetEncoder();
+  rev::CANEncoder m_topEncoder = m_topMotor.GetEncoder();
+  rev::CANEncoder m_bottomEncoder = m_bottomMotor.GetEncoder();
 
   //PID controller
-  rev::CANPIDController top_velocity_PID = top_motor.GetPIDController();
-  rev::CANPIDController bottom_velocity_PID = bottom_motor.GetPIDController();
-
+  rev::CANPIDController m_topVelocityPID = m_topMotor.GetPIDController();
+  rev::CANPIDController m_bottomVelocityPID = m_bottomMotor.GetPIDController();
 
 };
