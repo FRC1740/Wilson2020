@@ -9,6 +9,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include "subsystems/DriveTrain.h"
 
 /**
  * An example command.
@@ -20,7 +21,7 @@
 class AutoDrive
     : public frc2::CommandHelper<frc2::CommandBase, AutoDrive> {
  public:
-  AutoDrive();
+  explicit AutoDrive(DriveTrain *drivetrain);
 
   void Initialize() override;
 
@@ -29,4 +30,7 @@ class AutoDrive
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+
+ private:
+  DriveTrain *m_driveTrain;
 };
