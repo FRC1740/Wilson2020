@@ -9,5 +9,24 @@
 
 Climber::Climber() {}
 
+void Climber::ExtendClimber(double speed)
+{
+    ClimbMotor.Set(speed);
+}
+
+void Climber::RetractClimber(double speed)
+{
+
+    ClimbMotor.Set(speed);
+
+}
+
+void Climber::StopClimber()
+{
+
+    ClimbMotor.Set(0.0);
+
+}
+
 // This method will be called once per scheduler run
 void Climber::Periodic() {}

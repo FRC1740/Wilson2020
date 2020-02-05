@@ -27,6 +27,9 @@ namespace ConAuto {
 namespace ConClimber {
     // Motor
     constexpr int MOTOR_ID = 9;
+
+    constexpr double EXT_SPEED = 1.0;
+    constexpr double RET_SPEED = -1.0;
 }
 
 namespace ConControlPanelManipulator {
@@ -56,16 +59,26 @@ namespace ConNEO {
 }
 
 namespace ConShooter {
-   
+
+    constexpr int SPIN_UP_MOTOR = 1;
+    constexpr double SPIN_UP_SPEED = 0.75;
+
+
+    constexpr int TOP_SHOOT_MOTOR = 6;
+    constexpr double TOP_MOTOR_SPEED = 0.25;
+
+    constexpr int BOTTOM_SHOOT_MOTOR = 4;
+    constexpr double BOTTOM_MOTOR_SPEED = 0.25;
+
 }
 
 namespace ConXBOXControl {
     // Axis inputs
-    constexpr int LEFT_JOYSTICK_X = 0;    
+    constexpr int LEFT_JOYSTICK_X = 0;
     constexpr int LEFT_JOYSTICK_Y = 1;
     constexpr int LEFT_TRIGGER = 2;
     constexpr int RIGHT_TRIGGER = 3;
-    constexpr int RIGHT_JOYSTICK_X = 4;    
+    constexpr int RIGHT_JOYSTICK_X = 4;
     constexpr int RIGHT_JOYSTICK_Y = 5;
     // Buttons
     constexpr int A = 1;
@@ -84,6 +97,7 @@ namespace ConXBOXControl {
 
     // Driver controller Port
     constexpr int DRIVER_CONTROLLER_PORT = 0;
+    //CoDriver controller port
     constexpr int CODRIVER_CONTROLLER_PORT = 1;
 }
 

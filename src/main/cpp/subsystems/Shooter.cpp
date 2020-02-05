@@ -9,5 +9,33 @@
 
 Shooter::Shooter() {}
 
+void Shooter::SpinUp(double speed)
+{
+    SpinUpMotor.Set(speed);
+
+}
+
+void Shooter::SpinTop(double speed)
+{
+    TopMotor.Set(speed);
+}
+
+void Shooter::SpinBottom(double speed)
+{
+    BottomMotor.Set(speed);
+}
+
+void Shooter::StopSpinUp(){
+    SpinUpMotor.Set(0.0);
+}
+
+void Shooter::StopTop(){
+    TopMotor.Set(0.0);
+}
+
+void Shooter::StopBottom(){
+    BottomMotor.Set(0.0);
+}
+
 // This method will be called once per scheduler run
 void Shooter::Periodic() {}
