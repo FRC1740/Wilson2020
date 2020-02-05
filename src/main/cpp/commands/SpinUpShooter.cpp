@@ -16,10 +16,14 @@ SpinUpShooter::SpinUpShooter(Shooter *shooter) : m_shooter(shooter) {
 void SpinUpShooter::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void SpinUpShooter::Execute() {}
+void SpinUpShooter::Execute() {
+  m_shooter->SpinUp(ConShooter::SPIN_UP_SPEED);
+}
 
 // Called once the command ends or is interrupted.
-void SpinUpShooter::End(bool interrupted) {}
+void SpinUpShooter::End(bool interrupted) {
+  m_shooter->StopSpinUp();
+}
 
 // Returns true when the command should end.
 bool SpinUpShooter::IsFinished() { return false; }
