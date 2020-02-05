@@ -59,6 +59,7 @@ namespace ConNEO {
 
 namespace ConShooter {
     // Motors
+    //FIXME: Tune the speeds
     constexpr int FEED_MOTOR_ID = 1;
     constexpr int TOP_MOTOR_ID = 6;
     constexpr int BOTTOM_MOTOR_ID = 4;
