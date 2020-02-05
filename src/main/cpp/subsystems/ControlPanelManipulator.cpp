@@ -9,11 +9,29 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 
 ControlPanelManipulator::ControlPanelManipulator() {
-    m_currentSpeed = ConControlPanelManipulator::MOTOR_SPEED; // Optimum for multi-rotation
+    // Optimize rotation speed for RotateThree command, scale down for GoToColor
+    m_currentSpeed = ConControlPanelManipulator::MOTOR_SPEED; 
     m_colorMatcher.AddColorMatch(kBlueTarget);
     m_colorMatcher.AddColorMatch(kGreenTarget);
     m_colorMatcher.AddColorMatch(kRedTarget);
     m_colorMatcher.AddColorMatch(kYellowTarget);
+
+
+		m_rotationMotor.ConfigFactoryDefault();
+        /* first choose the sensor */
+		m_rotationMotor.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, ConControlPanelManipulator::kTimeoutMs);
+		m_rotationMotor.SetSensorPhase(true);
+
+		/* set the peak and nominal outputs */
+		m_rotationMotor.ConfigNominalOutputForward(0, ConControlPanelManipulator::kTimeoutMs);
+		m_rotationMotor.ConfigNominalOutputReverse(0, ConControlPanelManipulator::kTimeoutMs);
+		m_rotationMotor.ConfigPeakOutputForward(1, ConControlPanelManipulator::kTimeoutMs);
+		m_rotationMotor.ConfigPeakOutputReverse(-1, ConControlPanelManipulator::kTimeoutMs);
+		/* set closed loop gains in slot0 */
+		m_rotationMotor.Config_kF(ConControlPanelManipulator::kPIDLoopIdx, 0.1097, ConControlPanelManipulator::kTimeoutMs);
+		m_rotationMotor.Config_kP(ConControlPanelManipulator::kPIDLoopIdx, 0.22, ConControlPanelManipulator::kTimeoutMs);
+		m_rotationMotor.Config_kI(ConControlPanelManipulator::kPIDLoopIdx, 0.0, ConControlPanelManipulator::kTimeoutMs);
+		m_rotationMotor.Config_kD(ConControlPanelManipulator::kPIDLoopIdx, 0.0, ConControlPanelManipulator::kTimeoutMs);
 
 }
 
@@ -71,7 +89,21 @@ void ControlPanelManipulator::Periodic() {
   //frc::SmartDashboard::PutBoolean("Control Panel Stopped?: ", encoder.GetStopped());
   //frc::SmartDashboard::PutBoolean("Control Panel Direction: ", encoderwifi.GetDirection());
   //frc::SmartDashboard::PutNumber("Control Panel Period: ", encoder.GetPeriod());
+  frc::SmartDashboard::PutNumber("CPM Speed: ", m_rotationMotor.GetMotorOutputPercent());
 
+}
+
+void ControlPanelManipulator::Rotate() {
+  m_rotationMotor.Set(ControlMode::Velocity, m_currentSpeed);
+}
+
+void ControlPanelManipulator::SetSpeed(double speed) {
+  m_currentSpeed = speed;
+}
+
+void ControlPanelManipulator::Stop() {
+  m_rotationMotor.Set(ControlMode::Velocity, 0.0);
+  m_currentSpeed = ConControlPanelManipulator::MOTOR_SPEED;
 }
 
 void ControlPanelManipulator::Rotate() {
