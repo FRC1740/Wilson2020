@@ -9,32 +9,41 @@
 
 Shooter::Shooter() {}
 
-void Shooter::SpinUp(double speed)
+void Shooter::SpinUp()
 {
-    SpinUpMotor.Set(speed);
-
+  m_topMotor.Set(ConShooter::TOP_MOTOR_SPEED);
+  m_bottomMotor.Set(ConShooter::BOTTOM_MOTOR_SPEED);
 }
 
-void Shooter::SpinTop(double speed)
+void Shooter::SpinTop()
 {
-    TopMotor.Set(speed);
+  m_topMotor.Set(ConShooter::TOP_MOTOR_SPEED);
 }
 
-void Shooter::SpinBottom(double speed)
+void Shooter::SpinBottom()
 {
-    BottomMotor.Set(speed);
+  m_bottomMotor.Set(ConShooter::BOTTOM_MOTOR_SPEED);
 }
 
 void Shooter::StopSpinUp(){
-    SpinUpMotor.Set(0.0);
+  m_topMotor.Set(0.0);
+  m_bottomMotor.Set(0.0);
 }
 
 void Shooter::StopTop(){
-    TopMotor.Set(0.0);
+  m_topMotor.Set(0.0);
 }
 
 void Shooter::StopBottom(){
-    BottomMotor.Set(0.0);
+  m_bottomMotor.Set(0.0);
+}
+
+void Shooter::Activate() {
+  m_feedMotor.Set(ConShooter::FEED_MOTOR_SPEED);
+}
+
+void Shooter::Deactivate() {
+  m_feedMotor.Set(0.0);
 }
 
 // This method will be called once per scheduler run

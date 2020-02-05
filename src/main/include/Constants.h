@@ -19,7 +19,7 @@
  */
 
 namespace ConAuto {
-    //Conversion factor Ticks -> Inches
+    // Conversion factor Ticks -> Inches
     constexpr double ENCODER_TICKS_TO_INCHES = 2.0 + (2/9); // 0.58
     constexpr double ENCODER_TICKS_OFFSET = -6.0 - (2/3);
 }
@@ -27,7 +27,6 @@ namespace ConAuto {
 namespace ConClimber {
     // Motor
     constexpr int MOTOR_ID = 9;
-
     constexpr double EXT_SPEED = 1.0;
     constexpr double RET_SPEED = -1.0;
 }
@@ -59,17 +58,13 @@ namespace ConNEO {
 }
 
 namespace ConShooter {
-
-    constexpr int SPIN_UP_MOTOR = 1;
-    constexpr double SPIN_UP_SPEED = 0.75;
-
-
-    constexpr int TOP_SHOOT_MOTOR = 6;
+    // Motors
+    constexpr int FEED_MOTOR_ID = 1;
+    constexpr int TOP_MOTOR_ID = 6;
+    constexpr int BOTTOM_MOTOR_ID = 4;
+    constexpr double FEED_MOTOR_SPEED = 0.75;
     constexpr double TOP_MOTOR_SPEED = 0.25;
-
-    constexpr int BOTTOM_SHOOT_MOTOR = 4;
     constexpr double BOTTOM_MOTOR_SPEED = 0.25;
-
 }
 
 namespace ConXBOXControl {
@@ -97,7 +92,7 @@ namespace ConXBOXControl {
 
     // Driver controller Port
     constexpr int DRIVER_CONTROLLER_PORT = 0;
-    //CoDriver controller port
+    // CoDriver controller port
     constexpr int CODRIVER_CONTROLLER_PORT = 1;
 }
 

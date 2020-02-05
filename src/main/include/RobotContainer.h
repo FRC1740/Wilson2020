@@ -47,11 +47,6 @@ class RobotContainer {
   ControlPanelManipulator m_controlPanelManipulator;
   Vision m_vision;
 
-  frc::XboxController driver_controller{ConXBOXControl::DRIVER_CONTROLLER_PORT};
-
-  frc::XboxController codriver_controller{ConXBOXControl::CODRIVER_CONTROLLER_PORT};
-
-
   AutoDrive m_autoDrive;
   /*
   EXAMPLE:
@@ -67,7 +62,6 @@ class RobotContainer {
   DriveTrain is the type
   m_driveTrain is the member of RobotContainer
   */
-
 
   // The driver's game controller
   frc::XboxController driver_control{ConXBOXControl::DRIVER_CONTROLLER_PORT};

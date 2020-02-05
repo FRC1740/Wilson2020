@@ -17,16 +17,12 @@ void RetractClimber::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void RetractClimber::Execute() {
-
   m_climber->RetractClimber(ConClimber::RET_SPEED);
-
 }
 
 // Called once the command ends or is interrupted.
 void RetractClimber::End(bool interrupted) {
-
   m_climber->StopClimber();
-
 }
 
 // Returns true when the command should end.
