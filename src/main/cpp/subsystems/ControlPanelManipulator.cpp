@@ -73,3 +73,16 @@ void ControlPanelManipulator::Periodic() {
   //frc::SmartDashboard::PutNumber("Control Panel Period: ", encoder.GetPeriod());
 
 }
+
+void ControlPanelManipulator::Rotate() {
+  m_rotationMotor.Set(ControlMode::Velocity, m_currentSpeed); // Maybe 300 RPM?
+}
+
+void ControlPanelManipulator::SetSpeed(double speed) {
+  m_currentSpeed = speed;
+}
+
+void ControlPanelManipulator::Stop() {
+  m_rotationMotor.Set(ControlMode::Velocity, 0.0);
+  m_currentSpeed = ConControlPanelManipulator::MOTOR_SPEED;
+}

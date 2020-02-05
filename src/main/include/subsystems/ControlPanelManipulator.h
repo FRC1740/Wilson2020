@@ -28,7 +28,7 @@ class ControlPanelManipulator : public frc2::SubsystemBase {
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-  TalonSRX rotationMotor {ConControlPanelManipulator::MOTOR_ID}; // 2020 Vendor Library
+  WPI_TalonSRX m_rotationMotor {ConControlPanelManipulator::MOTOR_ID}; // 2020 Vendor Library
   double m_currentSpeed;
 
   /**
