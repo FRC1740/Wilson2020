@@ -100,6 +100,8 @@ void ControlPanelManipulator::Rotate() {
 void ControlPanelManipulator::SetSpeed(double speed) {
   m_currentSpeed = speed;
 }
+<<<<<<< HEAD
+=======
 
 void ControlPanelManipulator::Stop() {
   m_rotationMotor.Set(ControlMode::Velocity, 0.0);
@@ -113,6 +115,7 @@ void ControlPanelManipulator::Rotate() {
 void ControlPanelManipulator::SetSpeed(double speed) {
   m_currentSpeed = speed;
 }
+>>>>>>> 94ae0eb018ec9efe0dda4d0a956ff3685f03c0bc
 
 void ControlPanelManipulator::Stop() {
   m_rotationMotor.Set(ControlMode::Velocity, 0.0);
