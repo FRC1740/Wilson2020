@@ -9,16 +9,12 @@
 
 #include "Constants.h"
 #include <frc2/command/SubsystemBase.h>
-<<<<<<< HEAD
 #include <rev/CANPIDController.h>
 #include <rev/CANEncoder.h>
 #include <rev/CANSparkMax.h>
-#include <TimeOfFlight.h>
-=======
 #include <ctre/Phoenix.h>
 #include <rev/CANSparkMax.h>
-#include <Constants.h>
->>>>>>> e2ea8ce428298e78d66d4cf32ed95c8387573853
+#include <TimeOfFlight.h>
 
 class Shooter : public frc2::SubsystemBase {
  public:
@@ -52,14 +48,11 @@ class Shooter : public frc2::SubsystemBase {
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-<<<<<<< HEAD
-  // frc::Ultrasonic powerCellDetector{0,1};
 
-  frc::TimeOfFlight m_powerCellDetector{0};
-
-=======
+  // Which do we use? TalonSRX is in the ctre library, WPI_TalonSRX is wpilib
+  // TalonSRX m_feedMotor{ConShooter::FEED_MOTOR_ID};
   WPI_TalonSRX m_feedMotor{ConShooter::FEED_MOTOR_ID};
   rev::CANSparkMax m_topMotor{ConShooter::TOP_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
   rev::CANSparkMax m_bottomMotor{ConShooter::BOTTOM_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
->>>>>>> e2ea8ce428298e78d66d4cf32ed95c8387573853
+  frc::TimeOfFlight m_powerCellDetector{0};
 };

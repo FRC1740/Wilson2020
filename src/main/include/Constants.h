@@ -58,37 +58,19 @@ namespace ConNEO {
 }
 
 namespace ConShooter {
-<<<<<<< HEAD
-    constexpr int DEAULT_SPEED = 4000; //RPM
-    namespace Top {
-        constexpr int MOTOR_ID = 6;
-        constexpr int WHEEL_SIZE = 4; //in inches
-        constexpr double VELOCITY_FACTOR = 1; //(ConMath::PI*WHEEL_SIZE) * ConMath::METERS_2_INCH * ConMath::MINUTES_2_SECONDS; //(velocity) y [m/s] = PI*WHEEL_SIZE * m/in * 1/60 * x [RPM]
-        //PID gains
-        constexpr double P = 2e-4;
-        constexpr double I = 0.0;
-        constexpr double D = 2e-3;
-        constexpr double FF = 1.7e-4;
-    }
-    namespace Bottom {
-        constexpr int MOTOR_ID = 2;
-        constexpr int WHEEL_SIZE = 6; //in inches
-        constexpr double VELOCITY_FACTOR = 1; //(ConMath::PI*WHEEL_SIZE) * ConMath::METERS_2_INCH * ConMath::MINUTES_2_SECONDS; //(velocity) y [m/s] = PI*WHEEL_SIZE * m/in * 1/60 * x [RPM]
-        //PID gains
-        constexpr double P = 2e-4;
-        constexpr double I = 0.0;
-        constexpr double D = 2e-3;
-        constexpr double FF = 1.7e-4;
-    }
-=======
     // Motors
     constexpr int FEED_MOTOR_ID = 1;
     constexpr int TOP_MOTOR_ID = 6;
+    constexpr int TOP_MOTOR_WHEEL_SIZE = 6;
     constexpr int BOTTOM_MOTOR_ID = 4;
+    constexpr int BOTTOM_MOTOR_WHEEL_SIZE = 4;
     constexpr double FEED_MOTOR_SPEED = 0.75;
     constexpr double TOP_MOTOR_SPEED = 0.25;
     constexpr double BOTTOM_MOTOR_SPEED = 0.25;
->>>>>>> e2ea8ce428298e78d66d4cf32ed95c8387573853
+    constexpr double P = 2e-4;
+    constexpr double I = 0.0;
+    constexpr double D = 2e-3;
+    constexpr double FF = 1.7e-4;
 }
 
 namespace ConXBOXControl {
