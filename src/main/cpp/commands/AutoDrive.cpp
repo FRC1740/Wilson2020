@@ -7,8 +7,9 @@
 
 #include "commands/AutoDrive.h"
 
-AutoDrive::AutoDrive() {
+AutoDrive::AutoDrive(DriveTrain *drivetrain) : m_driveTrain(drivetrain) {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements(drivetrain);
 }
 
 // Called when the command is initially scheduled.
@@ -21,4 +22,6 @@ void AutoDrive::Execute() {}
 void AutoDrive::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool AutoDrive::IsFinished() { return false; }
+bool AutoDrive::IsFinished() {
+  return true;
+}

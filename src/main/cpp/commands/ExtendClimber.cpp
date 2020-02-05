@@ -16,10 +16,14 @@ ExtendClimber::ExtendClimber(Climber *climber) : m_climber(climber) {
 void ExtendClimber::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ExtendClimber::Execute() {}
+void ExtendClimber::Execute() {
+  m_climber->ExtendClimber(ConClimber::EXT_SPEED);
+}
 
 // Called once the command ends or is interrupted.
-void ExtendClimber::End(bool interrupted) {}
+void ExtendClimber::End(bool interrupted) {
+  m_climber->StopClimber();
+}
 
 // Returns true when the command should end.
 bool ExtendClimber::IsFinished() { return false; }
