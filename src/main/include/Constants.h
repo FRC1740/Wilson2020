@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
+#include <cmath>  // for std::fabs
 
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
@@ -17,29 +18,32 @@
  * they are needed.
  */
 
-//THESE ARE ALL DUMMY VALUES FOR A SIMPLE AUTO
 namespace ConAuto {
-
+    // Conversion factor Ticks -> Inches
+    constexpr double ENCODER_TICKS_TO_INCHES = 2.0 + (2/9); // 0.58
+    constexpr double ENCODER_TICKS_OFFSET = -6.0 - (2/3);
 }
 
 namespace ConClimber {
-    //Motors
-    constexpr int CLIMB_MOTOR = 9;
-
+    // Motor
+    constexpr int MOTOR_ID = 9;
     constexpr double EXT_SPEED = 1.0;
     constexpr double RET_SPEED = -1.0;
 }
 
 namespace ConControlPanelManipulator {
     // Motor
-    constexpr int MOTOR = 3;
+    constexpr int MOTOR_ID = 3;
     constexpr double MOTOR_SPEED = 0.324; // FIXME: Guess & Check
 }
 
-namespace ConDrivetrain {
-    //Motors
-    constexpr int RIGHT_MOTOR = 4;
-    constexpr int LEFT_MOTOR = 5;
+namespace ConDriveTrain {
+    // Motors
+    constexpr int RIGHT_MOTOR_A_ID = 4;
+    constexpr int RIGHT_MOTOR_B_ID = 5;
+    constexpr int LEFT_MOTOR_A_ID = 6;
+    constexpr int LEFT_MOTOR_B_ID = 7;
+    constexpr double ROTATION_FACTOR = 1/1.3;
 }
 
 namespace ConMath {
@@ -54,29 +58,25 @@ namespace ConNEO {
 }
 
 namespace ConShooter {
-
+    // Motors
     //FIXME: Tune the speeds
-    constexpr int SPIN_UP_MOTOR = 1;
-    constexpr double SPIN_UP_SPEED = 0.75;
-
-    
-    constexpr int TOP_SHOOT_MOTOR = 6;
+    constexpr int FEED_MOTOR_ID = 1;
+    constexpr int TOP_MOTOR_ID = 6;
+    constexpr int BOTTOM_MOTOR_ID = 4;
+    constexpr double FEED_MOTOR_SPEED = 0.75;
     constexpr double TOP_MOTOR_SPEED = 0.25;
-
-    constexpr int BOTTOM_SHOOT_MOTOR = 4;
     constexpr double BOTTOM_MOTOR_SPEED = 0.25;
-   
 }
 
 namespace ConXBOXControl {
-    //Axis inputs
-    constexpr int LEFT_JOYSTICK_X = 0;    
+    // Axis inputs
+    constexpr int LEFT_JOYSTICK_X = 0;
     constexpr int LEFT_JOYSTICK_Y = 1;
     constexpr int LEFT_TRIGGER = 2;
     constexpr int RIGHT_TRIGGER = 3;
-    constexpr int RIGHT_JOYSTICK_X = 4;    
+    constexpr int RIGHT_JOYSTICK_X = 4;
     constexpr int RIGHT_JOYSTICK_Y = 5;
-    //Buttons
+    // Buttons
     constexpr int A = 1;
     constexpr int B = 2;
     constexpr int X = 3;
@@ -88,13 +88,14 @@ namespace ConXBOXControl {
     constexpr int LEFT_JOYSTICK = 9;
     constexpr int RIGHT_JOYSTICK = 10;
 
-    // FIXME: CREATE A TEMPLATE TO ENABLE THIS
-    //Dead zone
+    // Dead zone
     constexpr double DEAD_ZONE = 0.5; //approximate value
 
-    //Driver controller Port
+    // Driver controller Port
     constexpr int DRIVER_CONTROLLER_PORT = 0;
-    //CoDriver controller port
+    // CoDriver controller port
     constexpr int CODRIVER_CONTROLLER_PORT = 1;
 }
 
+// DeadZone lambda function
+auto DeadZone = [] (double a) { return (std::fabs(a) > ConXBOXControl::DEAD_ZONE) ? a : 0.0; };

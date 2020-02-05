@@ -17,7 +17,7 @@ void SpinUpShooter::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void SpinUpShooter::Execute() {
-  m_shooter->SpinUp(ConShooter::SPIN_UP_SPEED);
+  m_shooter->SpinUp();
 }
 
 // Called once the command ends or is interrupted.

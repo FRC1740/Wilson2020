@@ -9,8 +9,9 @@
 
 #include <frc2/command/SubsystemBase.h>
 #include <ctre/Phoenix.h>
-#include <Constants.h>
 #include <rev/CANSparkMax.h>
+#include <Constants.h>
+
 class Shooter : public frc2::SubsystemBase {
  public:
   Shooter();
@@ -20,11 +21,11 @@ class Shooter : public frc2::SubsystemBase {
    */
   void Periodic();
 
-  void SpinUp(double speed);
+  void SpinUp();
 
-  void SpinTop(double speed);
+  void SpinTop();
 
-  void SpinBottom(double speed);
+  void SpinBottom();
   
   void StopSpinUp();
 
@@ -32,12 +33,14 @@ class Shooter : public frc2::SubsystemBase {
 
   void StopBottom();
 
+  void Activate();
+
+  void Deactivate();
+
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-  WPI_TalonSRX SpinUpMotor{ConShooter::SPIN_UP_MOTOR};
-  rev::CANSparkMax TopMotor{ConShooter::TOP_SHOOT_MOTOR, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax BottomMotor{ConShooter::BOTTOM_SHOOT_MOTOR, rev::CANSparkMax::MotorType::kBrushless};
-
-  
+  WPI_TalonSRX m_feedMotor{ConShooter::FEED_MOTOR_ID};
+  rev::CANSparkMax m_topMotor{ConShooter::TOP_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_bottomMotor{ConShooter::BOTTOM_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
 };
