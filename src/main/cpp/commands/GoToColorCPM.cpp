@@ -24,7 +24,7 @@ void GoToColorCPM::Initialize() {
   auto table = nt::NetworkTableInstance::GetDefault().GetTable("FMSInfo");
   m_targetColor = table->GetString("GameSpecificMessage", "PURPLE");
   frc::SmartDashboard::PutString("Desired Color: ", m_targetColor);
-  }
+}
 
 // Called repeatedly when this Command is scheduled to run
 void GoToColorCPM::Execute() {
