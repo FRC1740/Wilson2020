@@ -49,7 +49,7 @@ class Shooter : public frc2::SubsystemBase {
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 
-  // Which do we use? TalonSRX is in the ctre library, WPI_TalonSRX is 
+  // Which do we use? TalonSRX is in the ctre library, WPI_TalonSRX is wpilib
   // TalonSRX m_feedMotor{ConShooter::FEED_MOTOR_ID};
   WPI_TalonSRX m_feedMotor{ConShooter::FEED_MOTOR_ID};
   rev::CANSparkMax m_topMotor{ConShooter::TOP_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
