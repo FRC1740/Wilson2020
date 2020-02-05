@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 //On error, create env.h from env-default.h and modify ROBOT_VERSION_STRING
-#include "env-default.h"  //FIXME: change to env.h and add env.h to .gitignore
+#include "env.h"  //FIXME: change to env.h and add env.h to .gitignore
 
 #include "Robot.h"
 

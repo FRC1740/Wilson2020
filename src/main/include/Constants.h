@@ -62,10 +62,16 @@ namespace ConShooter {
     //FIXME: Tune the speeds
     constexpr int FEED_MOTOR_ID = 1;
     constexpr int TOP_MOTOR_ID = 6;
+    constexpr int TOP_MOTOR_WHEEL_SIZE = 6;
     constexpr int BOTTOM_MOTOR_ID = 4;
+    constexpr int BOTTOM_MOTOR_WHEEL_SIZE = 4;
     constexpr double FEED_MOTOR_SPEED = 0.75;
     constexpr double TOP_MOTOR_SPEED = 0.25;
     constexpr double BOTTOM_MOTOR_SPEED = 0.25;
+    constexpr double P = 2e-4;
+    constexpr double I = 0.0;
+    constexpr double D = 2e-3;
+    constexpr double FF = 1.7e-4;
 }
 
 namespace ConXBOXControl {
