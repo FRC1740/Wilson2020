@@ -9,7 +9,13 @@
 
 #include <frc/XboxController.h>
 #include <frc2/command/Command.h>
+#include <frc/XboxController.h>
 
+#include "commands/AutoDriveDistance.h"
+#include "commands/SpinUpShooter.h"
+#include "commands/ActivateShooter.h"
+#include "commands/ExtendClimber.h"
+#include "commands/RetractClimber.h"
 #include "Constants.h"
 
 #include "subsystems/DriveTrain.h"
@@ -40,6 +46,11 @@ class RobotContainer {
   Shooter m_shooter;
   ControlPanelManipulator m_controlPanelManipulator;
   Vision m_vision;
+
+  frc::XboxController driver_controller{ConXBOXControl::DRIVER_CONTROLLER_PORT};
+
+  frc::XboxController codriver_controller{ConXBOXControl::CODRIVER_CONTROLLER_PORT};
+
 
   AutoDrive m_autoDrive;
   /*
