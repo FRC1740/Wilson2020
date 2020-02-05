@@ -28,7 +28,8 @@ class ControlPanelManipulator : public frc2::SubsystemBase {
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-  WPI_TalonSRX m_rotationMotor {ConControlPanelManipulator::MOTOR_ID}; // 2020 Vendor Library
+  // FIXME: Should we use WPI_TalonSRX, or TalonSRX from the ctre library?
+  TalonSRX m_rotationMotor {ConControlPanelManipulator::MOTOR_ID}; // 2020 Vendor Library
   double m_currentSpeed;
 
   /**
@@ -79,7 +80,7 @@ class ControlPanelManipulator : public frc2::SubsystemBase {
   static constexpr frc::Color kWhenISeeRed = kBlueTarget;
   static constexpr frc::Color kWhenISeeYellow = kGreenTarget;  /* */
   // FIXME: Straight up same color (NOT FOR COMPETITION - TESTING ONLY)
-  static constexpr frc::Color kWhenISeeBlue = frc::Color(0.125, 0.427, 0.449);
+  static constexpr frc::Color kWhenISeeBlue = kBlueTarget;
   static constexpr frc::Color kWhenISeeGreen = kGreenTarget;
   static constexpr frc::Color kWhenISeeRed = kRedTarget;
   static constexpr frc::Color kWhenISeeYellow = kYellowTarget;
