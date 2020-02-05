@@ -55,6 +55,7 @@ namespace ConNEO {
 
 namespace ConShooter {
 
+    //FIXME: Tune the speeds
     constexpr int SPIN_UP_MOTOR = 1;
     constexpr double SPIN_UP_SPEED = 0.75;
 

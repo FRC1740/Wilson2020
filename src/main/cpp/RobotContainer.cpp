@@ -44,10 +44,12 @@ void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
 
   // Climber
+  //FIXME: Test these
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::X); }).WhenHeld(new ExtendClimber(&m_climber));
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::Y); }).WhenHeld(new RetractClimber(&m_climber));
 
   // Shooter
+  //FIXME: Test these
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::LEFT_BUMPER); }).WhenHeld(new SpinUpShooter(&m_shooter));
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_BUMPER); }).WhenHeld(new ActivateShooter(&m_shooter));
 
