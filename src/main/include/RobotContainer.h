@@ -9,7 +9,13 @@
 
 #include <frc/XboxController.h>
 #include <frc2/command/Command.h>
+#include <frc/XboxController.h>
 
+#include "commands/AutoDriveDistance.h"
+#include "commands/SpinUpShooter.h"
+#include "commands/ActivateShooter.h"
+#include "commands/ExtendClimber.h"
+#include "commands/RetractClimber.h"
 #include "Constants.h"
 
 #include "subsystems/DriveTrain.h"
@@ -56,7 +62,6 @@ class RobotContainer {
   DriveTrain is the type
   m_driveTrain is the member of RobotContainer
   */
-
 
   // The driver's game controller
   frc::XboxController driver_control{ConXBOXControl::DRIVER_CONTROLLER_PORT};
