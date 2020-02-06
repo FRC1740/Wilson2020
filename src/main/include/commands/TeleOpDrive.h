@@ -33,11 +33,10 @@ class TeleOpDrive
   //void End(bool interrupted) override;
 
   //bool IsFinished() override;
+#endif // ENABLE_DRIVETRAIN
 
  private:
   DriveTrain *m_driveTrain;
   std::function<double()> m_speed;
   std::function<double()> m_rotation;
-
-#endif // ENABLE_DRIVETRAIN
 };

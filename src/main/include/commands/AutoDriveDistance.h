@@ -31,9 +31,8 @@ class AutoDriveDistance
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+#endif // ENABLE_DRIVETRAIN
 
  private:
   DriveTrain *m_driveTrain;
-
-#endif // ENABLE_DRIVETRAIN
 };

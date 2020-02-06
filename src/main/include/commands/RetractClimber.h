@@ -23,6 +23,7 @@ class RetractClimber
  public:
   explicit RetractClimber(Climber *climber);
 
+#ifdef ENABLE_CLIMBER
   void Initialize() override;
 
   void Execute() override;
@@ -30,6 +31,7 @@ class RetractClimber
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+#endif // ENABLE_CLIMBER
 
  private:
   Climber *m_climber;

@@ -15,6 +15,7 @@ class Climber : public frc2::SubsystemBase {
  public:
   Climber();
 
+#ifdef ENABLE_CLIMBER
   void ExtendClimber(double speed);
 
   void RetractClimber(double speed);
@@ -30,4 +31,5 @@ class Climber : public frc2::SubsystemBase {
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
   WPI_TalonSRX m_motor{ConClimber::MOTOR_ID};
+#endif // ENABLE_CLIMBER
 };
