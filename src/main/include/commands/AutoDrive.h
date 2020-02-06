@@ -23,6 +23,7 @@ class AutoDrive
  public:
   explicit AutoDrive(DriveTrain *drivetrain);
 
+#ifdef ENABLE_DRIVETRAIN
   void Initialize() override;
 
   void Execute() override;
@@ -33,4 +34,6 @@ class AutoDrive
 
  private:
   DriveTrain *m_driveTrain;
+
+#endif // ENABLE_DRIVETRAIN
 };

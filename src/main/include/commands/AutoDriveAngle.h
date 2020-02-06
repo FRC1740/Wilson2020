@@ -23,6 +23,7 @@ class AutoDriveAngle
  public:
   explicit AutoDriveAngle(DriveTrain *drivetrain);
 
+#ifdef ENABLE_DRIVETRAIN
   void Initialize() override;
 
   void Execute() override;
@@ -33,4 +34,6 @@ class AutoDriveAngle
 
  private:
   DriveTrain *m_driveTrain;
+
+#endif // ENABLE_DRIVETRAIN
 };
