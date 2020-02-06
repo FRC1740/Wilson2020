@@ -69,6 +69,26 @@ void RobotContainer::ConfigureButtonBindings() {
   // FIXME: Combine these two?
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::LEFT_TRIGGER); }).WhenHeld(new RotateManualCPM(&m_controlPanelManipulator));
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_TRIGGER); }).WhenHeld(new RotateManualCPM(&m_controlPanelManipulator));
+
+  /*
+  ACCORDING TO DOCS.WPILIB:
+
+  WhenPressed - schedules a command when a trigger/button changes from inactive to active; 
+      command will not be scheduled again unless the trigger/button becomes inactive and then active again
+
+  WhenHeld - schedules a command when a trigger/button changes from inactive to active, 
+      and cancels it when the trigger/button becomes inactive again. The command will *not* be 
+      re-scheduled if it finishes while the trigger/button is still active
+
+  WhileHeld - schedules a command repeatedly while a trigger/button is active, and
+      cancels it when the trigger/button becomes inactive again. The command *will* be 
+      re-scheduled if it finishes while the trigger/button is still active
+
+  WhenReleased - schedules a command when a trigger/button changes from active to inactive;
+      command will not be re-scheduled unless the trigger/button becomes active and then inactive again
+
+  NOTE: these can have multiple parameters, including "interruptable" which is default true
+  */
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
