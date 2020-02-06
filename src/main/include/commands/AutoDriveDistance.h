@@ -23,6 +23,7 @@ class AutoDriveDistance
  public:
   explicit AutoDriveDistance(DriveTrain *drivetrain);
 
+#ifdef ENABLE_DRIVETRAIN
   void Initialize() override;
 
   void Execute() override;
@@ -30,6 +31,7 @@ class AutoDriveDistance
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+#endif // ENABLE_DRIVETRAIN
 
  private:
   DriveTrain *m_driveTrain;

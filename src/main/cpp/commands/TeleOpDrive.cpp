@@ -17,6 +17,7 @@ TeleOpDrive::TeleOpDrive(DriveTrain *drivetrain,
   AddRequirements(drivetrain);
 }
 
+#ifdef ENABLE_DRIVETRAIN
 // Called when the command is initially scheduled.
 //void TeleOpDrive::Initialize() {}
 
@@ -31,3 +32,5 @@ void TeleOpDrive::Execute() {
 
 // Returns true when the command should end.
 //bool TeleOpDrive::IsFinished() { return false; }
+
+#endif // ENABLE_DRIVETRAIN

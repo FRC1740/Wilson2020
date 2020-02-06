@@ -9,6 +9,7 @@
 
 DriveTrain::DriveTrain() {}
 
+#ifdef ENABLE_DRIVETRAIN
 // This method will be called once per scheduler run
 void DriveTrain::Periodic() {}
 
@@ -41,3 +42,4 @@ double DriveTrain::GetLeftEncoder() {
 double DriveTrain::GetAverageEncoderDistance() {
   return (DriveTrain::GetRightEncoder() + DriveTrain::GetLeftEncoder()) / 2.0;
 }
+#endif // ENABLE_DRIVETRAIN
