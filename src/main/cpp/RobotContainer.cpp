@@ -33,20 +33,24 @@ RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain) {
   // Configure the button bindings
   ConfigureButtonBindings();
 
+#ifdef ENABLE_DRIVETRAIN
   // Set up default drive command
   m_driveTrain.SetDefaultCommand(TeleOpDrive(
     &m_driveTrain,
     [this] { return driver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER) - driver_control.GetRawAxis(ConXBOXControl::LEFT_TRIGGER); },
     [this] { return driver_control.GetRawAxis(ConXBOXControl::RIGHT_JOYSTICK_X); }));
+#endif // ENABLE_DRIVETRAIN
 }
 
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
 
+#ifdef ENABLE_CLIMBER
   // Climber
   //FIXME: Test these
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::X); }).WhenHeld(new ExtendClimber(&m_climber));
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::Y); }).WhenHeld(new RetractClimber(&m_climber));
+#endif // ENABLE_CLIMBER
 
   // Shooter
   //FIXME: Test these

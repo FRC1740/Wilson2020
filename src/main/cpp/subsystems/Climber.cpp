@@ -9,6 +9,7 @@
 
 Climber::Climber() {}
 
+#ifdef ENABLE_CLIMBER
 void Climber::ExtendClimber(double speed)
 {
   m_motor.Set(speed);
@@ -26,3 +27,4 @@ void Climber::StopClimber()
 
 // This method will be called once per scheduler run
 void Climber::Periodic() {}
+#endif // ENABLE_CLIMBER
