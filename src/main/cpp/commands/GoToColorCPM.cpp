@@ -11,7 +11,7 @@
 #include "networktables/NetworkTable.h"
 #include "networktables/NetworkTableInstance.h"
 #include <string>
-#include <cctype> // for tolower
+#include <cctype> // for tolower (forces string to be a certain case)
 
 GoToColorCPM::GoToColorCPM(ControlPanelManipulator *controlpanelmanipulator) : m_controlPanelManipulator(controlpanelmanipulator) {
   // Use addRequirements() here to declare subsystem dependencies.
