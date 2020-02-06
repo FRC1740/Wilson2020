@@ -17,6 +17,7 @@ class DriveTrain : public frc2::SubsystemBase {
  public:
   DriveTrain();
 
+#ifdef ENABLE_DRIVETRAIN
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
@@ -59,4 +60,5 @@ class DriveTrain : public frc2::SubsystemBase {
   // Robot Drive
   // FIXME: need to make MotorB followers of MotorA
   frc::DifferentialDrive m_driveTrain{m_leftMotorA, m_rightMotorA};
+#endif // ENABLE_DRIVETRAIN
 };

@@ -25,6 +25,7 @@ class TeleOpDrive
                        std::function<double()> speed,
                        std::function<double()> rotation);
 
+#ifdef ENABLE_DRIVETRAIN
   //void Initialize() override;
 
   void Execute() override;
@@ -37,4 +38,6 @@ class TeleOpDrive
   DriveTrain *m_driveTrain;
   std::function<double()> m_speed;
   std::function<double()> m_rotation;
+
+#endif // ENABLE_DRIVETRAIN
 };
