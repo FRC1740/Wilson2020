@@ -12,6 +12,7 @@ AutoDrive::AutoDrive(DriveTrain *drivetrain) : m_driveTrain(drivetrain) {
   AddRequirements(drivetrain);
 }
 
+#ifdef ENABLE_DRIVETRAIN
 // Called when the command is initially scheduled.
 void AutoDrive::Initialize() {}
 
@@ -25,3 +26,4 @@ void AutoDrive::End(bool interrupted) {}
 bool AutoDrive::IsFinished() {
   return true;
 }
+#endif // ENABLE_DRIVETRAIN

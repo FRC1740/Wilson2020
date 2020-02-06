@@ -12,6 +12,7 @@ RetractClimber::RetractClimber(Climber *climber) : m_climber(climber) {
   AddRequirements(climber);
 }
 
+#ifdef ENABLE_CLIMBER
 // Called when the command is initially scheduled.
 void RetractClimber::Initialize() {}
 
@@ -27,3 +28,4 @@ void RetractClimber::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool RetractClimber::IsFinished() { return false; }
+#endif // ENABLE_CLIMBER

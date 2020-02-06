@@ -5,9 +5,6 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-//On error, create env.h from env-default.h and modify ROBOT_VERSION_STRING
-#include "env.h"  //FIXME: change to env.h and add env.h to .gitignore
-
 #include "Robot.h"
 
 #include <frc/smartdashboard/SmartDashboard.h>

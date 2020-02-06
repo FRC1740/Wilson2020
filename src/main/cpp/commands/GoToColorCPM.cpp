@@ -6,6 +6,12 @@
 /*----------------------------------------------------------------------------*/
 
 #include "commands/GoToColorCPM.h"
+#include "Constants.h"
+#include "frc/smartdashboard/SmartDashboard.h"
+#include "networktables/NetworkTable.h"
+#include "networktables/NetworkTableInstance.h"
+#include <string>
+#include <cctype> // for tolower (forces string to be a certain case)
 
 GoToColorCPM::GoToColorCPM(ControlPanelManipulator *controlpanelmanipulator) : m_controlPanelManipulator(controlpanelmanipulator) {
   // Use addRequirements() here to declare subsystem dependencies.
@@ -13,13 +19,40 @@ GoToColorCPM::GoToColorCPM(ControlPanelManipulator *controlpanelmanipulator) : m
 }
 
 // Called when the command is initially scheduled.
-void GoToColorCPM::Initialize() {}
+void GoToColorCPM::Initialize() {
+ // Read the target color from Network Tables
+  auto table = nt::NetworkTableInstance::GetDefault().GetTable("FMSInfo");
+  m_targetColor = table->GetString("GameSpecificMessage", "PURPLE");
+  frc::SmartDashboard::PutString("Desired Color: ", m_targetColor);
+}
 
 // Called repeatedly when this Command is scheduled to run
-void GoToColorCPM::Execute() {}
+void GoToColorCPM::Execute() {
+  // Rotate the ControlPanel
+  m_controlPanelManipulator->Rotate();
+}
 
 // Called once the command ends or is interrupted.
 void GoToColorCPM::End(bool interrupted) {}
 
+bool iequals(const std::string& a, const std::string& b) {
+  size_t sz = a.size();
+  if (sz != b.size())
+      return false;
+  for (size_t i=0; i<sz; ++i)
+      if (std::tolower(a[i]) != std::tolower(b[i]))
+          return false;
+  return true;
+}
 // Returns true when the command should end.
-bool GoToColorCPM::IsFinished() { return false; }
+bool GoToColorCPM::IsFinished() { 
+  // if ColorScan = targetcolor return true;
+  // Scan for current color
+  std::string detectedColor = frc::SmartDashboard::GetString("Detected Color", "Orange");
+  if (iequals(detectedColor, m_targetColor)) {
+      m_controlPanelManipulator->Stop();
+      return true;    
+  }
+
+  return false;
+}

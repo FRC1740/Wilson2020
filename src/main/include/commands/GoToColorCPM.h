@@ -33,4 +33,6 @@ class GoToColorCPM
 
  private:
   ControlPanelManipulator *m_controlPanelManipulator;
+  /* Target Color specified by the FMS during match */
+  std::string m_targetColor;
 };
