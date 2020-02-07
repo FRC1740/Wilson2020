@@ -13,10 +13,12 @@ class Vision : public frc2::SubsystemBase {
  public:
   Vision();
 
+#ifdef ENABLE_VISION
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic();
+#endif // ENABLE_VISION
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be

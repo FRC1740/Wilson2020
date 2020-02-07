@@ -12,6 +12,7 @@ AlignToPlayerStation::AlignToPlayerStation(Vision *vision) : m_vision(vision) {
   AddRequirements(vision);
 }
 
+#ifdef ENABLE_VISION
 // Called when the command is initially scheduled.
 void AlignToPlayerStation::Initialize() {}
 
@@ -23,3 +24,4 @@ void AlignToPlayerStation::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool AlignToPlayerStation::IsFinished() { return false; }
+#endif // ENABLE_VISION

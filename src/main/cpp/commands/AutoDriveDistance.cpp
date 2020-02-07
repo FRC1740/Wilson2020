@@ -12,6 +12,7 @@ AutoDriveDistance::AutoDriveDistance(DriveTrain *drivetrain) : m_driveTrain(driv
   AddRequirements(drivetrain);
 }
 
+#ifdef ENABLE_DRIVETRAIN
 // Called when the command is initially scheduled.
 void AutoDriveDistance::Initialize() {}
 
@@ -23,3 +24,5 @@ void AutoDriveDistance::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool AutoDriveDistance::IsFinished() { return false; }
+
+#endif // ENABLE_DRIVETRAIN

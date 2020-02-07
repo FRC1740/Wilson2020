@@ -33,20 +33,24 @@ RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain) {
   // Configure the button bindings
   ConfigureButtonBindings();
 
+#ifdef ENABLE_DRIVETRAIN
   // Set up default drive command
   m_driveTrain.SetDefaultCommand(TeleOpDrive(
     &m_driveTrain,
     [this] { return driver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER) - driver_control.GetRawAxis(ConXBOXControl::LEFT_TRIGGER); },
     [this] { return driver_control.GetRawAxis(ConXBOXControl::RIGHT_JOYSTICK_X); }));
+#endif // ENABLE_DRIVETRAIN
 }
 
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
 
+#ifdef ENABLE_CLIMBER
   // Climber
   //FIXME: Test these
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::X); }).WhenHeld(new ExtendClimber(&m_climber));
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::Y); }).WhenHeld(new RetractClimber(&m_climber));
+#endif // ENABLE_CLIMBER
 
   // Shooter
   //FIXME: Test these
@@ -61,10 +65,30 @@ void RobotContainer::ConfigureButtonBindings() {
 
   // ControlPanelManipulator
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::A); }).WhenPressed(new RotateThreeCPM(&m_controlPanelManipulator));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::B); }).WhenPressed(new GoToColorCPM(&m_controlPanelManipulator));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::B); }).WhenPressed(new GoToColorCPM(&m_controlPanelManipulator), false);
   // FIXME: Combine these two?
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::LEFT_TRIGGER); }).WhenHeld(new RotateManualCPM(&m_controlPanelManipulator));
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_TRIGGER); }).WhenHeld(new RotateManualCPM(&m_controlPanelManipulator));
+
+  /*
+  ACCORDING TO DOCS.WPILIB:
+
+  WhenPressed - schedules a command when a trigger/button changes from inactive to active; 
+      command will not be scheduled again unless the trigger/button becomes inactive and then active again
+
+  WhenHeld - schedules a command when a trigger/button changes from inactive to active, 
+      and cancels it when the trigger/button becomes inactive again. The command will *not* be 
+      re-scheduled if it finishes while the trigger/button is still active
+
+  WhileHeld - schedules a command repeatedly while a trigger/button is active, and
+      cancels it when the trigger/button becomes inactive again. The command *will* be 
+      re-scheduled if it finishes while the trigger/button is still active
+
+  WhenReleased - schedules a command when a trigger/button changes from active to inactive;
+      command will not be re-scheduled unless the trigger/button becomes active and then inactive again
+
+  NOTE: these can have multiple parameters, including "interruptable" which is default true
+  */
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

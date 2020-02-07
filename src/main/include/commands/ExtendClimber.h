@@ -23,6 +23,7 @@ class ExtendClimber
  public:
   explicit ExtendClimber(Climber *climber);
 
+#ifdef ENABLE_CLIMBER
   void Initialize() override;
 
   void Execute() override;
@@ -30,6 +31,7 @@ class ExtendClimber
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+#endif // ENABLE_CLIMBER
 
  private:
   Climber *m_climber;

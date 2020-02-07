@@ -12,6 +12,7 @@ AutoDriveAngle::AutoDriveAngle(DriveTrain *drivetrain) : m_driveTrain(drivetrain
   AddRequirements(drivetrain);
 }
 
+#ifdef ENABLE_DRIVETRAIN
 // Called when the command is initially scheduled.
 void AutoDriveAngle::Initialize() {}
 
@@ -23,3 +24,5 @@ void AutoDriveAngle::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool AutoDriveAngle::IsFinished() { return false; }
+
+#endif // ENABLE_DRIVETRAIN

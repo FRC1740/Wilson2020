@@ -12,6 +12,7 @@ Shooter::Shooter() {
 
 }
 
+#ifdef ENABLE_SHOOTER
 void Shooter::SpinUp()
 {
   m_topMotor.Set(ConShooter::TOP_MOTOR_SPEED);
@@ -72,4 +73,4 @@ double GetBottomMotorSpeed() {
 
 double GetTopMotorSpeed() {
 }
-
+#endif // ENABLE_SHOOTER

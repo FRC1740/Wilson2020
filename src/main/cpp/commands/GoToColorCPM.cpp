@@ -11,13 +11,14 @@
 #include "networktables/NetworkTable.h"
 #include "networktables/NetworkTableInstance.h"
 #include <string>
-#include <cctype> // for tolower
+#include <cctype> // for tolower (forces string to be a certain case)
 
 GoToColorCPM::GoToColorCPM(ControlPanelManipulator *controlpanelmanipulator) : m_controlPanelManipulator(controlpanelmanipulator) {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements(controlpanelmanipulator);
 }
 
+#ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
 // Called when the command is initially scheduled.
 void GoToColorCPM::Initialize() {
  // Read the target color from Network Tables
@@ -56,3 +57,4 @@ bool GoToColorCPM::IsFinished() {
 
   return false;
 }
+#endif // ENABLE_CONTROL_PANEL_MANIPULATOR

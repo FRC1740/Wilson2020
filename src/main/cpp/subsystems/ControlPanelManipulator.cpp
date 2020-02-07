@@ -9,6 +9,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 
 ControlPanelManipulator::ControlPanelManipulator() {
+#ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
     // Optimize rotation speed for RotateThree command, scale down for GoToColor
     m_currentSpeed = ConControlPanelManipulator::MOTOR_SPEED; 
     m_colorMatcher.AddColorMatch(kBlueTarget);
@@ -32,9 +33,10 @@ ControlPanelManipulator::ControlPanelManipulator() {
 		m_rotationMotor.Config_kP(ConControlPanelManipulator::kPIDLoopIdx, 0.22, ConControlPanelManipulator::kTimeoutMs);
 		m_rotationMotor.Config_kI(ConControlPanelManipulator::kPIDLoopIdx, 0.0, ConControlPanelManipulator::kTimeoutMs);
 		m_rotationMotor.Config_kD(ConControlPanelManipulator::kPIDLoopIdx, 0.0, ConControlPanelManipulator::kTimeoutMs);
-
+#endif // ENABLE_CONTROL_PANEL_MANIPULATOR
 }
 
+#ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
 // This method will be called once per scheduler run
 void ControlPanelManipulator::Periodic() {
   /**
@@ -94,30 +96,15 @@ void ControlPanelManipulator::Periodic() {
 }
 
 void ControlPanelManipulator::Rotate() {
-  m_rotationMotor.Set(ControlMode::Velocity, m_currentSpeed);
-}
-
-void ControlPanelManipulator::SetSpeed(double speed) {
-  m_currentSpeed = speed;
-}
-<<<<<<< HEAD
-=======
-
-void ControlPanelManipulator::Stop() {
-  m_rotationMotor.Set(ControlMode::Velocity, 0.0);
-  m_currentSpeed = ConControlPanelManipulator::MOTOR_SPEED;
-}
-
-void ControlPanelManipulator::Rotate() {
   m_rotationMotor.Set(ControlMode::Velocity, m_currentSpeed); // Maybe 300 RPM?
 }
 
 void ControlPanelManipulator::SetSpeed(double speed) {
   m_currentSpeed = speed;
 }
->>>>>>> 94ae0eb018ec9efe0dda4d0a956ff3685f03c0bc
 
 void ControlPanelManipulator::Stop() {
   m_rotationMotor.Set(ControlMode::Velocity, 0.0);
   m_currentSpeed = ConControlPanelManipulator::MOTOR_SPEED;
 }
+#endif // ENABLE_CONTROL_PANEL_MANIPULATOR

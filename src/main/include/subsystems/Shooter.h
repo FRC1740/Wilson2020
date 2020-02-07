@@ -18,7 +18,9 @@
 
 class Shooter : public frc2::SubsystemBase {
  public:
-  Shooter(); 
+  Shooter();
+
+#ifdef ENABLE_SHOOTER
   void SetBottomMotorSpeed(double);
   void SetTopMotorSpeed(double);
   double GetBottomMotorSpeed();
@@ -55,4 +57,5 @@ class Shooter : public frc2::SubsystemBase {
   rev::CANSparkMax m_topMotor{ConShooter::TOP_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
   rev::CANSparkMax m_bottomMotor{ConShooter::BOTTOM_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
   frc::TimeOfFlight m_powerCellDetector{0};
+#endif // ENABLE_SHOOTER
 };

@@ -6,6 +6,10 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
+
+//On error, create env.h from env-default.h and modify ROBOT_VERSION_STRING
+#include "env-default.h"  //FIXME: change to env.h and add env.h to .gitignore
+
 #include <cmath>  // for std::fabs
 
 /**
@@ -34,7 +38,7 @@ namespace ConClimber {
 namespace ConControlPanelManipulator {
     // Motor
     constexpr int MOTOR_ID = 3;
-    constexpr double MOTOR_SPEED = 8100; // 300 RPM x 27:1 = 8100 motor RPM
+    constexpr double MOTOR_SPEED = 810; // 30 RPM x 27:1 = 810 motor RPM, 1 rotation every 2 seconds
     // PID Constants for TalonSRX
     enum Constants {
         /**
