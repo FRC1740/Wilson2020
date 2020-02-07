@@ -12,6 +12,7 @@ RotateManualCPM::RotateManualCPM(ControlPanelManipulator *controlpanelmanipulato
   AddRequirements(controlpanelmanipulator);
 }
 
+#ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
 // Called when the command is initially scheduled.
 void RotateManualCPM::Initialize() {
   m_controlPanelManipulator->SetSpeed(ConControlPanelManipulator::MOTOR_SPEED);
@@ -29,3 +30,4 @@ void RotateManualCPM::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool RotateManualCPM::IsFinished() { return false; }
+#endif // ENABLE_CONTROL_PANEL_MANIPULATOR

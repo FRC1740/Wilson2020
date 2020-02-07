@@ -12,6 +12,7 @@ RotateThreeCPM::RotateThreeCPM(ControlPanelManipulator *controlpanelmanipulator)
   AddRequirements(controlpanelmanipulator);
 }
 
+#ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
 // Called when the command is initially scheduled.
 void RotateThreeCPM::Initialize() {}
 
@@ -23,3 +24,4 @@ void RotateThreeCPM::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool RotateThreeCPM::IsFinished() { return false; }
+#endif // ENABLE_CONTROL_PANEL_MANIPULATOR

@@ -12,6 +12,7 @@ ToggleVisionLight::ToggleVisionLight(Vision *vision) : m_vision(vision) {
   AddRequirements(vision);
 }
 
+#ifdef ENABLE_VISION
 // Called when the command is initially scheduled.
 void ToggleVisionLight::Initialize() {}
 
@@ -23,3 +24,4 @@ void ToggleVisionLight::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool ToggleVisionLight::IsFinished() { return false; }
+#endif // ENABLE_VISION

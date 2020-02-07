@@ -17,6 +17,7 @@ class ControlPanelManipulator : public frc2::SubsystemBase {
  public:
   ControlPanelManipulator();
 
+#ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
@@ -85,4 +86,5 @@ class ControlPanelManipulator : public frc2::SubsystemBase {
   static constexpr frc::Color kWhenISeeGreen = kGreenTarget;
   static constexpr frc::Color kWhenISeeRed = kRedTarget;
   static constexpr frc::Color kWhenISeeYellow = kYellowTarget;
+#endif // ENABLE_CONTROL_PANEL_MANIPULATOR
 };

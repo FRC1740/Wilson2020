@@ -9,5 +9,7 @@
 
 Vision::Vision() {}
 
+#ifdef ENABLE_VISION
 // This method will be called once per scheduler run
 void Vision::Periodic() {}
+#endif // ENABLE_VISION
