@@ -18,6 +18,7 @@ GoToColorCPM::GoToColorCPM(ControlPanelManipulator *controlpanelmanipulator) : m
   AddRequirements(controlpanelmanipulator);
 }
 
+#ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
 // Called when the command is initially scheduled.
 void GoToColorCPM::Initialize() {
  // Read the target color from Network Tables
@@ -56,3 +57,4 @@ bool GoToColorCPM::IsFinished() {
 
   return false;
 }
+#endif // ENABLE_CONTROL_PANEL_MANIPULATOR

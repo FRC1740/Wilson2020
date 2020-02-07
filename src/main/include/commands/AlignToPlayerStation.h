@@ -22,6 +22,7 @@ class AlignToPlayerStation
  public:
   explicit AlignToPlayerStation(Vision *vision);
 
+#ifdef ENABLE_VISION
   void Initialize() override;
 
   void Execute() override;
@@ -29,6 +30,7 @@ class AlignToPlayerStation
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+#endif // ENABLE_VISION
 
  private:
   Vision *m_vision;

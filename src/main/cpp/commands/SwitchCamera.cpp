@@ -12,6 +12,7 @@ SwitchCamera::SwitchCamera(Vision *vision) : m_vision(vision) {
   AddRequirements(vision);
 }
 
+#ifdef ENABLE_VISION
 // Called when the command is initially scheduled.
 void SwitchCamera::Initialize() {}
 
@@ -23,3 +24,4 @@ void SwitchCamera::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool SwitchCamera::IsFinished() { return false; }
+#endif // ENABLE_VISION

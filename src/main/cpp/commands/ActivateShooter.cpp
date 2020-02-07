@@ -12,6 +12,7 @@ ActivateShooter::ActivateShooter(Shooter *shooter) : m_shooter(shooter) {
   AddRequirements(shooter);
 }
 
+#ifdef ENABLE_SHOOTER
 // Called when the command is initially scheduled.
 void ActivateShooter::Initialize() {}
 
@@ -27,3 +28,4 @@ void ActivateShooter::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool ActivateShooter::IsFinished() { return false; }
+#endif // ENABLE_SHOOTER
