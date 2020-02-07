@@ -4,31 +4,31 @@
 Uses (new) Command-Base framework
 
 ## Vendor Libraries
-CTRE-Phoenix: TalonSRX Motor Controllers
-RevRobotics: SparkMax Motor Controllers
-RevColorSensorV3: Optical color sensor
-PlayingWithFusion: Laser Rangefinder
+CTRE-Phoenix: TalonSRX Motor Controllers  
+RevRobotics: SparkMax Motor Controllers  
+RevColorSensorV3: Optical color sensor  
+PlayingWithFusion: Laser Rangefinder  
 
 ## Subsystems
-Climber
-Control Panel Manipulator
-DriveTrain
-Shooter
-Vision
+Climber  
+Control Panel Manipulator  
+DriveTrain  
+Shooter  
+Vision  
 
 ## Commands
-ActivateShooter
-AlignToPlayerStation
-AlignToPowerPort
-AutoDrive
-AutoDriveAngle
-AutoDriveDistance
-ExtendClimber
-GoToColorCPM
-RetractClimber
-RotateManualCPM
-RotateThreeCPM
-SpinUpShooter
-SwitchCamera
-TeleOpDrive
-ToggleVisionLight
+ActivateShooter  
+AlignToPlayerStation  
+AlignToPowerPort  
+AutoDrive  
+AutoDriveAngle  
+AutoDriveDistance  
+ExtendClimber  
+GoToColorCPM  
+RetractClimber  
+RotateManualCPM  
+RotateThreeCPM  
+SpinUpShooter  
+SwitchCamera  
+TeleOpDrive  
+ToggleVisionLight  
