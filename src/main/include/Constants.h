@@ -8,7 +8,7 @@
 #pragma once
 
 //On error, create env.h from env-default.h and modify ROBOT_VERSION_STRING
-#include "env-default.h"  //FIXME: change to env.h and add env.h to .gitignore
+#include "env.h"
 
 #include <cmath>  // for std::fabs
 #include <math.h>
@@ -22,6 +22,12 @@
  * command-specific namespaces within this header, which can then be used where
  * they are needed.
  */
+
+namespace ConMath {
+    constexpr double PI = M_PI; // 3.141592;
+    constexpr double METERS_2_INCH = .0254; // m/in
+    constexpr double MINUTES_2_SECONDS = 1/60.; // sec/min
+}
 
 namespace ConAuto {
     // Conversion factor Ticks -> Inches
@@ -63,17 +69,46 @@ namespace ConControlPanelManipulator {
 
 namespace ConDriveTrain {
     // Motors
-    constexpr int RIGHT_MOTOR_A_ID = 4;
-    constexpr int RIGHT_MOTOR_B_ID = 5;
-    constexpr int LEFT_MOTOR_A_ID = 6;
-    constexpr int LEFT_MOTOR_B_ID = 7;
+    constexpr int RIGHT_MOTOR_A_ID = 2;
+    constexpr int RIGHT_MOTOR_B_ID = 4;
+    constexpr int LEFT_MOTOR_A_ID = 3;
+    constexpr int LEFT_MOTOR_B_ID = 5;
     constexpr double ROTATION_FACTOR = 1/1.3;
+
+    //Spark Max Settings
+    constexpr int RAMP_RATE = 0.100; //seconds
+    constexpr bool INVERSION = false; //
+    //Conversions
+    constexpr double IN_2_ENCODER = (10.71*42)/(6*ConMath::PI); //encoder to motor 42 counts/rev, motor to shaft 10.71:1, 6in wheel
+    constexpr double ENCODER_2_IN = 1/IN_2_ENCODER; 
 }
 
-namespace ConMath {
-    constexpr double PI = M_PI; // 3.141592;  Already defined in math.h
-    constexpr double METERS_2_INCH = .0254; // m/in
-    constexpr double MINUTES_2_SECONDS = 1/60.; // sec/min
+namespace ConLimelight {
+    constexpr int VISION_MODE = 0;
+    constexpr int CAMERA_MODE = 1;
+
+    constexpr int LED_PIPLINE_DEFAULT = 0;
+    constexpr int LED_OFF = 1;
+    constexpr int LED_BLINK = 2;
+    constexpr int LED_ON = 3;
+
+    constexpr int SNAPSHOT_STOP = 0;
+    constexpr int SNAPSHOT_START = 1;
+
+    constexpr double HORIZONTAL_TOLERANCE = 1.0;  //degrees
+    constexpr double TARGET_HEIGHT = 38.5; //in to center of target
+    constexpr double CAMERA_HEIGHT = 19.5; //in to center of camera
+    constexpr double MAX_HORIZONTAL_OFFSET = 29.8; //degrees
+
+    // constexpr cv::Matx33d cameraMatrix = cv::Matx33d(
+    //                     772.53876202, 0., 479.132337442,
+    //                     0., 769.052151477, 359.143001808,
+    //                     0., 0., 1.0);
+    // constexpr std::vector istortionCoefficient =  std::vector<double> {
+    //                     2.9684613693070039e-01, -1.4380252254747885e+00,-2.2098421479494509e-03,
+    //                     -3.3894563533907176e-03, 2.5344430354806740e+00};
+
+    constexpr double focalLength = 2.9272781257541; //mm
 }
 
 namespace ConNEO {
@@ -82,20 +117,44 @@ namespace ConNEO {
 }
 
 namespace ConShooter {
-    // Motors
-    //FIXME: Tune the speeds
-    constexpr int FEED_MOTOR_ID = 1;
-    constexpr int TOP_MOTOR_ID = 6;
-    constexpr int TOP_MOTOR_WHEEL_SIZE = 6;
-    constexpr int BOTTOM_MOTOR_ID = 4;
-    constexpr int BOTTOM_MOTOR_WHEEL_SIZE = 4;
-    constexpr double FEED_MOTOR_SPEED = 0.75;
-    constexpr double TOP_MOTOR_SPEED = 0.25;
-    constexpr double BOTTOM_MOTOR_SPEED = 0.25;
-    constexpr double P = 2e-4;
-    constexpr double I = 0.0;
-    constexpr double D = 2e-3;
-    constexpr double FF = 1.7e-4;
+    namespace Top {
+        constexpr int MOTOR_ID = 9;
+        constexpr int WHEEL_SIZE = 4; //in inches
+        constexpr double VELOCITY_FACTOR = 1; //(ConMath::PI*WHEEL_SIZE) * ConMath::METERS_2_INCH * ConMath::MINUTES_2_SECONDS; //(velocity) y [m/s] = PI*WHEEL_SIZE * m/in * 1/60 * x [RPM]
+        constexpr double MOTOR_SPEED = 0.5;
+        //PID gains
+        constexpr double P = 2e-4;
+        constexpr double I = 0.0;
+        constexpr double D = 2e-3;
+        constexpr double FF = 1.7e-4;
+    }
+    namespace Bottom {
+        constexpr int MOTOR_ID = 12;
+        constexpr int WHEEL_SIZE = 6; //in inches
+        constexpr double VELOCITY_FACTOR = 1; //(ConMath::PI*WHEEL_SIZE) * ConMath::METERS_2_INCH * ConMath::MINUTES_2_SECONDS; //(velocity) y [m/s] = PI*WHEEL_SIZE * m/in * 1/60 * x [RPM]
+        constexpr double MOTOR_SPEED = 0.5;
+         //PID gains
+        constexpr double P = 2e-4;
+        constexpr double I = 0.0;
+        constexpr double D = 2e-3;
+        constexpr double FF = 1.7e-4;
+    }
+    namespace Feeder {
+        constexpr int MOTOR_ID = 1;
+        constexpr double MOTOR_SPEED = 0.5;
+    }
+    namespace Hopper {
+        constexpr int MOTOR_ID = 0;
+    }
+}
+
+namespace ConShuffleboard {
+    constexpr char RobotTab[] = "Robot";
+    constexpr char ClimberTab[] = "Climber";
+    constexpr char ControlPanelManipulatorTab[] = "CPM";
+    constexpr char DriveTrainTab[] = "DriveTrain";
+    constexpr char ShooterTab[] = "Shooter";
+    constexpr char VisionTab[] = "Vision";
 }
 
 namespace ConShuffleboard {

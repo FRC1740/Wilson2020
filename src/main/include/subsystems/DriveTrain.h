@@ -33,17 +33,19 @@ class DriveTrain : public frc2::SubsystemBase {
 
   void SetMaxOutput(double maxOutput);
 
+  double GetRightDistance();
+
+  double GetLeftDistance();
+
   double GetAverageEncoderDistance();
-
-  double GetRightEncoder();
-
-  double GetLeftEncoder();
 
   void ResetEncoders();
   
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
+
+  double m_maxOutput = 1.0;
 
   // Neo motor controllers
   rev::CANSparkMax m_rightMotorA{ConDriveTrain::RIGHT_MOTOR_A_ID, rev::CANSparkMax::MotorType::kBrushless};
@@ -58,7 +60,6 @@ class DriveTrain : public frc2::SubsystemBase {
   rev::CANEncoder m_leftEncoderB = m_leftMotorB.GetEncoder();
 
   // Robot Drive
-  // FIXME: need to make MotorB followers of MotorA
   frc::DifferentialDrive m_driveTrain{m_leftMotorA, m_rightMotorA};
 #endif // ENABLE_DRIVETRAIN
 };

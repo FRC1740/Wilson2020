@@ -13,7 +13,6 @@
 #include <rev/CANEncoder.h>
 #include <rev/CANSparkMax.h>
 #include <ctre/Phoenix.h>
-#include <rev/CANSparkMax.h>
 #include <TimeOfFlight.h>
 
 class Shooter : public frc2::SubsystemBase {
@@ -21,15 +20,18 @@ class Shooter : public frc2::SubsystemBase {
   Shooter();
 
 #ifdef ENABLE_SHOOTER
-  void SetBottomMotorSpeed(double);
-  void SetTopMotorSpeed(double);
-  double GetBottomMotorSpeed();
-  double GetTopMotorSpeed();
-
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic();
+
+  void SetBottomMotorSpeed(double velocity);
+
+  void SetTopMotorSpeed(double velocity);
+
+  double GetBottomMotorSpeed();
+  
+  double GetTopMotorSpeed();
 
   void SpinUp();
 
@@ -47,15 +49,28 @@ class Shooter : public frc2::SubsystemBase {
 
   void Deactivate();
 
+  void SetFeedSpeed(double speed);
+
+  void SetHopperSpeed(double speed);
+
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 
-  // Which do we use? TalonSRX is in the ctre library, WPI_TalonSRX is wpilib
-  // TalonSRX m_feedMotor{ConShooter::FEED_MOTOR_ID};
-  WPI_TalonSRX m_feedMotor{ConShooter::FEED_MOTOR_ID};
-  rev::CANSparkMax m_topMotor{ConShooter::TOP_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_bottomMotor{ConShooter::BOTTOM_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_topMotor{ConShooter::Top::MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
+  rev::CANSparkMax m_bottomMotor{ConShooter::Bottom::MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
+
+  // Built-in encoders on the NEO Motors above
+  rev::CANEncoder m_topEncoder = m_topMotor.GetEncoder();
+  rev::CANEncoder m_bottomEncoder = m_bottomMotor.GetEncoder();
+
+  //PID controller
+  rev::CANPIDController m_topVelocityPID = m_topMotor.GetPIDController();
+  rev::CANPIDController m_bottomVelocityPID = m_bottomMotor.GetPIDController();
+
+  TalonSRX m_feedMotor{ConShooter::Feeder::MOTOR_ID};
+  TalonSRX m_hopperMotor{ConShooter::Hopper::MOTOR_ID};
+
   frc::TimeOfFlight m_powerCellDetector{0};
 #endif // ENABLE_SHOOTER
 };
