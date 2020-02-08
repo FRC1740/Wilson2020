@@ -12,6 +12,10 @@
 
 void Robot::RobotInit() {
   frc::SmartDashboard::PutString("Code Version", ROBOT_VERSION_STRING);
+  // See https://docs.wpilib.org/en/latest/docs/software/wpilib-tools/shuffleboard/layouts-with-code/using-tabs.html
+  //ShuffleboardTab& tab = Shuffleboard::GetTab(ConShuffleboard::RobotTab);
+  //tab.Add("Code Version", ROBOT_VERSION_STRING);
+  //or Shuffleboard::GetTab(ConShuffleboard::RobotTab).Add("Code Version", ROBOT_VERSION_STRING);
 }
 
 /**
