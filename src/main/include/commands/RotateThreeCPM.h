@@ -11,6 +11,7 @@
 #include <frc2/command/CommandHelper.h>
 #include "subsystems/ControlPanelManipulator.h"
 
+
 /**
  * An example command.
  *
@@ -35,4 +36,8 @@ class RotateThreeCPM
 
  private:
   ControlPanelManipulator *m_controlPanelManipulator;
+  nt::NetworkTableEntry m_rotationCount;
+  nt::NetworkTableEntry m_detectedColor;
+  unsigned int m_transitionCount=0;
+  std::string m_currentColor;
 };

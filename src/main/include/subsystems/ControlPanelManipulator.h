@@ -12,21 +12,42 @@
 #include <rev/ColorSensorV3.h>
 #include <rev/ColorMatch.h>
 #include <ctre/Phoenix.h>
+#include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/shuffleboard/ShuffleboardTab.h>
+#include <networktables/NetworkTableEntry.h>
 
 class ControlPanelManipulator : public frc2::SubsystemBase {
  public:
   ControlPanelManipulator();
-
 #ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
+  frc::ShuffleboardTab *m_tabCPM;
+
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic();
+  std::string ReadCurrentColor();
+  std::string ReadFieldColor();
   void Rotate();
   void Stop();
   void SetSpeed(double);
 
  private:
+ // FIXME: Rename thse to include Shuffleboard shorthand in names
+  nt::NetworkTableEntry m_detectedRed;
+  nt::NetworkTableEntry m_detectedGreen;
+  nt::NetworkTableEntry m_detectedBlue;
+  nt::NetworkTableEntry m_matchedRed;
+  nt::NetworkTableEntry m_matchedGreen;
+  nt::NetworkTableEntry m_matchedBlue;
+  nt::NetworkTableEntry m_confidence;
+  nt::NetworkTableEntry m_colorString;
+  nt::NetworkTableEntry m_motorCurrent;
+
+  std::string m_sensedColor;
+  std::string m_fieldColor;
+
+  std::string LookupColor(std::string); // Lookup between our sensed color and field color
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
   // FIXME: Should we use WPI_TalonSRX, or TalonSRX from the ctre library?

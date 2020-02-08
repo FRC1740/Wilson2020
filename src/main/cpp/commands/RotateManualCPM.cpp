@@ -7,7 +7,8 @@
 
 #include "commands/RotateManualCPM.h"
 
-RotateManualCPM::RotateManualCPM(ControlPanelManipulator *controlpanelmanipulator) : m_controlPanelManipulator(controlpanelmanipulator) {
+RotateManualCPM::RotateManualCPM(ControlPanelManipulator *controlpanelmanipulator, std::function<double()> speed) 
+          : m_controlPanelManipulator(controlpanelmanipulator), m_speed(speed) {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements(controlpanelmanipulator);
 }

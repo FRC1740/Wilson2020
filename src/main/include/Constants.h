@@ -11,6 +11,7 @@
 #include "env.h"
 
 #include <cmath>  // for std::fabs
+#include <math.h>
 
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
@@ -23,7 +24,7 @@
  */
 
 namespace ConMath {
-    constexpr double PI = 3.141592;
+    constexpr double PI = M_PI; // 3.141592;
     constexpr double METERS_2_INCH = .0254; // m/in
     constexpr double MINUTES_2_SECONDS = 1/60.; // sec/min
 }
@@ -145,6 +146,15 @@ namespace ConShooter {
     namespace Hopper {
         constexpr int MOTOR_ID = 0;
     }
+}
+
+namespace ConShuffleboard {
+    constexpr char RobotTab[] = "Robot";
+    constexpr char ClimberTab[] = "Climber";
+    constexpr char ControlPanelManipulatorTab[] = "CPM";
+    constexpr char DriveTrainTab[] = "DriveTrain";
+    constexpr char ShooterTab[] = "Shooter";
+    constexpr char VisionTab[] = "Vision";
 }
 
 namespace ConShuffleboard {
