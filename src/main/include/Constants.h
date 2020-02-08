@@ -126,5 +126,14 @@ namespace ConXBOXControl {
     constexpr int CODRIVER_CONTROLLER_PORT = 1;
 }
 
+namespace ConVision {
+    constexpr float P = -0.1f;
+    constexpr float I = 1.0;
+    constexpr float D = 0;
+
+
+
+}
+
 // DeadZone lambda function
 auto DeadZone = [] (double a) { return (std::fabs(a) > ConXBOXControl::DEAD_ZONE) ? a : 0.0; };

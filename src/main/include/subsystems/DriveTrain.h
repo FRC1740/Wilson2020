@@ -31,6 +31,8 @@ class DriveTrain : public frc2::SubsystemBase {
    */
   void ArcadeDrive(double speed, double rotation);
 
+  void TankDrive(double left, double right);
+
   void SetMaxOutput(double maxOutput);
 
   double GetAverageEncoderDistance();

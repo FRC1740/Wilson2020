@@ -17,6 +17,10 @@ void DriveTrain::ArcadeDrive(double speed, double rotation) {
   m_driveTrain.ArcadeDrive(speed, (DeadZone(rotation) * ConDriveTrain::ROTATION_FACTOR));
 }
 
+void DriveTrain::TankDrive(double left, double right) {
+  m_driveTrain.TankDrive(left, right);
+}
+
 void DriveTrain::SetMaxOutput(double maxOutput) {
   m_driveTrain.SetMaxOutput(maxOutput);
 }

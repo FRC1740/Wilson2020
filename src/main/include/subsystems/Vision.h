@@ -8,7 +8,7 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
-
+#include <Constants.h>
 class Vision : public frc2::SubsystemBase {
  public:
   Vision();
@@ -18,7 +18,16 @@ class Vision : public frc2::SubsystemBase {
    */
   void Periodic();
 
+  double Align();
+
+  void ToggleLight();
+  
+  
+
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
+  std::shared_ptr<NetworkTable> table;
+  float tx;
+  float steering_adjust;
 };
