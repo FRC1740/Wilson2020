@@ -49,8 +49,9 @@ bool iequals(const std::string& a, const std::string& b) {
 bool GoToColorCPM::IsFinished() { 
   // if ColorScan = targetcolor return true;
   // Scan for current color
-  std::string detectedColor = frc::SmartDashboard::GetString("Detected Color", "Orange");
-  if (iequals(detectedColor, m_targetColor)) {
+//  std::string detectedColor = frc::SmartDashboard::GetString("Detected Color", "Orange");
+  std::string fieldColor = m_controlPanelManipulator->ReadFieldColor();
+  if (iequals(fieldColor, m_targetColor)) {
       m_controlPanelManipulator->Stop();
       return true;    
   }

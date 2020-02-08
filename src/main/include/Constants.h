@@ -11,6 +11,7 @@
 #include "env-default.h"  //FIXME: change to env.h and add env.h to .gitignore
 
 #include <cmath>  // for std::fabs
+#include <math.h>
 
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
@@ -70,7 +71,7 @@ namespace ConDriveTrain {
 }
 
 namespace ConMath {
-    constexpr double PI = 3.141592;
+    constexpr double PI = M_PI; // 3.141592;  Already defined in math.h
     constexpr double METERS_2_INCH = .0254; // m/in
     constexpr double MINUTES_2_SECONDS = 1/60.; // sec/min
 }
@@ -95,6 +96,15 @@ namespace ConShooter {
     constexpr double I = 0.0;
     constexpr double D = 2e-3;
     constexpr double FF = 1.7e-4;
+}
+
+namespace ConShuffleboard {
+    constexpr char RobotTab[] = "Robot";
+    constexpr char ClimberTab[] = "Climber";
+    constexpr char ControlPanelManipulatorTab[] = "CPM";
+    constexpr char DriveTrainTab[] = "DriveTrain";
+    constexpr char ShooterTab[] = "Shooter";
+    constexpr char VisionTab[] = "Vision";
 }
 
 namespace ConXBOXControl {
