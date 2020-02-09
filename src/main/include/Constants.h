@@ -157,15 +157,6 @@ namespace ConShuffleboard {
     constexpr char VisionTab[] = "Vision";
 }
 
-namespace ConShuffleboard {
-    constexpr char RobotTab[] = "Robot";
-    constexpr char ClimberTab[] = "Climber";
-    constexpr char ControlPanelManipulatorTab[] = "CPM";
-    constexpr char DriveTrainTab[] = "DriveTrain";
-    constexpr char ShooterTab[] = "Shooter";
-    constexpr char VisionTab[] = "Vision";
-}
-
 namespace ConXBOXControl {
     // Axis inputs
     constexpr int LEFT_JOYSTICK_X = 0;

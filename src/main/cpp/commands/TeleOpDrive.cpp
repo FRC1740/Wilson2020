@@ -19,18 +19,17 @@ TeleOpDrive::TeleOpDrive(DriveTrain *drivetrain,
 
 #ifdef ENABLE_DRIVETRAIN
 // Called when the command is initially scheduled.
-//void TeleOpDrive::Initialize() {}
+void TeleOpDrive::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void TeleOpDrive::Execute() {
-  // FIXME: add this when the subsystem has it
-  //drive->ArcadeDrive(m_speed(), m_rotation());
+  m_driveTrain->ArcadeDrive(m_speed(), m_rotation());
 }
 
 // Called once the command ends or is interrupted.
-//void TeleOpDrive::End(bool interrupted) {}
+void TeleOpDrive::End(bool interrupted) {}
 
 // Returns true when the command should end.
-//bool TeleOpDrive::IsFinished() { return false; }
+bool TeleOpDrive::IsFinished() { return false; }
 
 #endif // ENABLE_DRIVETRAIN
