@@ -14,6 +14,7 @@
 #include <rev/CANSparkMax.h>
 #include <ctre/Phoenix.h>
 #include <TimeOfFlight.h>
+#include <frc/Encoder.h>
 
 class Shooter : public frc2::SubsystemBase {
  public:

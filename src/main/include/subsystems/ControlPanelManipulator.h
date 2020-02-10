@@ -89,7 +89,7 @@ class ControlPanelManipulator : public frc2::SubsystemBase {
   static constexpr frc::Color kGreenTarget = frc::Color(0.197, 0.561, 0.240);
   static constexpr frc::Color kRedTarget = frc::Color(0.561, 0.232, 0.114);
   static constexpr frc::Color kYellowTarget = frc::Color(0.361, 0.524, 0.113);
-  /* */
+  */
   /* 2020-01-14 Calibrated "LED ON" values */
   static constexpr frc::Color kBlueTarget = frc::Color(0.125, 0.427, 0.449);
   static constexpr frc::Color kGreenTarget = frc::Color(0.166, 0.581, 0.253);
@@ -101,7 +101,8 @@ class ControlPanelManipulator : public frc2::SubsystemBase {
   static constexpr frc::Color kWhenISeeBlue = kRedTarget;
   static constexpr frc::Color kWhenISeeGreen = kYellowTarget;
   static constexpr frc::Color kWhenISeeRed = kBlueTarget;
-  static constexpr frc::Color kWhenISeeYellow = kGreenTarget;  /* */
+  static constexpr frc::Color kWhenISeeYellow = kGreenTarget; 
+  */
   // FIXME: Straight up same color (NOT FOR COMPETITION - TESTING ONLY)
   static constexpr frc::Color kWhenISeeBlue = kBlueTarget;
   static constexpr frc::Color kWhenISeeGreen = kGreenTarget;
