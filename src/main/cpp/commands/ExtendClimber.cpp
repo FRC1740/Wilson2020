@@ -18,7 +18,7 @@ void ExtendClimber::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void ExtendClimber::Execute() {
-  m_climber->ExtendClimber(ConClimber::EXT_SPEED);
+  m_climber->ExtendClimber(); // Moved speed to subsystem
 }
 
 // Called once the command ends or is interrupted.
