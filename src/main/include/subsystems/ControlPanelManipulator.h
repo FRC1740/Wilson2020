@@ -101,7 +101,7 @@ class ControlPanelManipulator : public frc2::SubsystemBase {
   static constexpr frc::Color kWhenISeeBlue = kRedTarget;
   static constexpr frc::Color kWhenISeeGreen = kYellowTarget;
   static constexpr frc::Color kWhenISeeRed = kBlueTarget;
-  static constexpr frc::Color kWhenISeeYellow = kGreenTarget;
+  static constexpr frc::Color kWhenISeeYellow = kGreenTarget; 
   */
   // FIXME: Straight up same color (NOT FOR COMPETITION - TESTING ONLY)
   static constexpr frc::Color kWhenISeeBlue = kBlueTarget;
