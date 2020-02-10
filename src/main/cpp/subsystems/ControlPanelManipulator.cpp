@@ -69,7 +69,7 @@ void ControlPanelManipulator::Periodic() {
    * measurements and make it difficult to accurately determine its color.
    */
   frc::Color detectedColor = m_colorSensor.GetColor();
-  frc::Shuffleboard::SelectTab(ConShuffleboard::ControlPanelManipulatorTab);
+  // frc::Shuffleboard::SelectTab(ConShuffleboard::ControlPanelManipulatorTab);
 
   /**
    * Run the color match algorithm on our detected color

@@ -40,6 +40,7 @@ namespace ConClimber {
     constexpr int MOTOR_ID = 9;
     constexpr double EXT_SPEED = 1.0;
     constexpr double RET_SPEED = -1.0;
+    constexpr double ROTATION_DISTANCE = 3.75; // #35 Chain = .375 pitch x 10 tooth = 3.75 inches
 }
 
 namespace ConControlPanelManipulator {
