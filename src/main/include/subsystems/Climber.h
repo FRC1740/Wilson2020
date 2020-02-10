@@ -9,7 +9,9 @@
 
 #include <frc2/command/SubsystemBase.h>
 #include <ctre/Phoenix.h>
-#include <frc/Encoder.h>
+#include <frc/DutyCycleEncoder.h>
+#include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/shuffleboard/ShuffleboardTab.h>
 #include "Constants.h"
 
 
@@ -18,11 +20,15 @@ class Climber : public frc2::SubsystemBase {
   Climber();
 
 #ifdef ENABLE_CLIMBER
+  frc::ShuffleboardTab *m_tabClimber;
+
   void ExtendClimber(double speed);
 
   void RetractClimber(double speed);
 
   void StopClimber();
+
+  void ResetEncoder();
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -33,5 +39,8 @@ class Climber : public frc2::SubsystemBase {
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
   WPI_TalonSRX m_motor{ConClimber::MOTOR_ID};
+  frc::DutyCycleEncoder m_dutyCycleEncoder{0};
+  nt::NetworkTableEntry m_tabClimberDistance;
+
 #endif // ENABLE_CLIMBER
 };
