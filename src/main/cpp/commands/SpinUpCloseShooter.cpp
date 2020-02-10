@@ -5,31 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/TeleOpDrive.h"
+#include "commands/SpinUpCloseShooter.h"
 
-TeleOpDrive::TeleOpDrive(DriveTrain *drivetrain,
-                         std::function<double()> speed,
-                         std::function<double()> rotation)
-            : m_driveTrain(drivetrain),
-              m_speed(speed),
-              m_rotation(rotation) {
+SpinUpCloseShooter::SpinUpCloseShooter(Shooter *shooter) : m_shooter(shooter) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(drivetrain);
+  AddRequirements(shooter);
 }
 
-#ifdef ENABLE_DRIVETRAIN
 // Called when the command is initially scheduled.
-void TeleOpDrive::Initialize() {}
+void SpinUpCloseShooter::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void TeleOpDrive::Execute() {
-  m_driveTrain->ArcadeDrive(m_speed(), m_rotation());
-}
+void SpinUpCloseShooter::Execute() {}
 
 // Called once the command ends or is interrupted.
-void TeleOpDrive::End(bool interrupted) {}
+void SpinUpCloseShooter::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool TeleOpDrive::IsFinished() { return false; }
-
-#endif // ENABLE_DRIVETRAIN
+bool SpinUpCloseShooter::IsFinished() { return false; }

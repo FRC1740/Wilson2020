@@ -9,7 +9,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/DriveTrain.h"
+#include "subsystems/Shooter.h"
 
 /**
  * An example command.
@@ -18,14 +18,11 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class TeleOpDrive
-    : public frc2::CommandHelper<frc2::CommandBase, TeleOpDrive> {
+class JumbleShooter
+    : public frc2::CommandHelper<frc2::CommandBase, JumbleShooter> {
  public:
-  explicit TeleOpDrive(DriveTrain *drivetrain,
-                       std::function<double()> speed,
-                       std::function<double()> rotation);
+  explicit JumbleShooter(Shooter *shooter);
 
-#ifdef ENABLE_DRIVETRAIN
   void Initialize() override;
 
   void Execute() override;
@@ -33,10 +30,7 @@ class TeleOpDrive
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-#endif // ENABLE_DRIVETRAIN
 
  private:
-  DriveTrain *m_driveTrain;
-  std::function<double()> m_speed;
-  std::function<double()> m_rotation;
+  Shooter *m_shooter;
 };

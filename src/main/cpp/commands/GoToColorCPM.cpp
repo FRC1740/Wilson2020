@@ -34,7 +34,9 @@ void GoToColorCPM::Execute() {
 }
 
 // Called once the command ends or is interrupted.
-void GoToColorCPM::End(bool interrupted) {}
+void GoToColorCPM::End(bool interrupted) {
+  m_controlPanelManipulator->Stop();
+}
 
 bool iequals(const std::string& a, const std::string& b) {
   size_t sz = a.size();

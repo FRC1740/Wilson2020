@@ -35,7 +35,9 @@ void RotateThreeCPM::Execute() {
 }
 
 // Called once the command ends or is interrupted.
-void RotateThreeCPM::End(bool interrupted) {}
+void RotateThreeCPM::End(bool interrupted) {
+  m_controlPanelManipulator->Stop();
+}
 
 // Returns true when the command should end.
 bool RotateThreeCPM::IsFinished() {

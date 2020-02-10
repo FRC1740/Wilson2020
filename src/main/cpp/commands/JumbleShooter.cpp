@@ -5,31 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/TeleOpDrive.h"
+#include "commands/JumbleShooter.h"
 
-TeleOpDrive::TeleOpDrive(DriveTrain *drivetrain,
-                         std::function<double()> speed,
-                         std::function<double()> rotation)
-            : m_driveTrain(drivetrain),
-              m_speed(speed),
-              m_rotation(rotation) {
+JumbleShooter::JumbleShooter(Shooter *shooter) : m_shooter(shooter) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(drivetrain);
+  AddRequirements(shooter);
 }
 
-#ifdef ENABLE_DRIVETRAIN
 // Called when the command is initially scheduled.
-void TeleOpDrive::Initialize() {}
+void JumbleShooter::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void TeleOpDrive::Execute() {
-  m_driveTrain->ArcadeDrive(m_speed(), m_rotation());
-}
+void JumbleShooter::Execute() {}
 
 // Called once the command ends or is interrupted.
-void TeleOpDrive::End(bool interrupted) {}
+void JumbleShooter::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool TeleOpDrive::IsFinished() { return false; }
-
-#endif // ENABLE_DRIVETRAIN
+bool JumbleShooter::IsFinished() { return false; }
