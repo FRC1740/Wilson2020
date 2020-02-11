@@ -23,6 +23,7 @@ class SwitchCamera
  public:
   explicit SwitchCamera(Vision *vision);
 
+#ifdef ENABLE_VISION
   void Initialize() override;
 
   void Execute() override;
@@ -30,6 +31,7 @@ class SwitchCamera
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+#endif // ENABLE_VISION
 
  private:
   Vision *m_vision;

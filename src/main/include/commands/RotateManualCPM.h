@@ -21,8 +21,9 @@
 class RotateManualCPM
     : public frc2::CommandHelper<frc2::CommandBase, RotateManualCPM> {
  public:
-  explicit RotateManualCPM(ControlPanelManipulator *controlpanelmanipulator);
+  explicit RotateManualCPM(ControlPanelManipulator *controlpanelmanipulator, std::function<double()> speed);
 
+#ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
   void Initialize() override;
 
   void Execute() override;
@@ -30,7 +31,9 @@ class RotateManualCPM
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+#endif // ENABLE_CONTROL_PANEL_MANIPULATOR
 
  private:
   ControlPanelManipulator *m_controlPanelManipulator;
+  std::function<double()> m_speed;
 };

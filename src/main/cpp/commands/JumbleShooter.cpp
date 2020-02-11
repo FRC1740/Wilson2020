@@ -5,27 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/ExtendClimber.h"
+#include "commands/JumbleShooter.h"
 
-ExtendClimber::ExtendClimber(Climber *climber) : m_climber(climber) {
+JumbleShooter::JumbleShooter(Shooter *shooter) : m_shooter(shooter) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(climber);
+  AddRequirements(shooter);
 }
 
-#ifdef ENABLE_CLIMBER
 // Called when the command is initially scheduled.
-void ExtendClimber::Initialize() {}
+void JumbleShooter::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ExtendClimber::Execute() {
-  m_climber->ExtendClimber(); // Moved speed to subsystem
-}
+void JumbleShooter::Execute() {}
 
 // Called once the command ends or is interrupted.
-void ExtendClimber::End(bool interrupted) {
-  m_climber->StopClimber();
-}
+void JumbleShooter::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool ExtendClimber::IsFinished() { return false; }
-#endif // ENABLE_CLIMBER
+bool JumbleShooter::IsFinished() { return false; }

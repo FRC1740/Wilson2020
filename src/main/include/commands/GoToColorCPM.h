@@ -23,6 +23,7 @@ class GoToColorCPM
  public:
   explicit GoToColorCPM(ControlPanelManipulator *controlpanelmanipulator);
 
+#ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
   void Initialize() override;
 
   void Execute() override;
@@ -30,6 +31,7 @@ class GoToColorCPM
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+#endif // ENABLE_CONTROL_PANEL_MANIPULATOR
 
  private:
   ControlPanelManipulator *m_controlPanelManipulator;

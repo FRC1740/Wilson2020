@@ -18,6 +18,7 @@ GoToColorCPM::GoToColorCPM(ControlPanelManipulator *controlpanelmanipulator) : m
   AddRequirements(controlpanelmanipulator);
 }
 
+#ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
 // Called when the command is initially scheduled.
 void GoToColorCPM::Initialize() {
  // Read the target color from Network Tables
@@ -33,7 +34,9 @@ void GoToColorCPM::Execute() {
 }
 
 // Called once the command ends or is interrupted.
-void GoToColorCPM::End(bool interrupted) {}
+void GoToColorCPM::End(bool interrupted) {
+  m_controlPanelManipulator->Stop();
+}
 
 bool iequals(const std::string& a, const std::string& b) {
   size_t sz = a.size();
@@ -48,11 +51,13 @@ bool iequals(const std::string& a, const std::string& b) {
 bool GoToColorCPM::IsFinished() { 
   // if ColorScan = targetcolor return true;
   // Scan for current color
-  std::string detectedColor = frc::SmartDashboard::GetString("Detected Color", "Orange");
-  if (iequals(detectedColor, m_targetColor)) {
+//  std::string detectedColor = frc::SmartDashboard::GetString("Detected Color", "Orange");
+  std::string fieldColor = m_controlPanelManipulator->ReadFieldColor();
+  if (iequals(fieldColor, m_targetColor)) {
       m_controlPanelManipulator->Stop();
       return true;    
   }
 
   return false;
 }
+#endif // ENABLE_CONTROL_PANEL_MANIPULATOR

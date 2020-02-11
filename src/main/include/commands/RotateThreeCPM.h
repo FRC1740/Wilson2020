@@ -11,6 +11,7 @@
 #include <frc2/command/CommandHelper.h>
 #include "subsystems/ControlPanelManipulator.h"
 
+
 /**
  * An example command.
  *
@@ -23,6 +24,7 @@ class RotateThreeCPM
  public:
   explicit RotateThreeCPM(ControlPanelManipulator *controlpanelmanipulator);
 
+#ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
   void Initialize() override;
 
   void Execute() override;
@@ -30,7 +32,12 @@ class RotateThreeCPM
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+#endif // ENABLE_CONTROL_PANEL_MANIPULATOR
 
  private:
   ControlPanelManipulator *m_controlPanelManipulator;
+  nt::NetworkTableEntry m_rotationCount;
+  nt::NetworkTableEntry m_detectedColor;
+  unsigned int m_transitionCount=0;
+  std::string m_currentColor;
 };
