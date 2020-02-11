@@ -18,7 +18,6 @@ Climber::Climber() {
 }
 
 #ifdef ENABLE_CLIMBER
-<<<<<<< HEAD
 void Climber::ExtendClimber() {
   if (m_climberPosition > ConClimber::EXT_LIMIT) { // Extending is NEGATIVE/DECREASING on the encoder
     Go(ConClimber::EXT_SPEED);
@@ -47,18 +46,7 @@ void Climber::ResetEncoder() {
 
 void Climber::Go(double speed) {
   m_motor.Set(ControlMode::PercentOutput, speed);
-=======
-void Climber::ExtendClimber(double speed) {
-  m_motor.Set(speed);
-}
 
-void Climber::RetractClimber(double speed) {
-  m_motor.Set(speed);
-}
-
-void Climber::StopClimber() {
-  m_motor.Set(0.0);
->>>>>>> f135fa04359e12c729ae541d41e958b4db30cbbc
 }
 
 void Climber::ResetEncoder() {
@@ -66,11 +54,7 @@ void Climber::ResetEncoder() {
 }
 // This method will be called once per scheduler run
 void Climber::Periodic() {
-<<<<<<< HEAD
   m_climberPosition = m_dutyCycleEncoder.GetDistance();
   m_tabClimberDistance.SetDouble(m_climberPosition);
-=======
-  m_tabClimberDistance.SetDouble(m_dutyCycleEncoder.GetDistance());
->>>>>>> f135fa04359e12c729ae541d41e958b4db30cbbc
 }
 #endif // ENABLE_CLIMBER
