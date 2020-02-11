@@ -13,12 +13,12 @@ ToggleVisionLight::ToggleVisionLight(Vision *vision) : m_vision(vision) {
 }
 
 // Called when the command is initially scheduled.
-void ToggleVisionLight::Initialize() {}
+void ToggleVisionLight::Initialize() {m_vision->ToggleLight();}
 
 // Called repeatedly when this Command is scheduled to run
 void ToggleVisionLight::Execute() {
 
-  m_vision->ToggleLight;
+  
 
 }
 
@@ -27,3 +27,5 @@ void ToggleVisionLight::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool ToggleVisionLight::IsFinished() { return false; }
+
+// I'm a comment!

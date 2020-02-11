@@ -65,7 +65,7 @@ void RobotContainer::ConfigureButtonBindings() {
 
   // ControlPanelManipulator
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::A); }).WhenPressed(new RotateThreeCPM(&m_controlPanelManipulator));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::B); }).WhenPressed(new GoToColorCPM(&m_controlPanelManipulator), false);
+  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::B); }).WhenPressed(new GoToColorCPM(&m_controlPanelManipulator));
   // FIXME: Combine these two?
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::LEFT_TRIGGER); }).WhenHeld(new RotateManualCPM(&m_controlPanelManipulator));
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_TRIGGER); }).WhenHeld(new RotateManualCPM(&m_controlPanelManipulator));

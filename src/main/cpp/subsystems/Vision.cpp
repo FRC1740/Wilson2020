@@ -22,8 +22,7 @@ double Vision::Align(){
     return steering_adjust;
 }
 
-void Vision::ToggleLight()
-{
+void Vision::ToggleLight(){
     /*
     3 = On
     2 = Blink

@@ -127,8 +127,8 @@ namespace ConXBOXControl {
 }
 
 namespace ConVision {
-    constexpr float P = -0.1f;
-    constexpr float I = 1.0;
+    constexpr float P = -0.5f;
+    constexpr float I = 0.0;
     constexpr float D = 0;
 
 

@@ -54,6 +54,7 @@ class DriveTrain : public frc2::SubsystemBase {
   rev::CANSparkMax m_leftMotorB{ConDriveTrain::LEFT_MOTOR_B_ID, rev::CANSparkMax::MotorType::kBrushless};
 
   // Drive encoders
+
   rev::CANEncoder m_rightEncoderA = m_rightMotorA.GetEncoder();
   rev::CANEncoder m_rightEncoderB = m_rightMotorB.GetEncoder();
   rev::CANEncoder m_leftEncoderA = m_leftMotorA.GetEncoder();
