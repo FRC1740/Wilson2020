@@ -38,6 +38,7 @@ void Climber::RetractClimber() {
 
 void Climber::StopClimber() {
   m_motor.Set(ControlMode::PercentOutput, 0.0);
+
 }
 
 void Climber::ResetEncoder() {
@@ -49,9 +50,6 @@ void Climber::Go(double speed) {
 
 }
 
-void Climber::ResetEncoder() {
-  m_dutyCycleEncoder.Reset();
-}
 // This method will be called once per scheduler run
 void Climber::Periodic() {
   m_climberPosition = m_dutyCycleEncoder.GetDistance();
