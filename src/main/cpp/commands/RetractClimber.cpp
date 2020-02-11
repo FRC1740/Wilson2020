@@ -18,7 +18,7 @@ void RetractClimber::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void RetractClimber::Execute() {
-  m_climber->RetractClimber(ConClimber::RET_SPEED);
+  m_climber->RetractClimber();
 }
 
 // Called once the command ends or is interrupted.

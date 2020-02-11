@@ -22,13 +22,15 @@ class Climber : public frc2::SubsystemBase {
 #ifdef ENABLE_CLIMBER
   frc::ShuffleboardTab *m_tabClimber;
 
-  void ExtendClimber(double speed);
+  void ExtendClimber();
 
-  void RetractClimber(double speed);
+  void RetractClimber();
 
   void StopClimber();
 
   void ResetEncoder();
+
+  void Go(double speed);
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -38,9 +40,10 @@ class Climber : public frc2::SubsystemBase {
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-  WPI_TalonSRX m_motor{ConClimber::MOTOR_ID};
+  TalonSRX m_motor{ConClimber::MOTOR_ID};
   frc::DutyCycleEncoder m_dutyCycleEncoder{0};
   nt::NetworkTableEntry m_tabClimberDistance;
+  double m_climberPosition;
 
 #endif // ENABLE_CLIMBER
 };
