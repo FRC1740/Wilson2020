@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "Constants.h"
 #include <frc2/command/SubsystemBase.h>
 
 class Vision : public frc2::SubsystemBase {
@@ -18,9 +19,17 @@ class Vision : public frc2::SubsystemBase {
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic();
+
+  double Align();
+
+  void ToggleLight();
+
 #endif // ENABLE_VISION
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
+  std::shared_ptr<NetworkTable> m_tabLimelight;
+  float m_tx;
+  //float m_steeringAdjust;
 };
