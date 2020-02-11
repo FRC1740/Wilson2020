@@ -160,6 +160,14 @@ namespace ConShuffleboard {
     constexpr char VisionTab[] = "Vision";
 }
 
+namespace ConVision {
+    namespace AlignToPlayerStation {
+        constexpr float P = 0.15;
+        constexpr float I = 0.0;
+        constexpr float D = 0.0;
+    }
+}
+
 namespace ConXBOXControl {
     // Axis inputs
     constexpr int LEFT_JOYSTICK_X = 0;
