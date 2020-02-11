@@ -7,7 +7,8 @@
 
 #include "subsystems/Vision.h"
 
-Vision::Vision() {}
+Vision::Vision() {
+}
 
 #ifdef ENABLE_VISION
 // This method will be called once per scheduler run

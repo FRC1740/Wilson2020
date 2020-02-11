@@ -7,9 +7,10 @@
 
 #include "commands/AlignToPlayerStation.h"
 
-AlignToPlayerStation::AlignToPlayerStation(Vision *vision) : m_vision(vision) {
+AlignToPlayerStation::AlignToPlayerStation(Vision *vision, DriveTrain *drive) : m_vision(vision), m_drive(drive) {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements(vision);
+  AddRequirements(drive);
 }
 
 #ifdef ENABLE_VISION
@@ -17,7 +18,10 @@ AlignToPlayerStation::AlignToPlayerStation(Vision *vision) : m_vision(vision) {
 void AlignToPlayerStation::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void AlignToPlayerStation::Execute() {}
+void AlignToPlayerStation::Execute() {
+  rotation_factor = m_vision->Align();
+  m_drive->TankDrive(rotation_factor, -rotation_factor);
+}
 
 // Called once the command ends or is interrupted.
 void AlignToPlayerStation::End(bool interrupted) {}
