@@ -38,6 +38,7 @@ void Climber::RetractClimber() {
 
 void Climber::StopClimber() {
   m_motor.Set(ControlMode::PercentOutput, 0.0);
+
 }
 
 void Climber::ResetEncoder() {
