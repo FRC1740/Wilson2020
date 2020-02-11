@@ -9,7 +9,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/Vision.h"
+#include "subsystems/Shooter.h"
 
 /**
  * An example command.
@@ -18,12 +18,11 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class ToggleVisionLight
-    : public frc2::CommandHelper<frc2::CommandBase, ToggleVisionLight> {
+class JumbleShooter
+    : public frc2::CommandHelper<frc2::CommandBase, JumbleShooter> {
  public:
-  explicit ToggleVisionLight(Vision *vision);
+  explicit JumbleShooter(Shooter *shooter);
 
-#ifdef ENABLE_VISION
   void Initialize() override;
 
   void Execute() override;
@@ -31,8 +30,7 @@ class ToggleVisionLight
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-#endif // ENABLE_VISION
 
  private:
-  Vision *m_vision;
+  Shooter *m_shooter;
 };

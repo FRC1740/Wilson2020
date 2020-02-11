@@ -13,6 +13,7 @@ AlignToPlayerStation::AlignToPlayerStation(Vision *vision, DriveTrain *drive) : 
   AddRequirements(drive);
 }
 
+#ifdef ENABLE_VISION
 // Called when the command is initially scheduled.
 void AlignToPlayerStation::Initialize() {}
 
@@ -26,14 +27,5 @@ void AlignToPlayerStation::Execute() {
 void AlignToPlayerStation::End(bool interrupted) {}
 
 // Returns true when the command should end.
-//FIXME: this can probably be a PIDcontroller
-bool AlignToPlayerStation::IsFinished() { 
-  
-  if (std::abs(m_vision->Align()) < ConVision::I){
-    return true;
-  }
-  
-  
-  return false; 
-
-}
+bool AlignToPlayerStation::IsFinished() { return false; }
+#endif // ENABLE_VISION

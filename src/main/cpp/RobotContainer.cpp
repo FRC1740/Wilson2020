@@ -54,6 +54,7 @@ void RobotContainer::ConfigureButtonBindings() {
 
   // Shooter
   //FIXME: Test these
+  //FIXME: add SpinUpCloseShooter - right bumper, SpinUpFarShooter - left bumper, and JumbleShooter - A
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::LEFT_BUMPER); }).WhenHeld(new SpinUpShooter(&m_shooter));
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_BUMPER); }).WhenHeld(new ActivateShooter(&m_shooter));
 
@@ -64,11 +65,35 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::Y); }).WhenHeld(new ToggleVisionLight(&m_vision));
 
   // ControlPanelManipulator
-  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::A); }).WhenPressed(new RotateThreeCPM(&m_controlPanelManipulator));
+  //FIXME: change RotateThreeCPM and GoToColorCPM to be on the D-Pad
+  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::A); }).WhenPressed(new RotateThreeCPM(&m_controlPanelManipulator), false);
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::B); }).WhenPressed(new GoToColorCPM(&m_controlPanelManipulator), false);
   // FIXME: Combine these two?
-  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::LEFT_TRIGGER); }).WhenHeld(new RotateManualCPM(&m_controlPanelManipulator));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_TRIGGER); }).WhenHeld(new RotateManualCPM(&m_controlPanelManipulator));
+
+    RotateManualCPM( &m_controlPanelManipulator,
+    [this] { return codriver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER) - codriver_control.GetRawAxis(ConXBOXControl::LEFT_TRIGGER); } );
+//  frc2::Button([this] {return codriver_control.GetRawAxis(ConXBOXControl::LEFT_TRIGGER); }).WhenHeld(new RotateManualCPM(&m_controlPanelManipulator));
+//  frc2::Button([this] {return codriver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER); }).WhenHeld(new RotateManualCPM(&m_controlPanelManipulator));
+
+  /*
+  ACCORDING TO DOCS.WPILIB:
+
+  WhenPressed - schedules a command when a trigger/button changes from inactive to active; 
+      command will not be scheduled again unless the trigger/button becomes inactive and then active again
+
+  WhenHeld - schedules a command when a trigger/button changes from inactive to active, 
+      and cancels it when the trigger/button becomes inactive again. The command will *not* be 
+      re-scheduled if it finishes while the trigger/button is still active
+
+  WhileHeld - schedules a command repeatedly while a trigger/button is active, and
+      cancels it when the trigger/button becomes inactive again. The command *will* be 
+      re-scheduled if it finishes while the trigger/button is still active
+
+  WhenReleased - schedules a command when a trigger/button changes from active to inactive;
+      command will not be re-scheduled unless the trigger/button becomes active and then inactive again
+
+  NOTE: these can have multiple parameters, including "interruptable" which is default true
+  */
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

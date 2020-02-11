@@ -5,27 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/ExtendClimber.h"
+#include "commands/SpinUpCloseShooter.h"
 
-ExtendClimber::ExtendClimber(Climber *climber) : m_climber(climber) {
+SpinUpCloseShooter::SpinUpCloseShooter(Shooter *shooter) : m_shooter(shooter) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(climber);
+  AddRequirements(shooter);
 }
 
-#ifdef ENABLE_CLIMBER
 // Called when the command is initially scheduled.
-void ExtendClimber::Initialize() {}
+void SpinUpCloseShooter::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ExtendClimber::Execute() {
-  m_climber->ExtendClimber(); // Moved speed to subsystem
-}
+void SpinUpCloseShooter::Execute() {}
 
 // Called once the command ends or is interrupted.
-void ExtendClimber::End(bool interrupted) {
-  m_climber->StopClimber();
-}
+void SpinUpCloseShooter::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool ExtendClimber::IsFinished() { return false; }
-#endif // ENABLE_CLIMBER
+bool SpinUpCloseShooter::IsFinished() { return false; }

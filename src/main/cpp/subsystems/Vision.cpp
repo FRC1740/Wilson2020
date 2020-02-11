@@ -10,36 +10,32 @@
 Vision::Vision() {
 }
 
+#ifdef ENABLE_VISION
 // This method will be called once per scheduler run
 void Vision::Periodic() {
     //FIXME: this is deprecated
-    table = NetworkTable::GetTable("limelight");
+    m_tabLimelight = NetworkTable::GetTable("limelight");
 }
 
 double Vision::Align(){
-    tx = table->GetNumber("tx", 0.0);
-    steering_adjust = ConVision::P * tx;
-    return steering_adjust;
+    m_tx = m_tabLimelight->GetNumber("tx", 0.0);
+    return m_tx;
+    //m_steeringAdjust = ConVision::AlignToPlayerStation::P * tx;
+    //return m_steeringAdjust;
 }
 
-void Vision::ToggleLight()
-{
-    /*
-    3 = On
-    2 = Blink
-    1 = Off
-    */
+void Vision::ToggleLight(){
+    constexpr int ON = 3;
+    //constexpr int BLINK = 2;
+    constexpr int OFF = 1;
 
-    if (table->GetNumber("ledMode", 3) == 1)
+    if (m_tabLimelight->GetNumber("ledMode", ON) == OFF)
     {
-        table->PutNumber("ledMode", 3);
-
+        m_tabLimelight->PutNumber("ledMode", ON);
     } 
     else
-
     {
-        table->PutNumber("ledMode", 1);
+        m_tabLimelight->PutNumber("ledMode", OFF);
     }
-    
-
 }
+#endif // ENABLE_VISION

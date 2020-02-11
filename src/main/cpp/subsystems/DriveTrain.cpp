@@ -7,14 +7,36 @@
 
 #include "subsystems/DriveTrain.h"
 
-DriveTrain::DriveTrain() {}
+DriveTrain::DriveTrain() {
+#ifdef ENABLE_DRIVETRAIN
+  // Settings for Spark Max motor controllers should be done here, in code
+  // and not in the Spark Max Client Software
+  m_rightMotorA.SetOpenLoopRampRate(ConDriveTrain::RAMP_RATE);
+  m_rightMotorB.SetOpenLoopRampRate(ConDriveTrain::RAMP_RATE);
+  m_leftMotorA.SetOpenLoopRampRate(ConDriveTrain::RAMP_RATE);
+  m_leftMotorB.SetOpenLoopRampRate(ConDriveTrain::RAMP_RATE);
+
+  m_rightMotorA.SetInverted(ConDriveTrain::INVERSION);
+  m_rightMotorB.SetInverted(ConDriveTrain::INVERSION);
+  m_leftMotorA.SetInverted(ConDriveTrain::INVERSION);
+  m_leftMotorB.SetInverted(ConDriveTrain::INVERSION);
+
+  // Set additional motor controllers on drive train to follow
+  m_rightMotorB.Follow(m_rightMotorA, false);
+  m_leftMotorB.Follow(m_leftMotorA, false);
+#endif // ENABLE_DRIVETRAIN
+}
 
 #ifdef ENABLE_DRIVETRAIN
 // This method will be called once per scheduler run
 void DriveTrain::Periodic() {}
 
 void DriveTrain::ArcadeDrive(double speed, double rotation) {
-  m_driveTrain.ArcadeDrive(speed, (DeadZone(rotation) * ConDriveTrain::ROTATION_FACTOR));
+  m_driveTrain.ArcadeDrive(speed, DeadZone(rotation));
+}
+
+void DriveTrain::TankDrive(double left, double right){
+  m_driveTrain.TankDrive(left, right);
 }
 
 void DriveTrain::TankDrive(double left, double right) {
@@ -22,6 +44,7 @@ void DriveTrain::TankDrive(double left, double right) {
 }
 
 void DriveTrain::SetMaxOutput(double maxOutput) {
+  m_maxOutput = maxOutput;
   m_driveTrain.SetMaxOutput(maxOutput);
 }
 
@@ -35,15 +58,15 @@ void DriveTrain::ResetEncoders() {
 
 // FIXME: Account for two encoders per side
 // Right Encoder set to negative b/c motor flipped
-double DriveTrain::GetRightEncoder() {
-  return (-m_rightEncoderA.GetPosition() * ConAuto::ENCODER_TICKS_TO_INCHES) + ConAuto::ENCODER_TICKS_OFFSET;
+double DriveTrain::GetRightDistance() {
+  return (m_rightEncoderA.GetPosition() * ConAuto::ENCODER_TICKS_TO_INCHES) + ConAuto::ENCODER_TICKS_OFFSET;
 }
 
-double DriveTrain::GetLeftEncoder() {
+double DriveTrain::GetLeftDistance() {
   return (m_leftEncoderA.GetPosition() * ConAuto::ENCODER_TICKS_TO_INCHES) + ConAuto::ENCODER_TICKS_OFFSET;
 }
 
 double DriveTrain::GetAverageEncoderDistance() {
-  return (DriveTrain::GetRightEncoder() + DriveTrain::GetLeftEncoder()) / 2.0;
+  return (m_leftEncoderA.GetPosition() + m_rightEncoderA.GetPosition()) / 2.0;
 }
 #endif // ENABLE_DRIVETRAIN

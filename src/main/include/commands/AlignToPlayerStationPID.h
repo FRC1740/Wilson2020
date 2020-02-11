@@ -7,32 +7,19 @@
 
 #pragma once
 
-#include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include <frc2/command/PIDCommand.h>
 #include "subsystems/Vision.h"
+#include "subsystems/DriveTrain.h"
 
-/**
- * An example command.
- *
- * <p>Note that this extends CommandHelper, rather extending CommandBase
- * directly; this is crucially important, or else the decorator functions in
- * Command will *not* work!
- */
-class ToggleVisionLight
-    : public frc2::CommandHelper<frc2::CommandBase, ToggleVisionLight> {
+class AlignToPlayerStationPID
+    : public frc2::CommandHelper<frc2::PIDCommand, AlignToPlayerStationPID> {
  public:
-  explicit ToggleVisionLight(Vision *vision);
-
-#ifdef ENABLE_VISION
-  void Initialize() override;
-
-  void Execute() override;
-
-  void End(bool interrupted) override;
+  explicit AlignToPlayerStationPID(Vision *vision, DriveTrain *drive);
 
   bool IsFinished() override;
-#endif // ENABLE_VISION
 
- private:
-  Vision *m_vision;
+  private:
+    Vision *m_vision;
+    DriveTrain *m_drive;
 };
