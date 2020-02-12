@@ -12,6 +12,7 @@ SpinUpCloseShooter::SpinUpCloseShooter(Shooter *shooter) : m_shooter(shooter) {
   AddRequirements(shooter);
 }
 
+#ifdef ENABLE_SHOOTER
 // Called when the command is initially scheduled.
 void SpinUpCloseShooter::Initialize() {}
 
@@ -23,3 +24,4 @@ void SpinUpCloseShooter::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool SpinUpCloseShooter::IsFinished() { return false; }
+#endif // ENABLE_SHOOTER
