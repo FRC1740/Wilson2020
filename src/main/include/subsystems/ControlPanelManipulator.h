@@ -48,11 +48,10 @@ class ControlPanelManipulator : public frc2::SubsystemBase {
   std::string m_fieldColor;
 
   std::string LookupColor(std::string); // Lookup between our sensed color and field color
+
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-  // FIXME: Should we use WPI_TalonSRX, or TalonSRX from the ctre library?
   TalonSRX m_rotationMotor {ConControlPanelManipulator::MOTOR_ID}; // 2020 Vendor Library
-  // WPI_TalonSRX m_rotationMotor {ConControlPanelManipulator::MOTOR_ID};
   double m_currentSpeed;
 
   /**
