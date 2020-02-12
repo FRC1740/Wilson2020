@@ -15,11 +15,12 @@
 class AlignToPlayerStationPID
     : public frc2::CommandHelper<frc2::PIDCommand, AlignToPlayerStationPID> {
  public:
-  explicit AlignToPlayerStationPID(Vision *vision, DriveTrain *drive);
+  explicit AlignToPlayerStationPID(Vision *vision, DriveTrain *driveTrain);
 
   bool IsFinished() override;
 
   private:
-    Vision *m_vision;
-    DriveTrain *m_drive;
+    // Member elements are not needed if the command is a lambda
+    //Vision *m_vision;
+    //DriveTrain *m_driveTrain;
 };
