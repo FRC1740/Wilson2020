@@ -145,11 +145,11 @@ namespace ConShooter {
         constexpr double FF = 1.7e-4;
     }
     namespace Feeder {
-        constexpr int MOTOR_ID = 1;
+        constexpr int MOTOR_ID = 7;
         constexpr double MOTOR_SPEED = 0.5;
     }
-    namespace Hopper {
-        constexpr int MOTOR_ID = 0;
+    namespace Hopper { //Jumbler
+        constexpr int MOTOR_ID = 1;
         constexpr double MOTOR_SPEED = 0.5;
     }
 }
