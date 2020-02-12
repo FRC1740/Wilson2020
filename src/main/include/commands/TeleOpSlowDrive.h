@@ -9,8 +9,8 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/Vision.h"
 #include "subsystems/DriveTrain.h"
+
 /**
  * An example command.
  *
@@ -18,22 +18,17 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class AlignToPlayerStation
-    : public frc2::CommandHelper<frc2::CommandBase, AlignToPlayerStation> {
+class TeleOpSlowDrive
+    : public frc2::CommandHelper<frc2::CommandBase, TeleOpSlowDrive> {
  public:
-  explicit AlignToPlayerStation(Vision *vision, DriveTrain *driveTrain);
+  explicit TeleOpSlowDrive(DriveTrain *drivetrain);
 
-#if defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
+#ifdef ENABLE_DRIVETRAIN
   void Initialize() override;
 
-  void Execute() override;
-
   void End(bool interrupted) override;
-
-  bool IsFinished() override;
-#endif // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
+#endif // ENABLE_DRIVETRAIN
 
  private:
-  Vision *m_vision;
-  DriveTrain *m_driveTrain;
+   DriveTrain *m_driveTrain;
 };
