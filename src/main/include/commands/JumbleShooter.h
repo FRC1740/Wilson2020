@@ -23,6 +23,7 @@ class JumbleShooter
  public:
   explicit JumbleShooter(Shooter *shooter);
 
+#ifdef ENABLE_SHOOTER
   void Initialize() override;
 
   void Execute() override;
@@ -30,6 +31,7 @@ class JumbleShooter
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+#endif // ENABLE_SHOOTER
 
  private:
   Shooter *m_shooter;

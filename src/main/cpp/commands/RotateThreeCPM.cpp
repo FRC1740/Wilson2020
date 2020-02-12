@@ -13,8 +13,10 @@
 RotateThreeCPM::RotateThreeCPM(ControlPanelManipulator *controlpanelmanipulator) : m_controlPanelManipulator(controlpanelmanipulator) {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements(controlpanelmanipulator);
+#ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
   frc::Shuffleboard::SelectTab(ConShuffleboard::ControlPanelManipulatorTab);
   m_rotationCount = m_controlPanelManipulator->m_tabCPM->Add("Transition Count", 0).GetEntry();
+#endif // ENABLE_CONTROL_PANEL_MANIPULATOR
 }
 #ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
 // Called when the command is initially scheduled.
