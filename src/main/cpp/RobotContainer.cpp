@@ -23,6 +23,8 @@
 #include "commands/RotateThreeCPM.h"
 #include "commands/GoToColorCPM.h"
 #include "commands/RotateManualCPM.h"
+#include "commands/JumbleShooter.h"
+
 
 #include "RobotContainer.h"
 
@@ -63,6 +65,7 @@ void RobotContainer::ConfigureButtonBindings() {
   // Shooter
   //FIXME: Test these
   //FIXME: add SpinUpCloseShooter - right bumper, SpinUpFarShooter - left bumper, and JumbleShooter - A
+  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::A); }).WhenHeld(new JumbleShooter(&m_shooter));
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::LEFT_BUMPER); }).WhenHeld(new SpinUpShooter(&m_shooter));
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_BUMPER); }).WhenHeld(new ActivateShooter(&m_shooter));
 #endif // ENABLE_SHOOTER
@@ -78,8 +81,10 @@ void RobotContainer::ConfigureButtonBindings() {
 #ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
   // ControlPanelManipulator
   //FIXME: change RotateThreeCPM and GoToColorCPM to be on the D-Pad
-  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::A); }).WhenPressed(new RotateThreeCPM(&m_controlPanelManipulator), false);
+  //frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::A); }).WhenPressed(new RotateThreeCPM(&m_controlPanelManipulator), false);
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::B); }).WhenPressed(new GoToColorCPM(&m_controlPanelManipulator), false);
+
+  
   // FIXME: Combine these two?
 
     RotateManualCPM( &m_controlPanelManipulator,

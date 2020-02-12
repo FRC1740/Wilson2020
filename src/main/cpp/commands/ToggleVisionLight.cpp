@@ -14,7 +14,7 @@ ToggleVisionLight::ToggleVisionLight(Vision *vision) : m_vision(vision) {
 
 #ifdef ENABLE_VISION
 // Called when the command is initially scheduled.
-void ToggleVisionLight::Initialize() {}
+void ToggleVisionLight::Initialize() {m_vision->ToggleLight();}
 
 // Called repeatedly when this Command is scheduled to run
 void ToggleVisionLight::Execute() {

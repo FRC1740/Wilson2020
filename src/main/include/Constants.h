@@ -37,12 +37,12 @@ namespace ConAuto {
 
 namespace ConClimber {
     // Motor
-    constexpr int MOTOR_ID = 3; // 9?;
+    constexpr int MOTOR_ID = 1; // 9?;
     constexpr double EXT_SPEED = -1.0; // CRE 02-10 Negative motor input should extend
     constexpr double RET_SPEED = 1.0; // CRE 02-10 Positive motor input should retract
     constexpr double ROTATION_DISTANCE = 3.75; // inches #35 Chain = .375 pitch x 10 tooth = 3.75 inches
-    constexpr double EXT_LIMIT = -12.0; // inches FIXME: Guesstimate in inches
-    constexpr double RET_LIMIT = 0.0; // Starting Configuration: fully retracted, Encoder=0
+    constexpr double EXT_LIMIT = -31.0; // inches FIXME: Guesstimate in inches
+    constexpr double RET_LIMIT = -0.6023; // Starting Configuration: fully retracted, Encoder=0
 }
 
 namespace ConControlPanelManipulator {
@@ -122,9 +122,11 @@ namespace ConNEO {
 namespace ConShooter {
     namespace Top {
         constexpr int MOTOR_ID = 9;
+        constexpr int JUMBLE_MOTOR = 1;
         constexpr int WHEEL_SIZE = 4; //in inches
         constexpr double VELOCITY_FACTOR = 1; //(ConMath::PI*WHEEL_SIZE) * ConMath::METERS_2_INCH * ConMath::MINUTES_2_SECONDS; //(velocity) y [m/s] = PI*WHEEL_SIZE * m/in * 1/60 * x [RPM]
         constexpr double MOTOR_SPEED = 0.5;
+        constexpr double JUMBLE_POWER = 0.5;
         //PID gains
         constexpr double P = 2e-4;
         constexpr double I = 0.0;
@@ -143,11 +145,12 @@ namespace ConShooter {
         constexpr double FF = 1.7e-4;
     }
     namespace Feeder {
-        constexpr int MOTOR_ID = 1;
+        constexpr int MOTOR_ID = 7;
         constexpr double MOTOR_SPEED = 0.5;
     }
-    namespace Hopper {
-        constexpr int MOTOR_ID = 0;
+    namespace Hopper { //Jumbler
+        constexpr int MOTOR_ID = 1;
+        constexpr double MOTOR_SPEED = 0.5;
     }
 }
 
