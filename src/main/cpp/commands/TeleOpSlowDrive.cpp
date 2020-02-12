@@ -5,25 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/JumbleShooter.h"
+#include "commands/TeleOpSlowDrive.h"
 
-JumbleShooter::JumbleShooter(Shooter *shooter) : m_shooter(shooter) {
+TeleOpSlowDrive::TeleOpSlowDrive(DriveTrain *drivetrain) : m_driveTrain(drivetrain) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(shooter);
+  AddRequirements(drivetrain);
 }
 
-#ifdef ENABLE_SHOOTER
+#ifdef ENABLE_DRIVETRAIN
 // Called when the command is initially scheduled.
-void JumbleShooter::Initialize() {}
-
-// Called repeatedly when this Command is scheduled to run
-void JumbleShooter::Execute() {
-  m_shooter->SetHopperSpeed(ConShooter::Hopper::MOTOR_SPEED);
+void TeleOpSlowDrive::Initialize() {
+  double max_output = m_driveTrain->GetMaxOutput() * 0.5;
+  m_driveTrain->SetMaxOutput(max_output);
 }
 
 // Called once the command ends or is interrupted.
-void JumbleShooter::End(bool interrupted) {}
-
-// Returns true when the command should end.
-bool JumbleShooter::IsFinished() { return false; }
-#endif // ENABLE_SHOOTER
+void TeleOpSlowDrive::End(bool interrupted) {
+  double max_output = m_driveTrain->GetMaxOutput() * 2.0;
+  m_driveTrain->SetMaxOutput(max_output);
+}
+#endif // ENABLE_DRIVETRAIN

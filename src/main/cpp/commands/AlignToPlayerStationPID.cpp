@@ -15,6 +15,7 @@ AlignToPlayerStationPID::AlignToPlayerStationPID(Vision *vision, DriveTrain *dri
       ConVision::AlignToPlayerStation::P,
       ConVision::AlignToPlayerStation::I,
       ConVision::AlignToPlayerStation::D),
+#if defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
                     // This should return the measurement
                     [vision] { return vision->Align(); },
                     // This should return the setpoint (can also be a constant)
@@ -24,9 +25,17 @@ AlignToPlayerStationPID::AlignToPlayerStationPID(Vision *vision, DriveTrain *dri
                       // Use the output here
                       driveTrain->TankDrive(-output, output);
                     },
+#else // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
+    [] { return 0.0; },
+    [] { return 0.0; },
+    [](double output) { },
+#endif // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
                     { driveTrain, vision }
                     ) {}
                     
-
+#if defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
 // Returns true when the command should end.
 bool AlignToPlayerStationPID::IsFinished() { return GetController().AtSetpoint(); }
+#else // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
+bool AlignToPlayerStationPID::IsFinished() { return true; }
+#endif // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)

@@ -21,9 +21,9 @@
 class AlignToPlayerStation
     : public frc2::CommandHelper<frc2::CommandBase, AlignToPlayerStation> {
  public:
-  explicit AlignToPlayerStation(Vision *vision, DriveTrain *drive);
+  explicit AlignToPlayerStation(Vision *vision, DriveTrain *driveTrain);
 
-#ifdef ENABLE_VISION
+#if defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
   void Initialize() override;
 
   void Execute() override;
@@ -31,10 +31,9 @@ class AlignToPlayerStation
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-#endif // ENABLE_VISION
+#endif // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
 
  private:
   Vision *m_vision;
-  DriveTrain *m_drive;
-  double rotation_factor;
+  DriveTrain *m_driveTrain;
 };
