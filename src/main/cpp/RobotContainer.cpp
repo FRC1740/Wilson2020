@@ -11,6 +11,7 @@
 
 #include "commands/AutoDrive.h"
 #include "commands/TeleOpDrive.h"
+#include "commands/TeleOpSlowDrive.h"
 #include "commands/ExtendClimber.h"
 #include "commands/RetractClimber.h"
 #include "commands/SpinUpShooter.h"
@@ -44,6 +45,12 @@ RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain) {
 
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
+
+#ifdef ENABLE_DRIVETRAIN
+  // Commence reduced speed driving when bumper(s) pressed
+  frc2::Button([this] { return driver_control.GetRawButton(ConXBOXControl::RIGHT_BUMPER); }).WhenHeld(new TeleOpSlowDrive(&m_driveTrain));
+  frc2::Button([this] { return driver_control.GetRawButton(ConXBOXControl::LEFT_BUMPER); }).WhenHeld(new TeleOpSlowDrive(&m_driveTrain));
+#endif // ENABLE_DRIVETRAIN
 
 #ifdef ENABLE_CLIMBER
   // Climber

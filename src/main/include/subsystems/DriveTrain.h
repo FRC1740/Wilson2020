@@ -33,6 +33,8 @@ class DriveTrain : public frc2::SubsystemBase {
 
   void TankDrive(double left, double right);
 
+  double GetMaxOutput();
+
   void SetMaxOutput(double maxOutput);
 
   double GetRightDistance();

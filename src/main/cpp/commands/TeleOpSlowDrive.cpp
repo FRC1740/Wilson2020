@@ -5,23 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/AlignToPowerPort.h"
+#include "commands/TeleOpSlowDrive.h"
 
-AlignToPowerPort::AlignToPowerPort(Vision *vision) : m_vision(vision) {
+TeleOpSlowDrive::TeleOpSlowDrive(DriveTrain *drivetrain) : m_driveTrain(drivetrain) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(vision);
+  AddRequirements(drivetrain);
 }
 
-#if defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
+#ifdef ENABLE_DRIVETRAIN
 // Called when the command is initially scheduled.
-void AlignToPowerPort::Initialize() {}
-
-// Called repeatedly when this Command is scheduled to run
-void AlignToPowerPort::Execute() {}
+void TeleOpSlowDrive::Initialize() {
+  double max_output = m_driveTrain->GetMaxOutput() * 0.5;
+  m_driveTrain->SetMaxOutput(max_output);
+}
 
 // Called once the command ends or is interrupted.
-void AlignToPowerPort::End(bool interrupted) {}
-
-// Returns true when the command should end.
-bool AlignToPowerPort::IsFinished() { return false; }
-#endif // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
+void TeleOpSlowDrive::End(bool interrupted) {
+  double max_output = m_driveTrain->GetMaxOutput() * 2.0;
+  m_driveTrain->SetMaxOutput(max_output);
+}
+#endif // ENABLE_DRIVETRAIN

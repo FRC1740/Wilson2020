@@ -29,4 +29,3 @@ void AlignToPlayerStation::End(bool interrupted) {}
 // Returns true when the command should end.
 bool AlignToPlayerStation::IsFinished() { return false; }
 #endif // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
-
