@@ -28,9 +28,4 @@ void ToggleVisionLight::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool ToggleVisionLight::IsFinished() { return false; }
-<<<<<<< HEAD
-
-// I'm a comment!
-=======
 #endif // ENABLE_VISION
->>>>>>> 7fe3848cc6cd0bd3671ff5d31ca89308d2b3d607

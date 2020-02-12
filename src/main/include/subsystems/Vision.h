@@ -9,7 +9,7 @@
 
 #include "Constants.h"
 #include <frc2/command/SubsystemBase.h>
-#include <Constants.h>
+
 class Vision : public frc2::SubsystemBase {
  public:
   Vision();
@@ -34,4 +34,4 @@ class Vision : public frc2::SubsystemBase {
   float m_tx;
   //float m_steeringAdjust;
 
-
+};
