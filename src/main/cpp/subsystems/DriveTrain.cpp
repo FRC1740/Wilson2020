@@ -39,6 +39,10 @@ void DriveTrain::TankDrive(double left, double right){
   m_driveTrain.TankDrive(left, right);
 }
 
+void DriveTrain::TankDrive(double left, double right) {
+  m_driveTrain.TankDrive(left, right);
+}
+
 void DriveTrain::SetMaxOutput(double maxOutput) {
   m_maxOutput = maxOutput;
   m_driveTrain.SetMaxOutput(maxOutput);
