@@ -9,6 +9,8 @@
 
 #include "Constants.h"
 #include <frc2/command/SubsystemBase.h>
+#include <networktables/NetworkTable.h>
+#include <networktables/NetworkTableInstance.h>
 
 class Vision : public frc2::SubsystemBase {
  public:

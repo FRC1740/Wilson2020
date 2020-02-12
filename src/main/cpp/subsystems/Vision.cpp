@@ -7,20 +7,17 @@
 
 #include "subsystems/Vision.h"
 
-Vision::Vision() {}
+Vision::Vision() {
+    m_tabLimelight = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
+}
 
 #ifdef ENABLE_VISION
 // This method will be called once per scheduler run
-void Vision::Periodic() {
-    //FIXME: this is deprecated
-    m_tabLimelight = NetworkTable::GetTable("limelight");
-}
+void Vision::Periodic() {}
 
 double Vision::Align(){
     m_tx = m_tabLimelight->GetNumber("tx", 0.0);
     return m_tx;
-    //m_steeringAdjust = ConVision::AlignToPlayerStation::P * tx;
-    //return m_steeringAdjust;
 }
 
 void Vision::ToggleLight(){
