@@ -39,7 +39,6 @@ void Climber::RetractClimber() {
 void Climber::StopClimber() {
   //m_motor.Set(ControlMode::PercentOutput, 0.0);
   m_motor.Set(0.0);
-
 }
 
 void Climber::ResetEncoder() {
@@ -56,10 +55,8 @@ void Climber::Periodic() {
   m_climberPosition = m_dutyCycleEncoder.GetDistance();
   m_tabClimberDistance.SetDouble(m_climberPosition);
   
-  if (codriver_control.GetRawButton(ConXBOXControl::START))
-  {
+  if (codriver_control.GetRawButton(ConXBOXControl::START)) {
     ResetEncoder();
-
   }
 }
 #endif // ENABLE_CLIMBER

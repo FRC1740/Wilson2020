@@ -25,7 +25,6 @@
 #include "commands/RotateManualCPM.h"
 #include "commands/JumbleShooter.h"
 
-
 #include "RobotContainer.h"
 
 RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain) {
