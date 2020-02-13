@@ -10,6 +10,14 @@
 #include "Constants.h"
 #include <frc2/command/SubsystemBase.h>
 
+namespace X_ConVision {
+    namespace AlignToPlayerStation {
+        constexpr float P = 0.15;
+        constexpr float I = 0.0;
+        constexpr float D = 0.0;
+    }
+}
+
 class Vision : public frc2::SubsystemBase {
  public:
   Vision();
