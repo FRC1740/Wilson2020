@@ -122,11 +122,9 @@ namespace ConNEO {
 namespace ConShooter {
     namespace Top {
         constexpr int MOTOR_ID = 9;
-        constexpr int JUMBLE_MOTOR = 1;
         constexpr int WHEEL_SIZE = 4; //in inches
         constexpr double VELOCITY_FACTOR = 1; //(ConMath::PI*WHEEL_SIZE) * ConMath::METERS_2_INCH * ConMath::MINUTES_2_SECONDS; //(velocity) y [m/s] = PI*WHEEL_SIZE * m/in * 1/60 * x [RPM]
         constexpr double MOTOR_SPEED = 0.5;
-        constexpr double JUMBLE_POWER = 0.5;
         //PID gains
         constexpr double P = 2e-4;
         constexpr double I = 0.0;
@@ -148,7 +146,7 @@ namespace ConShooter {
         constexpr int MOTOR_ID = 7;
         constexpr double MOTOR_SPEED = 0.5;
     }
-    namespace Hopper { //Jumbler
+    namespace Hopper { // Jumbler
         constexpr int MOTOR_ID = 1;
         constexpr double MOTOR_SPEED = 0.5;
     }

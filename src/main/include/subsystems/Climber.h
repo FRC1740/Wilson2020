@@ -49,6 +49,5 @@ class Climber : public frc2::SubsystemBase {
   nt::NetworkTableEntry m_tabClimberDistance;
   double m_climberPosition;
   frc::XboxController codriver_control{ConXBOXControl::CODRIVER_CONTROLLER_PORT};
-
 #endif // ENABLE_CLIMBER
 };
