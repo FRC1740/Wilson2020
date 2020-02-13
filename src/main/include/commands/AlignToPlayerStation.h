@@ -10,6 +10,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include "subsystems/Vision.h"
+#include "subsystems/DriveTrain.h"
 /**
  * An example command.
  *
@@ -20,9 +21,9 @@
 class AlignToPlayerStation
     : public frc2::CommandHelper<frc2::CommandBase, AlignToPlayerStation> {
  public:
-  explicit AlignToPlayerStation(Vision *vision);
+  explicit AlignToPlayerStation(Vision *vision, DriveTrain *driveTrain);
 
-#ifdef ENABLE_VISION
+#if defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
   void Initialize() override;
 
   void Execute() override;
@@ -30,8 +31,9 @@ class AlignToPlayerStation
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-#endif // ENABLE_VISION
+#endif // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
 
  private:
   Vision *m_vision;
+  DriveTrain *m_driveTrain;
 };

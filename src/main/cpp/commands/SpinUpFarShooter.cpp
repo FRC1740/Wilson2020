@@ -12,6 +12,7 @@ SpinUpFarShooter::SpinUpFarShooter(Shooter *shooter) : m_shooter(shooter) {
   AddRequirements(shooter);
 }
 
+#ifdef ENABLE_SHOOTER
 // Called when the command is initially scheduled.
 void SpinUpFarShooter::Initialize() {}
 
@@ -23,3 +24,4 @@ void SpinUpFarShooter::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool SpinUpFarShooter::IsFinished() { return false; }
+#endif // ENABLE_SHOOTER

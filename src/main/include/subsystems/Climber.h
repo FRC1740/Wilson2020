@@ -9,9 +9,12 @@
 
 #include <frc2/command/SubsystemBase.h>
 #include <ctre/Phoenix.h>
+#include <rev/CANSparkMax.h>
 #include <frc/DutyCycleEncoder.h>
 #include <frc/shuffleboard/Shuffleboard.h>
 #include <frc/shuffleboard/ShuffleboardTab.h>
+#include <frc/XboxController.h>
+
 #include "Constants.h"
 
 
@@ -40,10 +43,11 @@ class Climber : public frc2::SubsystemBase {
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-  TalonSRX m_motor{ConClimber::MOTOR_ID};
+  //TalonSRX m_motor{ConClimber::MOTOR_ID};
+  rev::CANSparkMax m_motor{ConClimber::MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless}; //Replace with SparkMAX
   frc::DutyCycleEncoder m_dutyCycleEncoder{0};
   nt::NetworkTableEntry m_tabClimberDistance;
   double m_climberPosition;
-
+  frc::XboxController codriver_control{ConXBOXControl::CODRIVER_CONTROLLER_PORT};
 #endif // ENABLE_CLIMBER
 };

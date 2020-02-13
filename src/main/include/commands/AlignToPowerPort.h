@@ -10,6 +10,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include "subsystems/Vision.h"
+#include "subsystems/DriveTrain.h"
 
 /**
  * An example command.
@@ -23,7 +24,7 @@ class AlignToPowerPort
  public:
   explicit AlignToPowerPort(Vision *vision);
 
-#ifdef ENABLE_VISION
+#if defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
   void Initialize() override;
 
   void Execute() override;
@@ -31,7 +32,7 @@ class AlignToPowerPort
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-#endif // ENABLE_VISION
+#endif // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
 
  private:
   Vision *m_vision;

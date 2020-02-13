@@ -14,10 +14,15 @@ ToggleVisionLight::ToggleVisionLight(Vision *vision) : m_vision(vision) {
 
 #ifdef ENABLE_VISION
 // Called when the command is initially scheduled.
-void ToggleVisionLight::Initialize() {}
+void ToggleVisionLight::Initialize() {
+  // FIXME: do we really want it both here and Execute?
+  m_vision->ToggleLight();
+}
 
 // Called repeatedly when this Command is scheduled to run
-void ToggleVisionLight::Execute() {}
+void ToggleVisionLight::Execute() {
+  m_vision->ToggleLight();
+}
 
 // Called once the command ends or is interrupted.
 void ToggleVisionLight::End(bool interrupted) {}

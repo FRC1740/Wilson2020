@@ -7,20 +7,28 @@
 
 #pragma once
 
+#include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include <frc2/command/PIDCommand.h>
-#include "subsystems/Vision.h"
 #include "subsystems/DriveTrain.h"
 
-class AlignToPlayerStationPID
-    : public frc2::CommandHelper<frc2::PIDCommand, AlignToPlayerStationPID> {
+/**
+ * An example command.
+ *
+ * <p>Note that this extends CommandHelper, rather extending CommandBase
+ * directly; this is crucially important, or else the decorator functions in
+ * Command will *not* work!
+ */
+class TeleOpSlowDrive
+    : public frc2::CommandHelper<frc2::CommandBase, TeleOpSlowDrive> {
  public:
-  explicit AlignToPlayerStationPID(Vision *vision, DriveTrain *driveTrain);
+  explicit TeleOpSlowDrive(DriveTrain *drivetrain);
 
-  bool IsFinished() override;
+#ifdef ENABLE_DRIVETRAIN
+  void Initialize() override;
 
-  private:
-    // Member elements are not needed if the command is a lambda
-    //Vision *m_vision;
-    //DriveTrain *m_driveTrain;
+  void End(bool interrupted) override;
+#endif // ENABLE_DRIVETRAIN
+
+ private:
+   DriveTrain *m_driveTrain;
 };

@@ -9,6 +9,8 @@
 
 #include "Constants.h"
 #include <frc2/command/SubsystemBase.h>
+#include <networktables/NetworkTable.h>
+#include <networktables/NetworkTableInstance.h>
 
 namespace X_ConVision {
     namespace AlignToPlayerStation {
@@ -31,7 +33,6 @@ class Vision : public frc2::SubsystemBase {
   double Align();
 
   void ToggleLight();
-
 #endif // ENABLE_VISION
 
  private:
@@ -39,5 +40,4 @@ class Vision : public frc2::SubsystemBase {
   // declared private and exposed only through public methods.
   std::shared_ptr<NetworkTable> m_tabLimelight;
   float m_tx;
-  //float m_steeringAdjust;
 };

@@ -37,8 +37,13 @@ void Climber::RetractClimber() {
 }
 
 void Climber::StopClimber() {
+<<<<<<< HEAD
   m_motor.Set(ControlMode::PercentOutput, 0.0);
 
+=======
+  //m_motor.Set(ControlMode::PercentOutput, 0.0);
+  m_motor.Set(0.0);
+>>>>>>> upstream/master
 }
 
 void Climber::ResetEncoder() {
@@ -46,13 +51,17 @@ void Climber::ResetEncoder() {
 }
 
 void Climber::Go(double speed) {
-  m_motor.Set(ControlMode::PercentOutput, speed);
-
+  //m_motor.Set(ControlMode::PercentOutput, speed);
+  m_motor.Set(speed);
 }
 
 // This method will be called once per scheduler run
 void Climber::Periodic() {
   m_climberPosition = m_dutyCycleEncoder.GetDistance();
   m_tabClimberDistance.SetDouble(m_climberPosition);
+  
+  if (codriver_control.GetRawButton(ConXBOXControl::START)) {
+    ResetEncoder();
+  }
 }
 #endif // ENABLE_CLIMBER

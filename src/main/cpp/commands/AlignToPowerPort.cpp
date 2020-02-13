@@ -12,7 +12,7 @@ AlignToPowerPort::AlignToPowerPort(Vision *vision) : m_vision(vision) {
   AddRequirements(vision);
 }
 
-#ifdef ENABLE_VISION
+#if defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
 // Called when the command is initially scheduled.
 void AlignToPowerPort::Initialize() {}
 
@@ -24,4 +24,4 @@ void AlignToPowerPort::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool AlignToPowerPort::IsFinished() { return false; }
-#endif // ENABLE_VISION
+#endif // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
