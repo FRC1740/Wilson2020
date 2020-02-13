@@ -45,6 +45,7 @@ namespace ConShooter {
     }
     namespace Hopper {
         constexpr int MOTOR_ID = 0;
+        constexpr int MOTOR_SPEED = 0.5;
     }
 }
 
