@@ -12,7 +12,7 @@
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableInstance.h>
 
-namespace X_ConVision {
+namespace ConVision {
     namespace AlignToPlayerStation {
         constexpr float P = 0.15;
         constexpr float I = 0.0;

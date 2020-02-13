@@ -16,7 +16,7 @@
 #include <TimeOfFlight.h>
 #include <frc/Encoder.h>
 
-namespace X_ConShooter {
+namespace ConShooter {
     namespace Top {
         constexpr int MOTOR_ID = 9;
         constexpr int WHEEL_SIZE = 4; //in inches

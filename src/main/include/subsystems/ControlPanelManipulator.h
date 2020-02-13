@@ -17,7 +17,7 @@
 
 #include "Constants.h"
 
-namespace X_ConControlPanelManipulator {
+namespace ConControlPanelManipulator {
     // Motor
     constexpr int MOTOR_ID = 3;
     constexpr double MOTOR_SPEED = 810; // 30 RPM x 27:1 = 810 motor RPM, 1 rotation every 2 seconds
