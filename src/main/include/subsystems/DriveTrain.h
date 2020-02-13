@@ -13,13 +13,13 @@
 
 #include "Constants.h"
 
-namespace X_ConAuto {
+namespace ConAuto {
     // Conversion factor Ticks -> Inches
     constexpr double ENCODER_TICKS_TO_INCHES = 2.0 + (2/9); // 0.58
     constexpr double ENCODER_TICKS_OFFSET = -6.0 - (2/3);
 }
 
-namespace X_ConDriveTrain {
+namespace ConDriveTrain {
     // Motors
     constexpr int RIGHT_MOTOR_A_ID = 2;
     constexpr int RIGHT_MOTOR_B_ID = 4;

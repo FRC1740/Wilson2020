@@ -29,63 +29,6 @@ namespace ConMath {
     constexpr double MINUTES_2_SECONDS = 1/60.; // sec/min
 }
 
-namespace ConAuto {
-    // Conversion factor Ticks -> Inches
-    constexpr double ENCODER_TICKS_TO_INCHES = 2.0 + (2/9); // 0.58
-    constexpr double ENCODER_TICKS_OFFSET = -6.0 - (2/3);
-}
-
-namespace ConClimber {
-    // Motor
-    constexpr int MOTOR_ID = 1; // 9?;
-    constexpr double EXT_SPEED = -1.0; // CRE 02-10 Negative motor input should extend
-    constexpr double RET_SPEED = 1.0; // CRE 02-10 Positive motor input should retract
-    constexpr double ROTATION_DISTANCE = 3.75; // inches #35 Chain = .375 pitch x 10 tooth = 3.75 inches
-    constexpr double EXT_LIMIT = -31.0; // inches FIXME: Guesstimate in inches
-    constexpr double RET_LIMIT = -0.6023; // Starting Configuration: fully retracted, Encoder=0
-}
-
-namespace ConControlPanelManipulator {
-    // Motor
-    constexpr int MOTOR_ID = 3;
-    constexpr double MOTOR_SPEED = 810; // 30 RPM x 27:1 = 810 motor RPM, 1 rotation every 2 seconds
-    // PID Constants for TalonSRX
-    enum Constants {
-        /**
-         * Which PID slot to pull gains from.  Starting 2018, you can choose
-         * from 0,1,2 or 3.  Only the first two (0,1) are visible in web-based configuration.
-         */
-        kSlotIdx = 0,
-
-        /* Talon SRX/ Victor SPX will supported multiple (cascaded) PID loops.
-        * For now we just want the primary one.
-        */
-        kPIDLoopIdx = 0,
-
-        /*
-        * set to zero to skip waiting for confirmation, set to nonzero to wait
-        * and report to DS if action fails.
-        */
-        kTimeoutMs = 30
-    };
-}
-
-namespace ConDriveTrain {
-    // Motors
-    constexpr int RIGHT_MOTOR_A_ID = 2;
-    constexpr int RIGHT_MOTOR_B_ID = 4;
-    constexpr int LEFT_MOTOR_A_ID = 3;
-    constexpr int LEFT_MOTOR_B_ID = 5;
-    constexpr double ROTATION_FACTOR = 1/1.3;
-
-    //Spark Max Settings
-    constexpr int RAMP_RATE = 0.100; //seconds
-    constexpr bool INVERSION = false; //
-    //Conversions
-    constexpr double IN_2_ENCODER = (10.71*42)/(6*ConMath::PI); //encoder to motor 42 counts/rev, motor to shaft 10.71:1, 6in wheel
-    constexpr double ENCODER_2_IN = 1/IN_2_ENCODER; 
-}
-
 namespace ConLimelight {
     constexpr int VISION_MODE = 0;
     constexpr int CAMERA_MODE = 1;
@@ -119,39 +62,6 @@ namespace ConNEO {
     constexpr int GEAR_RATIO = 10.71;
 }
 
-namespace ConShooter {
-    namespace Top {
-        constexpr int MOTOR_ID = 9;
-        constexpr int WHEEL_SIZE = 4; //in inches
-        constexpr double VELOCITY_FACTOR = 1; //(ConMath::PI*WHEEL_SIZE) * ConMath::METERS_2_INCH * ConMath::MINUTES_2_SECONDS; //(velocity) y [m/s] = PI*WHEEL_SIZE * m/in * 1/60 * x [RPM]
-        constexpr double MOTOR_SPEED = 0.5;
-        //PID gains
-        constexpr double P = 2e-4;
-        constexpr double I = 0.0;
-        constexpr double D = 2e-3;
-        constexpr double FF = 1.7e-4;
-    }
-    namespace Bottom {
-        constexpr int MOTOR_ID = 12;
-        constexpr int WHEEL_SIZE = 6; //in inches
-        constexpr double VELOCITY_FACTOR = 1; //(ConMath::PI*WHEEL_SIZE) * ConMath::METERS_2_INCH * ConMath::MINUTES_2_SECONDS; //(velocity) y [m/s] = PI*WHEEL_SIZE * m/in * 1/60 * x [RPM]
-        constexpr double MOTOR_SPEED = 0.5;
-         //PID gains
-        constexpr double P = 2e-4;
-        constexpr double I = 0.0;
-        constexpr double D = 2e-3;
-        constexpr double FF = 1.7e-4;
-    }
-    namespace Feeder {
-        constexpr int MOTOR_ID = 7;
-        constexpr double MOTOR_SPEED = 0.5;
-    }
-    namespace Hopper { // Jumbler
-        constexpr int MOTOR_ID = 1;
-        constexpr double MOTOR_SPEED = 0.5;
-    }
-}
-
 namespace ConShuffleboard {
     constexpr char RobotTab[] = "Robot";
     constexpr char ClimberTab[] = "Climber";
@@ -159,14 +69,6 @@ namespace ConShuffleboard {
     constexpr char DriveTrainTab[] = "DriveTrain";
     constexpr char ShooterTab[] = "Shooter";
     constexpr char VisionTab[] = "Vision";
-}
-
-namespace ConVision {
-    namespace AlignToPlayerStation {
-        constexpr float P = 0.15;
-        constexpr float I = 0.0;
-        constexpr float D = 0.0;
-    }
 }
 
 namespace ConXBOXControl {

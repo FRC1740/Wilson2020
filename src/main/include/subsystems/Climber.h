@@ -17,7 +17,7 @@
 
 #include "Constants.h"
 
-namespace X_ConClimber {
+namespace ConClimber {
     // Motor
     constexpr int MOTOR_ID = 1; // 9?;
     constexpr double EXT_SPEED = -1.0; // CRE 02-10 Negative motor input should extend
