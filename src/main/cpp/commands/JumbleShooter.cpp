@@ -22,7 +22,9 @@ void JumbleShooter::Execute() {
 }
 
 // Called once the command ends or is interrupted.
-void JumbleShooter::End(bool interrupted) {}
+void JumbleShooter::End(bool interrupted) {
+    m_shooter->SetHopperSpeed(0.0);
+}
 
 // Returns true when the command should end.
 bool JumbleShooter::IsFinished() { return false; }
