@@ -24,6 +24,7 @@
 #include "commands/GoToColorCPM.h"
 #include "commands/RotateManualCPM.h"
 #include "commands/JumbleShooter.h"
+#include "commands/LogDataToDashboard.h"
 
 #include "RobotContainer.h"
 
@@ -92,8 +93,8 @@ void RobotContainer::ConfigureButtonBindings() {
 //  frc2::Button([this] {return codriver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER); }).WhenHeld(new RotateManualCPM(&m_controlPanelManipulator));
 #endif // ENABLE_CONTROL_PANEL_MANIPULATOR
 
-#if 0
-  frc2::Button([this] { return true; }).WhileHeld(new LogDataToDashboard(&shooter, &vision, &driveTrain));
+#if 1
+  frc2::Button([this] { return true; }).WhileHeld(new LogDataToDashboard(&m_shooter));
 #endif
 
   /*

@@ -103,7 +103,7 @@ namespace ConXBOXControl {
 // DeadZone lambda function
 auto DeadZone = [] (double a) { return (std::fabs(a) > ConXBOXControl::DEAD_ZONE) ? a : 0.0; };
 
-// Texas Instruments Controller
+// Texas Instruments Controller (MSP430F5529 LaunchPad)
 namespace ConTiController {
     namespace Button {
         constexpr int RED = 10;
