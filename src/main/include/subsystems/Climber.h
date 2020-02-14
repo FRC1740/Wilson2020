@@ -20,8 +20,8 @@
 namespace ConClimber {
     // Motor
     constexpr int MOTOR_ID = 1; // 9?;
-    constexpr double EXT_SPEED = -1.0; // CRE 02-10 Negative motor input should extend
-    constexpr double RET_SPEED = 1.0; // CRE 02-10 Positive motor input should retract
+    constexpr double EXT_SPEED = -0.5; // CRE 02-10 Negative motor input should extend
+    constexpr double RET_SPEED = 0.5; // CRE 02-10 Positive motor input should retract
     constexpr double ROTATION_DISTANCE = 3.75; // inches #35 Chain = .375 pitch x 10 tooth = 3.75 inches
     constexpr double EXT_LIMIT = -31.0; // inches FIXME: Guesstimate in inches
     constexpr double RET_LIMIT = -0.6023; // Starting Configuration: fully retracted, Encoder=0
