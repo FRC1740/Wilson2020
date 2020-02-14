@@ -57,8 +57,8 @@ void RobotContainer::ConfigureButtonBindings() {
 #ifdef ENABLE_CLIMBER
   // Climber
   //FIXME: Test these
-  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::X); }).WhenHeld(new ExtendClimber(&m_climber));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::Y); }).WhenHeld(new RetractClimber(&m_climber));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::X); }).WhileHeld(new ExtendClimber(&m_climber));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::Y); }).WhileHeld(new RetractClimber(&m_climber));
 #endif // ENABLE_CLIMBER
 
 #ifdef ENABLE_SHOOTER
