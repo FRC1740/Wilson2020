@@ -102,3 +102,32 @@ namespace ConXBOXControl {
 
 // DeadZone lambda function
 auto DeadZone = [] (double a) { return (std::fabs(a) > ConXBOXControl::DEAD_ZONE) ? a : 0.0; };
+
+// Texas Instruments Controller
+namespace ConTiController {
+    namespace Button {
+        constexpr int RED = 10;
+        constexpr int BLUE = 9;
+        constexpr int YELLOW = 4;
+        constexpr int GREEN = 2;
+    }
+
+    namespace Switch {
+        constexpr int RED = 7;
+        constexpr int BLUE = 8;
+        constexpr int YELLOW = 3;
+        constexpr int GREEN = 1;
+    }
+
+    namespace Dial {
+        constexpr int LEFT = 0;
+        constexpr int RIGHT = 4;
+    }
+
+    constexpr int SLIDER = 6;
+
+    constexpr int RIGHT_STICK_Y = 7;
+    constexpr int RIGHT_STICK_X = 3;
+
+    constexpr int TI_CONTROLLER_PORT = 4;
+}

@@ -40,7 +40,7 @@ RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain) {
   m_driveTrain.SetDefaultCommand(TeleOpDrive(
     &m_driveTrain,
     [this] { return driver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER) - driver_control.GetRawAxis(ConXBOXControl::LEFT_TRIGGER); },
-    [this] { return driver_control.GetRawAxis(ConXBOXControl::RIGHT_JOYSTICK_X); }));
+    [this] { return driver_control.GetRawAxis(ConXBOXControl::LEFT_JOYSTICK_X); }));
 #endif // ENABLE_DRIVETRAIN
 }
 
@@ -91,6 +91,11 @@ void RobotContainer::ConfigureButtonBindings() {
 //  frc2::Button([this] {return codriver_control.GetRawAxis(ConXBOXControl::LEFT_TRIGGER); }).WhenHeld(new RotateManualCPM(&m_controlPanelManipulator));
 //  frc2::Button([this] {return codriver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER); }).WhenHeld(new RotateManualCPM(&m_controlPanelManipulator));
 #endif // ENABLE_CONTROL_PANEL_MANIPULATOR
+
+#if 0
+  frc2::Button([this] { return true; }).WhileHeld(new LogDataToDashboard(&shooter, &vision, &driveTrain));
+#endif
+
   /*
   ACCORDING TO DOCS.WPILIB:
 
