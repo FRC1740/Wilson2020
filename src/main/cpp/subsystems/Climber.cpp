@@ -42,6 +42,7 @@ void Climber::RetractClimber() {
 void Climber::StopClimber() {
   //m_motor.Set(ControlMode::PercentOutput, 0.0);
   m_motor.Set(0.0);
+
 }
 
 void Climber::ResetEncoder() {
@@ -60,6 +61,7 @@ void Climber::Periodic() {
   
   if (codriver_control.GetRawButton(ConXBOXControl::START)) {
     ResetEncoder();
+
   }
 }
 #endif // ENABLE_CLIMBER
