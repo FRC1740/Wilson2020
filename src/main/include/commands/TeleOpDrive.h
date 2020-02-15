@@ -39,4 +39,7 @@ class TeleOpDrive
   DriveTrain *m_driveTrain;
   std::function<double()> m_speed;
   std::function<double()> m_rotation;
+  // Digital filter outputs
+  double m_speedOut = 0.0;
+  double m_rotationOut = 0.0;
 };
