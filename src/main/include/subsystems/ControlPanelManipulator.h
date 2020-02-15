@@ -59,7 +59,7 @@ class ControlPanelManipulator : public frc2::SubsystemBase {
   void SetSpeed(double);
 
  private:
- // FIXME: Rename thse to include Shuffleboard shorthand in names
+ // FIXME: Rename thse to include Shuffleboard shorthand in names?
   nt::NetworkTableEntry m_detectedRed;
   nt::NetworkTableEntry m_detectedGreen;
   nt::NetworkTableEntry m_detectedBlue;

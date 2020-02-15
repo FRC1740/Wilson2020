@@ -15,6 +15,9 @@
 #include <ctre/Phoenix.h>
 #include <TimeOfFlight.h>
 #include <frc/Encoder.h>
+#include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/shuffleboard/ShuffleboardTab.h>
+#include <networktables/NetworkTableEntry.h>
 
 namespace ConShooter {
     namespace Top {
@@ -106,5 +109,11 @@ class Shooter : public frc2::SubsystemBase {
   TalonSRX m_hopperMotor{ConShooter::Hopper::MOTOR_ID};
 
   frc::TimeOfFlight m_powerCellDetector{0};
+
+  frc::ShuffleboardTab *m_tabCPM;
+  nt::NetworkTableEntry m_topMotorRPM;
+  nt::NetworkTableEntry m_bottomMotorRPM;
+  nt::NetworkTableEntry m_feederMotorSpeed;
+
 #endif // ENABLE_SHOOTER
 };

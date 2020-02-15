@@ -22,8 +22,8 @@ TeleOpDrive::TeleOpDrive(DriveTrain *drivetrain,
 // Called when the command is initially scheduled.
 void TeleOpDrive::Initialize() {
   // Digital filter lengths
-  frc::SmartDashboard::PutNumber("Drive Speed Filter", 1.0);
-  frc::SmartDashboard::PutNumber("Drive Rotation Filter", 1.0);
+  frc::SmartDashboard::PutNumber("Drive Speed Filter", 15.0);
+  frc::SmartDashboard::PutNumber("Drive Rotation Filter", 15.0);
 }
 
 // Called repeatedly when this Command is scheduled to run
