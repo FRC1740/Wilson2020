@@ -20,6 +20,8 @@ Shooter::Shooter() {
     m_bottomEncoder.SetVelocityConversionFactor(ConShooter::Bottom::VELOCITY_FACTOR);
 
     // Set controller gains from constants
+    // See this for tuning help (Robot Characterization Tool)
+    // https://docs.wpilib.org/en/latest/docs/software/wpilib-overview/new-for-2020.html
     m_topVelocityPID.SetP(ConShooter::Top::P);
     m_topVelocityPID.SetI(ConShooter::Top::I);
     m_topVelocityPID.SetD(ConShooter::Top::D);
