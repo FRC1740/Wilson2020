@@ -14,12 +14,15 @@ Climber::Climber() {
     // Set Encoder distance per rotation
     m_dutyCycleEncoder.SetDistancePerRotation(ConClimber::ROTATION_DISTANCE);
     m_dutyCycleEncoder.Reset();
+    m_climberPosition = m_dutyCycleEncoder.GetDistance();
+    
 #endif // ENABLE_CLIMBER
 }
 
 #ifdef ENABLE_CLIMBER
 void Climber::ExtendClimber() {
   if (m_climberPosition > ConClimber::EXT_LIMIT) { // Extending is NEGATIVE/DECREASING on the encoder
+  //if (true){
     Go(ConClimber::EXT_SPEED);
   }
   else {
@@ -56,8 +59,7 @@ void Climber::Periodic() {
   m_climberPosition = m_dutyCycleEncoder.GetDistance();
   m_tabClimberDistance.SetDouble(m_climberPosition);
   
-  if (codriver_control.GetRawButton(ConXBOXControl::START))
-  {
+  if (codriver_control.GetRawButton(ConXBOXControl::START)) {
     ResetEncoder();
 
   }

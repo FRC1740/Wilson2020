@@ -9,7 +9,8 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/DriveTrain.h"
+#include <frc/smartdashboard/SmartDashboard.h>
+#include "subsystems/Shooter.h"
 
 /**
  * An example command.
@@ -18,28 +19,13 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class TeleOpDrive
-    : public frc2::CommandHelper<frc2::CommandBase, TeleOpDrive> {
+class LogDataToDashboard
+    : public frc2::CommandHelper<frc2::CommandBase, LogDataToDashboard> {
  public:
-  explicit TeleOpDrive(DriveTrain *drivetrain,
-                       std::function<double()> speed,
-                       std::function<double()> rotation);
-
-#ifdef ENABLE_DRIVETRAIN
-  void Initialize() override;
+  explicit LogDataToDashboard(Shooter* shooter);
 
   void Execute() override;
 
-  void End(bool interrupted) override;
-
-  bool IsFinished() override;
-#endif // ENABLE_DRIVETRAIN
-
- private:
-  DriveTrain *m_driveTrain;
-  std::function<double()> m_speed;
-  std::function<double()> m_rotation;
-  // Digital filter outputs
-  double m_speedOut = 0.0;
-  double m_rotationOut = 0.0;
+private:
+  Shooter* shooter;
 };

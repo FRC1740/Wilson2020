@@ -11,7 +11,7 @@
 Shooter::Shooter() {
 
 #ifdef ENABLE_SHOOTER
-    // Invert
+    // Invert shooter motors correctly
     m_topMotor.SetInverted(false);
     m_bottomMotor.SetInverted(true);
 
@@ -19,7 +19,9 @@ Shooter::Shooter() {
     m_topEncoder.SetVelocityConversionFactor(ConShooter::Top::VELOCITY_FACTOR);
     m_bottomEncoder.SetVelocityConversionFactor(ConShooter::Bottom::VELOCITY_FACTOR);
 
-    // Set controller gains
+    // Set controller gains from constants
+    // See this for tuning help (Robot Characterization Tool)
+    // https://docs.wpilib.org/en/latest/docs/software/wpilib-overview/new-for-2020.html
     m_topVelocityPID.SetP(ConShooter::Top::P);
     m_topVelocityPID.SetI(ConShooter::Top::I);
     m_topVelocityPID.SetD(ConShooter::Top::D);
@@ -31,6 +33,10 @@ Shooter::Shooter() {
     m_bottomVelocityPID.SetD(ConShooter::Bottom::D);
     m_bottomVelocityPID.SetFF(ConShooter::Bottom::FF);
     m_bottomVelocityPID.SetOutputRange(0,1);
+    
+    frc::SmartDashboard::PutNumber("Top Motor RPM", 0.0);
+    frc::SmartDashboard::PutNumber("Bottom Motor RPM", 0.0);
+    frc::SmartDashboard::PutNumber("Feeder Speed", 0.0);
 #endif // ENABLE_SHOOTER
 }
 
@@ -65,8 +71,16 @@ double Shooter::GetTopMotorSpeed() {
 
 void Shooter::SpinUp()
 {
+#if 1 // from Wes
+  m_topMotor.Set(frc::SmartDashboard::GetNumber("Top Motor RPM", 0.0));
+  m_bottomMotor.Set(frc::SmartDashboard::GetNumber("Bottom Motor RPM", 0.0));
+  m_feedMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 
+    frc::SmartDashboard::GetNumber("Feeder Speed", 0.0));
+#else
   m_topMotor.Set(ConShooter::Top::MOTOR_SPEED);
   m_bottomMotor.Set(ConShooter::Bottom::MOTOR_SPEED);
+  m_feedMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, ConShooter::Feeder::MOTOR_SPEED);
+#endif
 }
 
 void Shooter::SpinTop()
@@ -82,6 +96,7 @@ void Shooter::SpinBottom()
 void Shooter::StopSpinUp(){
   m_topMotor.Set(0.0);
   m_bottomMotor.Set(0.0);
+  m_feedMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
 }
 
 void Shooter::StopTop(){

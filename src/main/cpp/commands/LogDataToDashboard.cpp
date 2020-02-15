@@ -5,27 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/JumbleShooter.h"
+#include "commands/LogDataToDashboard.h"
 
-JumbleShooter::JumbleShooter(Shooter *shooter) : m_shooter(shooter) {
+LogDataToDashboard::LogDataToDashboard(Shooter* shooter) {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements(shooter);
 }
 
-#ifdef ENABLE_SHOOTER
-// Called when the command is initially scheduled.
-void JumbleShooter::Initialize() {}
-
 // Called repeatedly when this Command is scheduled to run
-void JumbleShooter::Execute() {
-  m_shooter->SetHopperSpeed(ConShooter::Hopper::MOTOR_SPEED);
+void LogDataToDashboard::Execute() {
+    //shooter subsystem
+    frc::SmartDashboard::PutNumber("Top Motor Speed", shooter->GetTopMotorSpeed());
+    frc::SmartDashboard::PutNumber("Bottom Motor Speed", shooter->GetBottomMotorSpeed());
 }
-
-// Called once the command ends or is interrupted.
-void JumbleShooter::End(bool interrupted) {
-    m_shooter->SetHopperSpeed(0.0);
-}
-
-// Returns true when the command should end.
-bool JumbleShooter::IsFinished() { return false; }
-#endif // ENABLE_SHOOTER

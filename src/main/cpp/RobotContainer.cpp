@@ -24,7 +24,7 @@
 #include "commands/GoToColorCPM.h"
 #include "commands/RotateManualCPM.h"
 #include "commands/JumbleShooter.h"
-
+#include "commands/LogDataToDashboard.h"
 
 #include "RobotContainer.h"
 
@@ -41,7 +41,7 @@ RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain) {
   m_driveTrain.SetDefaultCommand(TeleOpDrive(
     &m_driveTrain,
     [this] { return driver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER) - driver_control.GetRawAxis(ConXBOXControl::LEFT_TRIGGER); },
-    [this] { return driver_control.GetRawAxis(ConXBOXControl::RIGHT_JOYSTICK_X); }));
+    [this] { return driver_control.GetRawAxis(ConXBOXControl::LEFT_JOYSTICK_X); }));
 #endif // ENABLE_DRIVETRAIN
 }
 
@@ -57,8 +57,8 @@ void RobotContainer::ConfigureButtonBindings() {
 #ifdef ENABLE_CLIMBER
   // Climber
   //FIXME: Test these
-  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::X); }).WhenHeld(new ExtendClimber(&m_climber));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::Y); }).WhenHeld(new RetractClimber(&m_climber));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::X); }).WhileHeld(new ExtendClimber(&m_climber));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::Y); }).WhileHeld(new RetractClimber(&m_climber));
 #endif // ENABLE_CLIMBER
 
 #ifdef ENABLE_SHOOTER
@@ -92,6 +92,11 @@ void RobotContainer::ConfigureButtonBindings() {
 //  frc2::Button([this] {return codriver_control.GetRawAxis(ConXBOXControl::LEFT_TRIGGER); }).WhenHeld(new RotateManualCPM(&m_controlPanelManipulator));
 //  frc2::Button([this] {return codriver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER); }).WhenHeld(new RotateManualCPM(&m_controlPanelManipulator));
 #endif // ENABLE_CONTROL_PANEL_MANIPULATOR
+
+#if 1
+  frc2::Button([this] { return true; }).WhileHeld(new LogDataToDashboard(&m_shooter));
+#endif
+
   /*
   ACCORDING TO DOCS.WPILIB:
 

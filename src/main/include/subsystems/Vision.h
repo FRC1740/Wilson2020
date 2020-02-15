@@ -12,6 +12,14 @@
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableInstance.h>
 
+namespace ConVision {
+    namespace AlignToPlayerStation {
+        constexpr float P = 0.15;
+        constexpr float I = 0.0;
+        constexpr float D = 0.0;
+    }
+}
+
 class Vision : public frc2::SubsystemBase {
  public:
   Vision();
