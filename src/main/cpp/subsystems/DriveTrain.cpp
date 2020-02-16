@@ -31,8 +31,12 @@ DriveTrain::DriveTrain() {
 // This method will be called once per scheduler run
 void DriveTrain::Periodic() {}
 
+#define DEAD_ZONE 0.1
+auto myDeadZone = [] (double a) { return (std::fabs(a) > DEAD_ZONE) ? a : 0.0; };
+
 void DriveTrain::ArcadeDrive(double speed, double rotation) {
-  m_driveTrain.ArcadeDrive(speed, DeadZone(rotation));
+//  m_driveTrain.ArcadeDrive(speed, DeadZone(rotation));
+  m_driveTrain.ArcadeDrive(speed, myDeadZone(rotation));
 }
 
 void DriveTrain::TankDrive(double left, double right){

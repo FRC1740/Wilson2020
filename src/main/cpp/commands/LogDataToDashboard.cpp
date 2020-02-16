@@ -6,15 +6,14 @@
 /*----------------------------------------------------------------------------*/
 
 #include "commands/LogDataToDashboard.h"
-
 LogDataToDashboard::LogDataToDashboard(Shooter* shooter) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(shooter);
+//  AddRequirements(shooter);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void LogDataToDashboard::Execute() {
     //shooter subsystem
-    frc::SmartDashboard::PutNumber("Top Motor Speed", shooter->GetTopMotorSpeed());
-    frc::SmartDashboard::PutNumber("Bottom Motor Speed", shooter->GetBottomMotorSpeed());
+  //  frc::SmartDashboard::PutNumber("Top Motor Speed", shooter->GetTopMotorSpeed());
+  //  frc::SmartDashboard::PutNumber("Bottom Motor Speed", shooter->GetBottomMotorSpeed());
 }
