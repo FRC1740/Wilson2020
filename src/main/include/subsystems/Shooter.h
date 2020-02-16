@@ -72,15 +72,15 @@ class Shooter : public frc2::SubsystemBase {
 
   void SpinUp();
 
-  void SpinTop();
+  //void SpinTop();
 
-  void SpinBottom();
+  //void SpinBottom();
   
   void StopSpinUp();
 
-  void StopTop();
+  //void StopTop();
 
-  void StopBottom();
+  //void StopBottom();
 
   void Activate();
 
@@ -88,7 +88,8 @@ class Shooter : public frc2::SubsystemBase {
 
   void SetFeedSpeed(double speed);
 
-  void SetHopperSpeed(double speed);
+  // Hopper is covered by Activate/Deactivate
+  //void SetHopperSpeed(double speed);
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
@@ -110,7 +111,7 @@ class Shooter : public frc2::SubsystemBase {
 
   frc::TimeOfFlight m_powerCellDetector{0};
 
-  frc::ShuffleboardTab *m_tabCPM;
+  frc::ShuffleboardTab *m_tabShooter;
   nt::NetworkTableEntry m_topMotorRPM;
   nt::NetworkTableEntry m_bottomMotorRPM;
   nt::NetworkTableEntry m_feederMotorSpeed;

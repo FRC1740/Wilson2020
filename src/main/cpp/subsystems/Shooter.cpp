@@ -13,10 +13,10 @@ Shooter::Shooter() {
 #ifdef ENABLE_SHOOTER
 
     // Shuffleboard Tab for Shooter Entries
-    m_tabCPM = &frc::Shuffleboard::GetTab(ConShuffleboard::ShooterTab);
-    m_topMotorRPM = m_tabCPM->Add("Top Motor RPM", ConShooter::Top::MOTOR_SPEED).GetEntry();
-    m_bottomMotorRPM = m_tabCPM->Add("Bottom Motor RPM", ConShooter::Bottom::MOTOR_SPEED).GetEntry();
-    m_feederMotorSpeed = m_tabCPM->Add("Feeder Motor Speed", ConShooter::Feeder::MOTOR_SPEED).GetEntry();
+    m_tabShooter = &frc::Shuffleboard::GetTab(ConShuffleboard::ShooterTab);
+    m_topMotorRPM = m_tabShooter->Add("Top Motor RPM", ConShooter::Top::MOTOR_SPEED).GetEntry();
+    m_bottomMotorRPM = m_tabShooter->Add("Bottom Motor RPM", ConShooter::Bottom::MOTOR_SPEED).GetEntry();
+    m_feederMotorSpeed = m_tabShooter->Add("Feeder Motor Speed", ConShooter::Feeder::MOTOR_SPEED).GetEntry();
 
     //frc::SmartDashboard::PutNumber("Top Motor RPM", 0.0);
     //frc::SmartDashboard::PutNumber("Bottom Motor RPM", 0.0);
@@ -103,15 +103,15 @@ void Shooter::SpinUp()
 #endif
 }
 
-void Shooter::SpinTop()
-{
-  m_topMotor.Set(ConShooter::Top::MOTOR_SPEED);
-}
+//void Shooter::SpinTop()
+//{
+//  m_topMotor.Set(ConShooter::Top::MOTOR_SPEED);
+//}
 
-void Shooter::SpinBottom()
-{
-  m_bottomMotor.Set(ConShooter::Bottom::MOTOR_SPEED);
-}
+//void Shooter::SpinBottom()
+//{
+//  m_bottomMotor.Set(ConShooter::Bottom::MOTOR_SPEED);
+//}
 
 void Shooter::StopSpinUp(){
   m_topMotor.Set(0.0);
@@ -119,28 +119,29 @@ void Shooter::StopSpinUp(){
   m_feedMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
 }
 
-void Shooter::StopTop(){
-  m_topMotor.Set(0.0);
-}
+//void Shooter::StopTop(){
+//  m_topMotor.Set(0.0);
+//}
 
-void Shooter::StopBottom(){
-  m_bottomMotor.Set(0.0);
-}
+//void Shooter::StopBottom(){
+//  m_bottomMotor.Set(0.0);
+//}
 
 void Shooter::Activate() {
-  m_feedMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, ConShooter::Feeder::MOTOR_SPEED);
+  m_hopperMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, ConShooter::Hopper::MOTOR_SPEED);
 }
 
 void Shooter::Deactivate() {
-  m_feedMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+  m_hopperMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
 }
 
 void Shooter::SetFeedSpeed(double speed) {
   m_feedMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed);
 }
 
-void Shooter::SetHopperSpeed(double speed) {
-  m_hopperMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed);
-}
+// Hopper is covered by Activate/Deactivate
+//void Shooter::SetHopperSpeed(double speed) {
+//  m_hopperMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed);
+//}
 
 #endif // ENABLE_SHOOTER
