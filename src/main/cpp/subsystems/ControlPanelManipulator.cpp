@@ -40,7 +40,7 @@ ControlPanelManipulator::ControlPanelManipulator() {
 		m_rotationMotor.Config_kI(ConControlPanelManipulator::kPIDLoopIdx, 0.0, ConControlPanelManipulator::kTimeoutMs);
 		m_rotationMotor.Config_kD(ConControlPanelManipulator::kPIDLoopIdx, 0.0, ConControlPanelManipulator::kTimeoutMs);
 
-    // Shuffleboard values
+    // Shuffleboard Tab Entries
     m_detectedRed = m_tabCPM->Add("Red", 0.0).GetEntry();
     m_detectedGreen = m_tabCPM->Add("Green", 0.0).GetEntry();
     m_detectedBlue = m_tabCPM->Add("Blue", 0.0).GetEntry();
@@ -100,25 +100,16 @@ void ControlPanelManipulator::Periodic() {
    */
 
   m_detectedRed.SetDouble(detectedColor.red);
-  //frc::SmartDashboard::PutNumber("Red", detectedColor.red);
   m_detectedGreen.SetDouble(detectedColor.green);
-  //frc::SmartDashboard::PutNumber("Green", detectedColor.green);
   m_detectedBlue.SetDouble(detectedColor.blue);
-  //frc::SmartDashboard::PutNumber("Blue", detectedColor.blue);
   
   m_confidence.SetDouble(confidence);
-  // frc::SmartDashboard::PutNumber("Confidence", confidence);
   m_colorString.SetString(colorString);
-  // frc::SmartDashboard::PutString("Detected Color", colorString);
 
   m_matchedRed.SetDouble(matchedColor.red);
-  //frc::SmartDashboard::PutNumber("Matched R", matchedColor.red);
   m_matchedGreen.SetDouble(matchedColor.green);
-  // frc::SmartDashboard::PutNumber("Matched G", matchedColor.green);
   m_matchedBlue.SetDouble(matchedColor.blue);
-  // frc::SmartDashboard::PutNumber("Matched B", matchedColor.blue);
   m_motorCurrent.SetDouble(m_rotationMotor.GetOutputCurrent());
-  // frc::SmartDashboard::PutNumber("Motor Current: ", m_rotationMotor.GetOutputCurrent());
 
 }
 

@@ -6,11 +6,22 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/Shooter.h"
-#include <frc/smartdashboard/SmartDashboard.h>
+// #include <frc/smartdashboard/SmartDashboard.h>
 
 Shooter::Shooter() {
 
 #ifdef ENABLE_SHOOTER
+
+    // Shuffleboard Tab for Shooter Entries
+    m_tabCPM = &frc::Shuffleboard::GetTab(ConShuffleboard::ShooterTab);
+    m_topMotorRPM = m_tabCPM->Add("Top Motor RPM", ConShooter::Top::MOTOR_SPEED).GetEntry();
+    m_bottomMotorRPM = m_tabCPM->Add("Bottom Motor RPM", ConShooter::Bottom::MOTOR_SPEED).GetEntry();
+    m_feederMotorSpeed = m_tabCPM->Add("Feeder Motor Speed", ConShooter::Feeder::MOTOR_SPEED).GetEntry();
+
+    //frc::SmartDashboard::PutNumber("Top Motor RPM", 0.0);
+    //frc::SmartDashboard::PutNumber("Bottom Motor RPM", 0.0);
+    //frc::SmartDashboard::PutNumber("Feeder Speed", 0.0);
+
     // Invert shooter motors correctly
     m_topMotor.SetInverted(false);
     m_bottomMotor.SetInverted(true);
@@ -34,23 +45,28 @@ Shooter::Shooter() {
     m_bottomVelocityPID.SetFF(ConShooter::Bottom::FF);
     m_bottomVelocityPID.SetOutputRange(0,1);
     
-    frc::SmartDashboard::PutNumber("Top Motor RPM", 0.0);
-    frc::SmartDashboard::PutNumber("Bottom Motor RPM", 0.0);
-    frc::SmartDashboard::PutNumber("Feeder Speed", 0.0);
 #endif // ENABLE_SHOOTER
 }
 
 #ifdef ENABLE_SHOOTER
 // This method will be called once per scheduler run
 void Shooter::Periodic() {
+
+    // Update Netwwork Table/Shuffleboard Values
+    m_topMotorRPM.GetDouble(0.0);
+    m_bottomMotorRPM.GetDouble(0.0);
+    m_feederMotorSpeed.GetDouble(0.0);
+
 	// Check TimeofFLight sensor to see if a powerCell is ... stuck? loaded? ??
+  /* NOT PLANNING TO USE THIS SENSOR
     frc::SmartDashboard::PutNumber("Range: ", m_powerCellDetector.GetRange());
     if (m_powerCellDetector.GetRange() < 300.0)  { // FIXME: range in mm 
         frc::SmartDashboard::PutBoolean("PowerCell", true);
     }
     else {
         frc::SmartDashboard::PutBoolean("PowerCell", false);
-    }
+    } 
+    */
 }
 
 void Shooter::SetBottomMotorSpeed(double velocity) {
@@ -72,10 +88,14 @@ double Shooter::GetTopMotorSpeed() {
 void Shooter::SpinUp()
 {
 #if 1 // from Wes
-  m_topMotor.Set(frc::SmartDashboard::GetNumber("Top Motor RPM", 0.0));
-  m_bottomMotor.Set(frc::SmartDashboard::GetNumber("Bottom Motor RPM", 0.0));
-  m_feedMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 
-    frc::SmartDashboard::GetNumber("Feeder Speed", 0.0));
+
+  SetTopMotorSpeed(m_topMotorRPM.GetDouble(0.0));
+  //m_topMotor.Set(frc::SmartDashboard::GetNumber("Top Motor RPM", 0.0));
+  SetBottomMotorSpeed(m_bottomMotorRPM.GetDouble(0.0));
+  // m_bottomMotor.Set(frc::SmartDashboard::GetNumber("Bottom Motor RPM", 0.0));
+  SetFeedSpeed(m_feederMotorSpeed.GetDouble(0.0));  
+  /* m_feedMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 
+    frc::SmartDashboard::GetNumber("Feeder Speed", 0.0)); */
 #else
   m_topMotor.Set(ConShooter::Top::MOTOR_SPEED);
   m_bottomMotor.Set(ConShooter::Bottom::MOTOR_SPEED);
