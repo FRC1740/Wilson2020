@@ -29,7 +29,6 @@ namespace ConMath {
     constexpr double MINUTES_2_SECONDS = 1/60.; // sec/min
 }
 
-
 namespace ConLimelight {
     constexpr int VISION_MODE = 0;
     constexpr int CAMERA_MODE = 1;
@@ -62,7 +61,6 @@ namespace ConNEO {
     constexpr int MAXIMUM_RPM = 5676;
     constexpr int GEAR_RATIO = 10.71;
 }
-
 
 namespace ConShuffleboard {
     constexpr char RobotTab[] = "Robot";
