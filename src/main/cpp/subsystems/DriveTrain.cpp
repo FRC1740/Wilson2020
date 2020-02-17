@@ -25,6 +25,22 @@ DriveTrain::DriveTrain() {
   m_rightMotorB.Follow(m_rightMotorA, false);
   m_leftMotorB.Follow(m_leftMotorA, false);
 #endif // ENABLE_DRIVETRAIN
+
+  // Create and get reference to SB tab
+  m_sbt_DriveTrain = &frc::Shuffleboard::GetTab(ConShuffleboard::DriveTrainTab);
+
+  // Create widgets for digital filter lengths
+  m_nte_DriveSpeedFilter = m_sbt_DriveTrain->
+    AddPersistent("Drive Speed Filter", 15.0)
+    .WithSize(3, 3)
+    .WithPosition(0, 0)
+    .GetEntry();
+
+  m_nte_DriveRotationFilter = m_sbt_DriveTrain->
+    AddPersistent("Drive Rotation Filter", 15.0)
+    .WithSize(3, 3)
+    .WithPosition(0, 3)
+    .GetEntry();
 }
 
 #ifdef ENABLE_DRIVETRAIN

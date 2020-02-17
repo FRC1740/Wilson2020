@@ -10,6 +10,9 @@
 #include <frc2/command/SubsystemBase.h>
 #include <frc/drive/DifferentialDrive.h>
 #include <rev/CANSparkMax.h>
+#include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/shuffleboard/ShuffleboardTab.h>
+#include <networktables/NetworkTableEntry.h>
 
 #include "Constants.h"
 
@@ -38,6 +41,9 @@ namespace ConDriveTrain {
 class DriveTrain : public frc2::SubsystemBase {
  public:
   DriveTrain();
+  frc::ShuffleboardTab *m_sbt_DriveTrain;
+  nt::NetworkTableEntry m_nte_DriveSpeedFilter;
+  nt::NetworkTableEntry m_nte_DriveRotationFilter;
 
 #ifdef ENABLE_DRIVETRAIN
   /**

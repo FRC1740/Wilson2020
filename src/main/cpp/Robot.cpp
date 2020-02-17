@@ -7,15 +7,18 @@
 
 #include "Robot.h"
 
-#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
 void Robot::RobotInit() {
-  frc::SmartDashboard::PutString("Code Version", ROBOT_VERSION_STRING);
+  // Create and get reference to SB tab
+  m_sbt_Robot = &frc::Shuffleboard::GetTab(ConShuffleboard::RobotTab);
   // See https://docs.wpilib.org/en/latest/docs/software/wpilib-tools/shuffleboard/layouts-with-code/using-tabs.html
-  //ShuffleboardTab& tab = Shuffleboard::GetTab(ConShuffleboard::RobotTab);
-  //tab.Add("Code Version", ROBOT_VERSION_STRING);
-  //or Shuffleboard::GetTab(ConShuffleboard::RobotTab).Add("Code Version", ROBOT_VERSION_STRING);
+  // Create widget for code version
+  m_nte_CodeVersion = m_sbt_Robot->
+    Add("Code Version", ROBOT_VERSION_STRING)
+    .WithSize(3, 3)
+    .WithPosition(0, 0)
+    .GetEntry();
 }
 
 /**
