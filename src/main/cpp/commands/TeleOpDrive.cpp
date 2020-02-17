@@ -20,18 +20,14 @@ TeleOpDrive::TeleOpDrive(DriveTrain *drivetrain,
 
 #ifdef ENABLE_DRIVETRAIN
 // Called when the command is initially scheduled.
-void TeleOpDrive::Initialize() {
-  // Digital filter lengths
-  frc::SmartDashboard::PutNumber("Drive Speed Filter", 15.0);
-  frc::SmartDashboard::PutNumber("Drive Rotation Filter", 15.0);
-}
+void TeleOpDrive::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void TeleOpDrive::Execute() {
   // Digital filter lengths- between 1.0 (no filter) and 20.0 (90% at 1 second) (11.0 is 90% at 0.5 sec)
   // Idea from simple filter at https://www.chiefdelphi.com/t/moderating-acceleration-deceleration/77960/4
-  double speedN = frc::SmartDashboard::GetNumber("Drive Speed Filter", 1.0);
-  double rotationN = frc::SmartDashboard::GetNumber("Drive Rotation Filter", 1.0);
+  double speedN = m_driveTrain->m_nte_DriveSpeedFilter.GetDouble(15.0);
+  double rotationN = m_driveTrain->m_nte_DriveRotationFilter.GetDouble(15.0);
   if (speedN < 1.0) { speedN = 1.0; }
   if (rotationN < 1.0) { rotationN = 1.0; }
   double speed = (((speedN - 1.0) * m_speedOut) + m_speed()) / speedN;
