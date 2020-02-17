@@ -25,6 +25,7 @@ namespace ConShooter {
         constexpr int WHEEL_SIZE = 4; //in inches
         constexpr double VELOCITY_FACTOR = 1; //(ConMath::PI*WHEEL_SIZE) * ConMath::METERS_2_INCH * ConMath::MINUTES_2_SECONDS; //(velocity) y [m/s] = PI*WHEEL_SIZE * m/in * 1/60 * x [RPM]
         constexpr double MOTOR_SPEED = 0.5;
+        constexpr double MAX_VELOCITY = 4000.0;
         //PID gains
         constexpr double P = 2e-4;
         constexpr double I = 0.0;
@@ -36,6 +37,7 @@ namespace ConShooter {
         constexpr int WHEEL_SIZE = 6; //in inches
         constexpr double VELOCITY_FACTOR = 1; //(ConMath::PI*WHEEL_SIZE) * ConMath::METERS_2_INCH * ConMath::MINUTES_2_SECONDS; //(velocity) y [m/s] = PI*WHEEL_SIZE * m/in * 1/60 * x [RPM]
         constexpr double MOTOR_SPEED = 0.5;
+        constexpr double MAX_VELOCITY = 4000.0;
          //PID gains
         constexpr double P = 2e-4;
         constexpr double I = 0.0;
@@ -55,6 +57,11 @@ namespace ConShooter {
 class Shooter : public frc2::SubsystemBase {
  public:
   Shooter();
+  frc::ShuffleboardTab *m_sbt_Shooter;
+  nt::NetworkTableEntry m_nte_TopMotorRPM;
+  nt::NetworkTableEntry m_nte_BottomMotorRPM;
+  nt::NetworkTableEntry m_nte_FeederMotorSpeed;
+  nt::NetworkTableEntry m_nte_HopperMotorSpeed;
 
 #ifdef ENABLE_SHOOTER
   /**
@@ -110,11 +117,5 @@ class Shooter : public frc2::SubsystemBase {
   TalonSRX m_hopperMotor{ConShooter::Hopper::MOTOR_ID};
 
   frc::TimeOfFlight m_powerCellDetector{0};
-
-  frc::ShuffleboardTab *m_tabShooter;
-  nt::NetworkTableEntry m_topMotorRPM;
-  nt::NetworkTableEntry m_bottomMotorRPM;
-  nt::NetworkTableEntry m_feederMotorSpeed;
-
 #endif // ENABLE_SHOOTER
 };
