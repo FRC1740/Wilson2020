@@ -29,7 +29,6 @@ namespace ConMath {
     constexpr double MINUTES_2_SECONDS = 1/60.; // sec/min
 }
 
-
 namespace ConLimelight {
     constexpr int VISION_MODE = 0;
     constexpr int CAMERA_MODE = 1;
@@ -62,7 +61,6 @@ namespace ConNEO {
     constexpr int MAXIMUM_RPM = 5676;
     constexpr int GEAR_RATIO = 10.71;
 }
-
 
 namespace ConShuffleboard {
     constexpr char RobotTab[] = "Robot";
@@ -106,19 +104,19 @@ namespace ConXBOXControl {
 auto DeadZone = [] (double a) { return (std::fabs(a) > ConXBOXControl::DEAD_ZONE) ? a : 0.0; };
 
 // Texas Instruments Controller (MSP430F5529 LaunchPad)
-namespace ConTiController {
+namespace ConLaunchPad {
     namespace Button {
-        constexpr int RED = 10;
-        constexpr int BLUE = 9;
-        constexpr int YELLOW = 4;
-        constexpr int GREEN = 2;
+        constexpr int RED = 11;
+        constexpr int BLUE = 10;
+        constexpr int YELLOW = 5;
+        constexpr int GREEN = 3;
     }
 
     namespace Switch {
         constexpr int RED = 7;
-        constexpr int BLUE = 8;
-        constexpr int YELLOW = 3;
-        constexpr int GREEN = 1;
+        constexpr int BLUE = 9;
+        constexpr int YELLOW = 4;
+        constexpr int GREEN = 2;
     }
 
     namespace Dial {
@@ -131,5 +129,5 @@ namespace ConTiController {
     constexpr int RIGHT_STICK_Y = 7;
     constexpr int RIGHT_STICK_X = 3;
 
-    constexpr int TI_CONTROLLER_PORT = 4;
+    constexpr int LAUNCHPAD_CONTROLLER_PORT = 4;
 }

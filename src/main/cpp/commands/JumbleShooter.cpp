@@ -18,12 +18,14 @@ void JumbleShooter::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void JumbleShooter::Execute() {
-  m_shooter->SetHopperSpeed(ConShooter::Hopper::MOTOR_SPEED);
+  m_shooter->Activate();
+  //m_shooter->SetHopperSpeed(ConShooter::Hopper::MOTOR_SPEED);
 }
 
 // Called once the command ends or is interrupted.
 void JumbleShooter::End(bool interrupted) {
-    m_shooter->SetHopperSpeed(0.0);
+    m_shooter->Deactivate();
+    //m_shooter->SetHopperSpeed(0.0);
 }
 
 // Returns true when the command should end.
