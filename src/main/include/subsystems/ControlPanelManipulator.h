@@ -45,9 +45,23 @@ namespace ConControlPanelManipulator {
 class ControlPanelManipulator : public frc2::SubsystemBase {
  public:
   ControlPanelManipulator();
-#ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
-  frc::ShuffleboardTab *m_tabCPM;
+  frc::ShuffleboardTab *m_sbt_CPM;
+  nt::NetworkTableEntry m_nte_DetectedRed;
+  nt::NetworkTableEntry m_nte_DetectedGreen;
+  nt::NetworkTableEntry m_nte_DetectedBlue;
+  nt::NetworkTableEntry m_nte_MatchedRed;
+  nt::NetworkTableEntry m_nte_MatchedGreen;
+  nt::NetworkTableEntry m_nte_MatchedBlue;
+  nt::NetworkTableEntry m_nte_Confidence;
+  nt::NetworkTableEntry m_nte_ColorString;
+  nt::NetworkTableEntry m_nte_MotorCurrent;
 
+  nt::NetworkTableEntry m_nte_DesiredTransitions;
+  nt::NetworkTableEntry m_nte_ActualTransitions;
+  nt::NetworkTableEntry m_nte_RotateMotorSpeed;
+  nt::NetworkTableEntry m_nte_GotoMotorSpeed;
+
+#ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
@@ -59,17 +73,6 @@ class ControlPanelManipulator : public frc2::SubsystemBase {
   void SetSpeed(double);
 
  private:
- // FIXME: Rename thse to include Shuffleboard shorthand in names?
-  nt::NetworkTableEntry m_detectedRed;
-  nt::NetworkTableEntry m_detectedGreen;
-  nt::NetworkTableEntry m_detectedBlue;
-  nt::NetworkTableEntry m_matchedRed;
-  nt::NetworkTableEntry m_matchedGreen;
-  nt::NetworkTableEntry m_matchedBlue;
-  nt::NetworkTableEntry m_confidence;
-  nt::NetworkTableEntry m_colorString;
-  nt::NetworkTableEntry m_motorCurrent;
-
   std::string m_sensedColor;
   std::string m_fieldColor;
 

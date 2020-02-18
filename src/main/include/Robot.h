@@ -9,11 +9,17 @@
 
 #include <frc/TimedRobot.h>
 #include <frc2/command/Command.h>
+#include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/shuffleboard/ShuffleboardTab.h>
+#include <networktables/NetworkTableEntry.h>
 
 #include "RobotContainer.h"
 
 class Robot : public frc::TimedRobot {
  public:
+  frc::ShuffleboardTab *m_sbt_Robot;
+  nt::NetworkTableEntry m_nte_CodeVersion;
+
   void RobotInit() override;
   void RobotPeriodic() override;
   void DisabledInit() override;
