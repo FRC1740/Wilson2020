@@ -40,20 +40,23 @@ ControlPanelManipulator::ControlPanelManipulator() {
 		m_rotationMotor.Config_kD(ConControlPanelManipulator::kPIDLoopIdx, 0.0, ConControlPanelManipulator::kTimeoutMs);
 
     // Shuffleboard Tab Network Table Entries
-    m_nte_DetectedRed   = m_sbt_CPM->AddPersistent("Red",            0.0).WithSize(2, 2).WithPosition(0, 0).GetEntry();
-    m_nte_DetectedGreen = m_sbt_CPM->AddPersistent("Green",          0.0).WithSize(2, 2).WithPosition(0, 2).GetEntry();
-    m_nte_DetectedBlue  = m_sbt_CPM->AddPersistent("Blue",           0.0).WithSize(2, 2).WithPosition(0, 4).GetEntry();
-    m_nte_MatchedRed    = m_sbt_CPM->AddPersistent("Matched R",      0.0).WithSize(2, 2).WithPosition(2, 0).GetEntry();
-    m_nte_MatchedGreen  = m_sbt_CPM->AddPersistent("Matched G",      0.0).WithSize(2, 2).WithPosition(2, 2).GetEntry();
-    m_nte_MatchedBlue   = m_sbt_CPM->AddPersistent("Matched B",      0.0).WithSize(2, 2).WithPosition(2, 4).GetEntry();
-    m_nte_Confidence    = m_sbt_CPM->AddPersistent("Confidence",     0.0).WithSize(2, 2).WithPosition(4, 0).GetEntry();
-    m_nte_ColorString   = m_sbt_CPM->AddPersistent("Detected Color", "P").WithSize(2, 2).WithPosition(4, 2).GetEntry();
-    m_nte_MotorCurrent  = m_sbt_CPM->AddPersistent("Motor Current",  0.0).WithSize(2, 2).WithPosition(4, 4).GetEntry();
+    m_nte_DetectedRed   = m_sbt_CPM->AddPersistent("Red",            0.0).WithSize(1, 1).WithPosition(0, 0).GetEntry();
+    m_nte_DetectedGreen = m_sbt_CPM->AddPersistent("Green",          0.0).WithSize(1, 1).WithPosition(0, 1).GetEntry();
+    m_nte_DetectedBlue  = m_sbt_CPM->AddPersistent("Blue",           0.0).WithSize(1, 1).WithPosition(0, 2).GetEntry();
+    m_nte_MatchedRed    = m_sbt_CPM->AddPersistent("Matched R",      0.0).WithSize(1, 1).WithPosition(1, 0).GetEntry();
+    m_nte_MatchedGreen  = m_sbt_CPM->AddPersistent("Matched G",      0.0).WithSize(1, 1).WithPosition(1, 1).GetEntry();
+    m_nte_MatchedBlue   = m_sbt_CPM->AddPersistent("Matched B",      0.0).WithSize(1, 1).WithPosition(1, 2).GetEntry();
+    m_nte_Confidence    = m_sbt_CPM->AddPersistent("Confidence",     0.0).WithSize(1, 1).WithPosition(2, 0).GetEntry();
+    m_nte_ColorString   = m_sbt_CPM->AddPersistent("Detected Color", "P").WithSize(1, 1).WithPosition(2, 1).GetEntry();
+    m_nte_MotorCurrent  = m_sbt_CPM->AddPersistent("Motor Current",  0.0).WithSize(1, 1).WithPosition(2, 2).GetEntry();
 
-    m_nte_DesiredTransitions = m_sbt_CPM->AddPersistent("Desired Transitions", 0.0).WithSize(2, 2).WithPosition(0, 6).GetEntry();
-    m_nte_ActualTransitions  = m_sbt_CPM->AddPersistent("Actual Transitions", 30.0).WithSize(2, 2).WithPosition(2, 6).GetEntry();
-    m_nte_RotateMotorSpeed   = m_sbt_CPM->AddPersistent("Rotate Motor Speed",  0.0).WithSize(2, 2).WithPosition(4, 6).GetEntry();
-    m_nte_GotoMotorSpeed     = m_sbt_CPM->AddPersistent("GoTo Motor Speed",    0.0).WithSize(2, 2).WithPosition(6, 6).GetEntry();
+    m_nte_ActualTransitions  = m_sbt_CPM->AddPersistent("Actual Transitions", 0.0).WithSize(2, 1).WithPosition(4, 0).GetEntry();
+    m_nte_DesiredTransitions = m_sbt_CPM->AddPersistent("Desired Transitions", ConControlPanelManipulator::DESIRED_TRANSITION_COUNT)
+                                                                                   .WithSize(2, 1).WithPosition(6, 0).GetEntry();
+    m_nte_RotateMotorSpeed   = m_sbt_CPM->AddPersistent("Rotate Motor Speed",  ConControlPanelManipulator::MOTOR_SPEED)
+                                                                                   .WithSize(2, 1).WithPosition(6, 1).GetEntry();
+    m_nte_GotoMotorSpeed     = m_sbt_CPM->AddPersistent("GoTo Motor Speed",    ConControlPanelManipulator::MOTOR_SPEED/2.0)
+                                                                                   .WithSize(2, 1).WithPosition(6, 2).GetEntry();
 #endif // ENABLE_CONTROL_PANEL_MANIPULATOR
 }
 

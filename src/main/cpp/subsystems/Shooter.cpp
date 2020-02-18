@@ -56,7 +56,7 @@ Shooter::Shooter() {
     AddPersistent("Top Motor RPM", ConShooter::Top::OPTIMAL_RPM)
     //.WithWidget(&frc::BuiltInWidgets::kDial),
     //.WithProperties(propertiesTop)
-    .WithSize(3, 3)
+    .WithSize(2, 1)
     .WithPosition(0, 0)
     .GetEntry();
 
@@ -65,20 +65,34 @@ Shooter::Shooter() {
     AddPersistent("Bottom Motor RPM", ConShooter::Bottom::OPTIMAL_RPM)
     //.WithWidget(&frc::BuiltInWidgets::kDial),
     //.WithProperties(propertiesBottom)
-    .WithSize(3, 3)
-    .WithPosition(0, 3)
+    .WithSize(2, 1)
+    .WithPosition(0, 1)
+    .GetEntry();
+
+  m_nte_TopMotorOutputRPM = m_sbt_Shooter->
+    AddPersistent("Top Motor Actual RPM", 0.0)
+    .WithWidget(frc::BuiltInWidgets::kGraph)
+    .WithSize(6, 2)
+    .WithPosition(6, 0)
+    .GetEntry();
+
+  m_nte_BottomMotorOutputRPM = m_sbt_Shooter->
+    AddPersistent("Bottom Motor Actual RPM", 0.0)
+    .WithWidget(frc::BuiltInWidgets::kGraph)
+    .WithSize(6, 2)
+    .WithPosition(6, 2)
     .GetEntry();
 
   m_nte_FeederMotorSpeed = m_sbt_Shooter->
     AddPersistent("Feeder Motor Speed", ConShooter::Feeder::MOTOR_SPEED)
-    .WithSize(3, 3)
-    .WithPosition(0, 6)
+    .WithSize(2, 1)
+    .WithPosition(2, 0)
     .GetEntry();
 
   m_nte_HopperMotorSpeed = m_sbt_Shooter->
     AddPersistent("Hopper Motor Speed", ConShooter::Hopper::MOTOR_SPEED)
-    .WithSize(3, 3)
-    .WithPosition(0, 9)
+    .WithSize(2, 1)
+    .WithPosition(2, 1)
     .GetEntry();
 }
 

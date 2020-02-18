@@ -15,8 +15,6 @@ SpinUpFarShooter::SpinUpFarShooter(Shooter *shooter) : m_shooter(shooter) {
 #ifdef ENABLE_SHOOTER
 // Called when the command is initially scheduled.
 void SpinUpFarShooter::Initialize() {
-// FIXME (CRE): Is this where we set the calibrated values for RPM?
-// FIXME (CRE): Write calibrated values to the shuffleboard and NT
 }
 
 // Called repeatedly when this Command is scheduled to run
