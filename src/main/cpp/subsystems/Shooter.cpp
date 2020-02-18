@@ -52,7 +52,8 @@ Shooter::Shooter() {
   //};
 
   m_nte_TopMotorRPM = m_sbt_Shooter->
-    AddPersistent("Top Motor RPM", ConShooter::Top::MOTOR_SPEED)
+    // AddPersistent("Top Motor RPM", ConShooter::Top::MOTOR_SPEED)  // FIXME (CRE): This value should be RPM!!!
+    AddPersistent("Top Motor RPM", ConShooter::Top::OPTIMAL_RPM)
     //.WithWidget(&frc::BuiltInWidgets::kDial),
     //.WithProperties(propertiesTop)
     .WithSize(3, 3)
@@ -60,7 +61,8 @@ Shooter::Shooter() {
     .GetEntry();
 
   m_nte_BottomMotorRPM = m_sbt_Shooter->
-    AddPersistent("Bottom Motor RPM", ConShooter::Bottom::MOTOR_SPEED)
+    // AddPersistent("Bottom Motor RPM", ConShooter::Bottom::MOTOR_SPEED)  // FIXME (CRE): This value should be RPM!!!
+    AddPersistent("Bottom Motor RPM", ConShooter::Bottom::OPTIMAL_RPM)
     //.WithWidget(&frc::BuiltInWidgets::kDial),
     //.WithProperties(propertiesBottom)
     .WithSize(3, 3)
@@ -123,9 +125,16 @@ double Shooter::GetTopMotorSpeed() {
 void Shooter::SpinUp()
 {
 #if 1 // from Wes
-  SetTopMotorSpeed(m_nte_TopMotorRPM.GetDouble(0.0));
-  SetBottomMotorSpeed(m_nte_BottomMotorRPM.GetDouble(0.0));
-  SetFeedSpeed(m_nte_FeederMotorSpeed.GetDouble(0.0));  
+
+  // SetTopMotorSpeed(m_nte_TopMotorRPM.GetDouble(0.0)); // FIXME (CRE): Should we use a different default value?
+  SetTopMotorSpeed(m_nte_TopMotorRPM.GetDouble(ConShooter::Top::OPTIMAL_RPM));
+
+  // SetBottomMotorSpeed(m_nte_BottomMotorRPM.GetDouble(0.0));  // FIXME (CRE): (Like maybe the calibrated RPM?)
+  SetBottomMotorSpeed(m_nte_BottomMotorRPM.GetDouble(ConShooter::Bottom::OPTIMAL_RPM));
+
+  // SetFeedSpeed(m_nte_FeederMotorSpeed.GetDouble(0.0));  
+  SetFeedSpeed(m_nte_FeederMotorSpeed.GetDouble(ConShooter::Bottom::MOTOR_SPEED));
+
 #else
   m_topMotor.Set(ConShooter::Top::MOTOR_SPEED);
   m_bottomMotor.Set(ConShooter::Bottom::MOTOR_SPEED);
