@@ -49,6 +49,11 @@ ControlPanelManipulator::ControlPanelManipulator() {
     m_nte_Confidence    = m_sbt_CPM->AddPersistent("Confidence",     0.0).WithSize(2, 2).WithPosition(4, 0).GetEntry();
     m_nte_ColorString   = m_sbt_CPM->AddPersistent("Detected Color", "P").WithSize(2, 2).WithPosition(4, 2).GetEntry();
     m_nte_MotorCurrent  = m_sbt_CPM->AddPersistent("Motor Current",  0.0).WithSize(2, 2).WithPosition(4, 4).GetEntry();
+
+    m_nte_DesiredTransitions = m_sbt_CPM->AddPersistent("Desired Transitions", 0.0).WithSize(2, 2).WithPosition(0, 6).GetEntry();
+    m_nte_ActualTransitions  = m_sbt_CPM->AddPersistent("Actual Transitions", 30.0).WithSize(2, 2).WithPosition(2, 6).GetEntry();
+    m_nte_RotateMotorSpeed   = m_sbt_CPM->AddPersistent("Rotate Motor Speed",  0.0).WithSize(2, 2).WithPosition(4, 6).GetEntry();
+    m_nte_GotoMotorSpeed     = m_sbt_CPM->AddPersistent("GoTo Motor Speed",    0.0).WithSize(2, 2).WithPosition(6, 6).GetEntry();
 #endif // ENABLE_CONTROL_PANEL_MANIPULATOR
 }
 
