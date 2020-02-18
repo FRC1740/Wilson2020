@@ -65,9 +65,9 @@ void RobotContainer::ConfigureButtonBindings() {
   // Shooter
   //FIXME: Test these
   //FIXME: add SpinUpCloseShooter - right bumper, SpinUpFarShooter - left bumper, and JumbleShooter - A
-  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::A); }).WhenHeld(new JumbleShooter(&m_shooter));
+  //frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::A); }).WhenHeld(new JumbleShooter(&m_shooter));
   frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::LEFT_BUMPER); }).WhenHeld(new SpinUpShooter(&m_shooter));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_BUMPER); }).WhenHeld(new ActivateShooter(&m_shooter));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_BUMPER); }).WhenHeld(new JumbleShooter(&m_shooter));
 #endif // ENABLE_SHOOTER
 
 #ifdef ENABLE_VISION
