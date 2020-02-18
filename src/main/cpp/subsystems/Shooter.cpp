@@ -103,11 +103,13 @@ void Shooter::Periodic() {
 }
 
 void Shooter::SetBottomMotorSpeed(double velocity) {
-    m_bottomVelocityPID.SetReference(velocity, rev::ControlType::kVelocity);
+    double vlimit = (velocity > ConShooter::Bottom::MAX_RPM) ? ConShooter::Bottom::MAX_RPM : velocity;
+    m_bottomVelocityPID.SetReference(vlimit, rev::ControlType::kVelocity);
 }
 
 void Shooter::SetTopMotorSpeed(double velocity) {
-    m_topVelocityPID.SetReference(velocity, rev::ControlType::kVelocity);
+    double vlimit = (velocity > ConShooter::Top::MAX_RPM) ? ConShooter::Top::MAX_RPM : velocity;
+    m_topVelocityPID.SetReference(vlimit, rev::ControlType::kVelocity);
 }
 
 double Shooter::GetBottomMotorSpeed() {
