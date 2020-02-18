@@ -56,6 +56,11 @@ class ControlPanelManipulator : public frc2::SubsystemBase {
   nt::NetworkTableEntry m_nte_ColorString;
   nt::NetworkTableEntry m_nte_MotorCurrent;
 
+  nt::NetworkTableEntry m_nte_DesiredTransitions;
+  nt::NetworkTableEntry m_nte_ActualTransitions;
+  nt::NetworkTableEntry m_nte_RotateMotorSpeed;
+  nt::NetworkTableEntry m_nte_GotoMotorSpeed;
+
 #ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
   /**
    * Will be called periodically whenever the CommandScheduler runs.
