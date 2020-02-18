@@ -14,10 +14,15 @@ SpinUpFarShooter::SpinUpFarShooter(Shooter *shooter) : m_shooter(shooter) {
 
 #ifdef ENABLE_SHOOTER
 // Called when the command is initially scheduled.
-void SpinUpFarShooter::Initialize() {}
+void SpinUpFarShooter::Initialize() {
+// FIXME (CRE): Is this where we set the calibrated values for RPM?
+// FIXME (CRE): Write calibrated values to the shuffleboard and NT
+}
 
 // Called repeatedly when this Command is scheduled to run
-void SpinUpFarShooter::Execute() {}
+void SpinUpFarShooter::Execute() {
+  // FIXME (CRE): Read the (possibly updated) Motor RPM values from the shuffleboard and write to NT
+} 
 
 // Called once the command ends or is interrupted.
 void SpinUpFarShooter::End(bool interrupted) {}

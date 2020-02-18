@@ -25,6 +25,7 @@ namespace ConShooter {
         constexpr int WHEEL_SIZE = 4; //in inches
         constexpr double VELOCITY_FACTOR = 1; //(ConMath::PI*WHEEL_SIZE) * ConMath::METERS_2_INCH * ConMath::MINUTES_2_SECONDS; //(velocity) y [m/s] = PI*WHEEL_SIZE * m/in * 1/60 * x [RPM]
         constexpr double MOTOR_SPEED = 0.5;
+        constexpr double OPTIMAL_RPM = 1600.0; // Calibrated RPM from Saturday testing
         constexpr double MAX_RPM = 4000.0;
         //PID gains
         constexpr double P = 2e-4;
@@ -37,6 +38,7 @@ namespace ConShooter {
         constexpr int WHEEL_SIZE = 6; //in inches
         constexpr double VELOCITY_FACTOR = 1; //(ConMath::PI*WHEEL_SIZE) * ConMath::METERS_2_INCH * ConMath::MINUTES_2_SECONDS; //(velocity) y [m/s] = PI*WHEEL_SIZE * m/in * 1/60 * x [RPM]
         constexpr double MOTOR_SPEED = 0.5;
+        constexpr double OPTIMAL_RPM = 3100.0; // Calibrated RPM from Saturday testing
         constexpr double MAX_RPM = 4000.0;
          //PID gains
         constexpr double P = 2e-4;
