@@ -60,8 +60,14 @@ class Shooter : public frc2::SubsystemBase {
  public:
   Shooter();
   frc::ShuffleboardTab *m_sbt_Shooter;
-  nt::NetworkTableEntry m_nte_TopMotorRPM;
-  nt::NetworkTableEntry m_nte_BottomMotorRPM;
+  nt::NetworkTableEntry m_nte_TopMotorRPM; // TARGET value
+  nt::NetworkTableEntry m_nte_BottomMotorRPM; // TARGET value
+
+  nt::NetworkTableEntry m_nte_TopMotorInputRPM; // TARGET value
+  nt::NetworkTableEntry m_nte_BottomMotorInputRPM; // TARGET value
+  nt::NetworkTableEntry m_nte_TopMotorOutputRPM; // Actual value
+  nt::NetworkTableEntry m_nte_BottomMotorOutputRPM; // Actual value
+
   nt::NetworkTableEntry m_nte_FeederMotorSpeed;
   nt::NetworkTableEntry m_nte_HopperMotorSpeed;
 
