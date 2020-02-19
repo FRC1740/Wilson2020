@@ -57,6 +57,7 @@ class Climber : public frc2::SubsystemBase {
   frc::DutyCycleEncoder m_dutyCycleEncoder{0};
   nt::NetworkTableEntry m_tabClimberDistance;
   double m_climberPosition;
-  frc::XboxController codriver_control{ConXBOXControl::CODRIVER_CONTROLLER_PORT};
+// CRE: The driver/codriver controller objects are defined in RobotContainer
+//  frc::XboxController codriver_control{ConXBOXControl::CODRIVER_CONTROLLER_PORT};
 #endif // ENABLE_CLIMBER
 };
