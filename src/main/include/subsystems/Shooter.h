@@ -52,7 +52,7 @@ namespace ConShooter {
     }
     namespace Hopper {
         constexpr int MOTOR_ID = 1;
-        constexpr int MOTOR_SPEED = 2.0/3.0;
+        constexpr int MOTOR_SPEED = 0.75;
     }
 }
 
@@ -71,6 +71,8 @@ class Shooter : public frc2::SubsystemBase {
 
   nt::NetworkTableEntry m_nte_FeederMotorSpeed;
   nt::NetworkTableEntry m_nte_HopperMotorSpeed;
+
+  nt::NetworkTableEntry m_nte_JumblerStatus;
 
 #ifdef ENABLE_SHOOTER
   /**
@@ -106,6 +108,7 @@ class Shooter : public frc2::SubsystemBase {
 
   // Hopper is covered by Activate/Deactivate
   //void SetHopperSpeed(double speed);
+  bool m_run_jumbler;
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be

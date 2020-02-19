@@ -37,6 +37,8 @@ Shooter::Shooter() {
     m_bottomVelocityPID.SetD(ConShooter::Bottom::D);
     m_bottomVelocityPID.SetFF(ConShooter::Bottom::FF);
     m_bottomVelocityPID.SetOutputRange(0.0, 1.0);
+
+    m_run_jumbler = false;
     
 #endif // ENABLE_SHOOTER
   // Create and get reference to SB tab
@@ -101,6 +103,14 @@ Shooter::Shooter() {
     .WithSize(2, 1)
     .WithPosition(0, 3)
     .GetEntry();
+
+  m_nte_JumblerStatus = m_sbt_Shooter->
+    AddPersistent("Jumbler Status", false)
+    .WithWidget(frc::BuiltInWidgets::kToggleButton)
+    .WithSize(2, 1)
+    .WithPosition(3, 2)
+    .GetEntry();
+
 }
 
 #ifdef ENABLE_SHOOTER
@@ -110,6 +120,9 @@ void Shooter::Periodic() {
     // Update Network Table/Shuffleboard Values
     m_nte_TopMotorOutputRPM.SetDouble(GetTopMotorSpeed());
     m_nte_BottomMotorOutputRPM.SetDouble(GetBottomMotorSpeed());
+    m_nte_JumblerStatus.SetBoolean(m_run_jumbler);
+
+
     //m_nte_FeederMotorSpeed.GetDouble(0.0);
     //m_nte_HopperMotorSpeed.GetDouble(0.0);
 
@@ -123,6 +136,12 @@ void Shooter::Periodic() {
         frc::SmartDashboard::PutBoolean("PowerCell", false);
     } 
     */
+   if (m_run_jumbler) {
+     
+    m_hopperMotor.Set(ControlMode::PercentOutput, ConShooter::Hopper::MOTOR_SPEED);
+
+
+   }
 }
 
 void Shooter::SetBottomMotorSpeed(double velocity) {
