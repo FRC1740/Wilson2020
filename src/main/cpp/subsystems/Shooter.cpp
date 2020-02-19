@@ -39,6 +39,8 @@ Shooter::Shooter() {
     m_bottomVelocityPID.SetOutputRange(0.0, 1.0);
 
     m_run_jumbler = false;
+    m_topMotor.BurnFlash();
+    m_bottomMotor.BurnFlash();
     
 #endif // ENABLE_SHOOTER
   // Create and get reference to SB tab
