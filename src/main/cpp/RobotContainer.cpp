@@ -24,6 +24,8 @@
 #include "commands/GoToColorCPM.h"
 #include "commands/RotateManualCPM.h"
 #include "commands/JumbleShooter.h"
+#include "commands/FeedShooterJumbler.h"
+#include "commands/StarveShooterJumbler.h"
 #include "commands/LogDataToDashboard.h"
 
 #include "RobotContainer.h"
@@ -66,8 +68,10 @@ void RobotContainer::ConfigureButtonBindings() {
   //FIXME: Test these
   //FIXME: add SpinUpCloseShooter - right bumper, SpinUpFarShooter - left bumper, and JumbleShooter - A
   //frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::A); }).WhenHeld(new JumbleShooter(&m_shooter));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::LEFT_BUMPER); }).WhenHeld(new SpinUpShooter(&m_shooter));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_BUMPER); }).WhenHeld(new JumbleShooter(&m_shooter));
+//  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::LEFT_BUMPER); }).WhenHeld(new SpinUpShooter(&m_shooter));
+//  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_BUMPER); }).WhenHeld(new JumbleShooter(&m_shooter));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Switch::GREEN); }).WhenHeld(new SpinUpShooter(&m_shooter));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::GREEN); }).WhenHeld(new FeedShooterJumbler(&m_jumbler));
 #endif // ENABLE_SHOOTER
 
 #ifdef ENABLE_VISION

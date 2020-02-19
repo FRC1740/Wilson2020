@@ -96,8 +96,6 @@ namespace ConXBOXControl {
 
     // Driver controller Port
     constexpr int DRIVER_CONTROLLER_PORT = 0;
-    // CoDriver controller port
-    constexpr int CODRIVER_CONTROLLER_PORT = 1;
 }
 
 // DeadZone lambda function
@@ -129,5 +127,5 @@ namespace ConLaunchPad {
     constexpr int RIGHT_STICK_Y = 7;
     constexpr int RIGHT_STICK_X = 3;
 
-    constexpr int LAUNCHPAD_CONTROLLER_PORT = 4;
+    constexpr int LAUNCHPAD_CONTROLLER_PORT = 1;
 }

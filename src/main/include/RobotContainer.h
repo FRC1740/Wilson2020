@@ -21,6 +21,7 @@
 #include "subsystems/DriveTrain.h"
 #include "subsystems/Climber.h"
 #include "subsystems/Shooter.h"
+#include "subsystems/Jumbler.h"
 #include "subsystems/ControlPanelManipulator.h"
 #include "subsystems/Vision.h"
 
@@ -44,6 +45,7 @@ class RobotContainer {
   DriveTrain m_driveTrain;
   Climber m_climber;
   Shooter m_shooter;
+  Jumbler m_jumbler;
   ControlPanelManipulator m_controlPanelManipulator;
   Vision m_vision;
 
@@ -63,10 +65,11 @@ class RobotContainer {
   m_driveTrain is the member of RobotContainer
   */
 
+public:
   // The driver's game controller
   frc::XboxController driver_control{ConXBOXControl::DRIVER_CONTROLLER_PORT};
   // The codriver's game controller
-  frc::XboxController codriver_control{ConXBOXControl::CODRIVER_CONTROLLER_PORT};
+  frc::XboxController codriver_control{ConLaunchPad::LAUNCHPAD_CONTROLLER_PORT};
 
   void ConfigureButtonBindings();
 };
