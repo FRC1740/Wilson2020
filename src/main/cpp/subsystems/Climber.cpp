@@ -15,6 +15,7 @@ Climber::Climber() {
     m_dutyCycleEncoder.SetDistancePerRotation(ConClimber::ROTATION_DISTANCE);
     m_dutyCycleEncoder.Reset();
     m_climberPosition = m_dutyCycleEncoder.GetDistance();
+    m_motor.BurnFlash();
     
 #endif // ENABLE_CLIMBER
 }

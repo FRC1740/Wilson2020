@@ -37,6 +37,9 @@ Shooter::Shooter() {
     m_bottomVelocityPID.SetD(ConShooter::Bottom::D);
     m_bottomVelocityPID.SetFF(ConShooter::Bottom::FF);
     m_bottomVelocityPID.SetOutputRange(0.0, 1.0);
+
+    m_topMotor.BurnFlash();
+    m_bottomMotor.BurnFlash();
     
 #endif // ENABLE_SHOOTER
   // Create and get reference to SB tab
