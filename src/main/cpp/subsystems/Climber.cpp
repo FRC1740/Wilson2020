@@ -10,7 +10,7 @@
 Climber::Climber() {
 #ifdef ENABLE_CLIMBER
     m_tabClimber = &frc::Shuffleboard::GetTab(ConShuffleboard::ClimberTab);
-    m_tabClimberDistance = m_tabClimber->Add("Climber Position", 0.0).GetEntry();
+    m_tabClimberDistance = m_tabClimber->Add("Climber Position", 0.0).WithSize(2,1).WithPosition(0,0).GetEntry();
     // Set Encoder distance per rotation
     m_dutyCycleEncoder.SetDistancePerRotation(ConClimber::ROTATION_DISTANCE);
     m_dutyCycleEncoder.Reset();

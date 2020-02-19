@@ -16,7 +16,7 @@ void Robot::RobotInit() {
   // Create widget for code version
   m_nte_CodeVersion = m_sbt_Robot->
     Add("Code Version", ROBOT_VERSION_STRING)
-    .WithSize(3, 3)
+    .WithSize(3, 1)
     .WithPosition(0, 0)
     .GetEntry();
 }

@@ -32,14 +32,14 @@ DriveTrain::DriveTrain() {
   // Create widgets for digital filter lengths
   m_nte_DriveSpeedFilter = m_sbt_DriveTrain->
     AddPersistent("Drive Speed Filter", 15.0)
-    .WithSize(3, 3)
+    .WithSize(2, 1)
     .WithPosition(0, 0)
     .GetEntry();
 
   m_nte_DriveRotationFilter = m_sbt_DriveTrain->
     AddPersistent("Drive Rotation Filter", 15.0)
-    .WithSize(3, 3)
-    .WithPosition(0, 3)
+    .WithSize(2, 1)
+    .WithPosition(0, 1)
     .GetEntry();
 }
 
