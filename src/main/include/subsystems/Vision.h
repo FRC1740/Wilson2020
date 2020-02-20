@@ -18,6 +18,9 @@ namespace ConVision {
         constexpr float I = 0.0;
         constexpr float D = 0.0;
     }
+    constexpr int ON = 3;
+    //constexpr int BLINK = 2;
+    constexpr int OFF = 1;
 }
 
 class Vision : public frc2::SubsystemBase {
@@ -33,6 +36,11 @@ class Vision : public frc2::SubsystemBase {
   double Align();
 
   void ToggleLight();
+
+  void LightOn();
+
+  void LightOff();
+  
 #endif // ENABLE_VISION
 
  private:

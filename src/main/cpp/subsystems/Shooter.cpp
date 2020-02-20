@@ -17,7 +17,7 @@ Shooter::Shooter() {
     m_topMotor.SetInverted(false);
     m_bottomMotor.SetInverted(true);
     m_feedMotor.SetInverted(true);
-    m_hopperMotor.SetInverted(true);
+    //m_hopperMotor.SetInverted(true);
 
     // Set velocity of shaft relative to velocity of wheel
     m_topEncoder.SetVelocityConversionFactor(ConShooter::Top::VELOCITY_FACTOR);
@@ -38,7 +38,7 @@ Shooter::Shooter() {
     m_bottomVelocityPID.SetFF(ConShooter::Bottom::FF);
     m_bottomVelocityPID.SetOutputRange(0.0, 1.0);
 
-    m_run_jumbler = false;
+    //m_run_jumbler = false;
     m_topMotor.BurnFlash();
     m_bottomMotor.BurnFlash();
     
@@ -99,12 +99,13 @@ Shooter::Shooter() {
     .WithSize(2, 1)
     .WithPosition(0, 2)
     .GetEntry();
-
+  /*
   m_nte_HopperMotorSpeed = m_sbt_Shooter->
     AddPersistent("Hopper Motor Speed", ConShooter::Hopper::MOTOR_SPEED)
     .WithSize(2, 1)
     .WithPosition(0, 3)
     .GetEntry();
+  */
 
   /*
   m_nte_JumblerStatus = m_sbt_Shooter->
@@ -200,12 +201,12 @@ void Shooter::StopSpinUp(){
 //}
 
 void Shooter::Activate() {
-  m_hopperMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.75);
+  //m_hopperMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.75);
   //  Change to:  , m_nte_FeederMotorSpeed.GetDouble(0.0));  
 }
 
 void Shooter::Deactivate() {
-  m_hopperMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+  //m_hopperMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
 }
 
 void Shooter::SetFeedSpeed(double speed) {

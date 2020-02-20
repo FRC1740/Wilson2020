@@ -8,6 +8,13 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
+#include <ctre/Phoenix.h>
+
+namespace ConJumbler {
+  constexpr int MOTOR_ID = 1;
+  constexpr double MOTOR_SPEED = 0.75;
+}
+
 
 class Jumbler : public frc2::SubsystemBase {
  public:
@@ -18,7 +25,10 @@ class Jumbler : public frc2::SubsystemBase {
    */
   void Periodic();
 
+  void Jumble(double speed);
+
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
+  TalonSRX m_jumblerMotor{ConJumbler::MOTOR_ID};
 };

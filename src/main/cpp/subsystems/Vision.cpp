@@ -21,15 +21,21 @@ double Vision::Align() {
 }
 
 void Vision::ToggleLight() {
-    constexpr int ON = 3;
-    //constexpr int BLINK = 2;
-    constexpr int OFF = 1;
+    
 
-    if (m_tabLimelight->GetNumber("ledMode", ON) == OFF) {
-        m_tabLimelight->PutNumber("ledMode", ON);
+    if (m_tabLimelight->GetNumber("ledMode", ConVision::ON) == ConVision::OFF) {
+        m_tabLimelight->PutNumber("ledMode", ConVision::ON);
     } 
     else {
-        m_tabLimelight->PutNumber("ledMode", OFF);
+        m_tabLimelight->PutNumber("ledMode", ConVision::OFF);
     }
+}
+
+void Vision::LightOn() {
+    m_tabLimelight->PutNumber("ledMode", ConVision::ON);
+}
+
+void Vision::LightOff() {
+    m_tabLimelight->PutNumber("ledMode", ConVision::OFF);
 }
 #endif // ENABLE_VISION

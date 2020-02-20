@@ -50,10 +50,12 @@ namespace ConShooter {
         constexpr int MOTOR_ID = 7;
         constexpr double MOTOR_SPEED = 0.5;
     }
+    /*
     namespace Hopper {
         constexpr int MOTOR_ID = 1;
         constexpr int MOTOR_SPEED = 0.75;
     }
+    */
 }
 
 class Shooter : public frc2::SubsystemBase {
@@ -108,7 +110,7 @@ class Shooter : public frc2::SubsystemBase {
 
   // Hopper is covered by Activate/Deactivate
   //void SetHopperSpeed(double speed);
-  bool m_run_jumbler;
+  //bool m_run_jumbler;
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
@@ -126,7 +128,8 @@ class Shooter : public frc2::SubsystemBase {
   rev::CANPIDController m_bottomVelocityPID = m_bottomMotor.GetPIDController();
 
   TalonSRX m_feedMotor{ConShooter::Feeder::MOTOR_ID};
-  TalonSRX m_hopperMotor{ConShooter::Hopper::MOTOR_ID};
+  
+  //TalonSRX m_hopperMotor{ConShooter::Hopper::MOTOR_ID};
 
   frc::TimeOfFlight m_powerCellDetector{0};
 #endif // ENABLE_SHOOTER

@@ -31,11 +31,15 @@ AlignToPlayerStationPID::AlignToPlayerStationPID(Vision *vision, DriveTrain *dri
     [](double output) { },
 #endif // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
                     { driveTrain, vision }
-                    ) {}
+                    ) {m_vision->LightOn();}
                     
 #if defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
 // Returns true when the command should end.
 bool AlignToPlayerStationPID::IsFinished() { return GetController().AtSetpoint(); }
+
+void AlignToPlayerStationPID::End(bool interrupted) {
+  m_vision->LightOff();
+}
 #else // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
 bool AlignToPlayerStationPID::IsFinished() { return true; }
 #endif // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)

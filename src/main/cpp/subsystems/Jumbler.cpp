@@ -7,7 +7,9 @@
 
 #include "subsystems/Jumbler.h"
 
-Jumbler::Jumbler() {}
+Jumbler::Jumbler() {
+    m_jumblerMotor.SetInverted(true);
+}
 
 // This method will be called once per scheduler run
 void Jumbler::Periodic() {}
