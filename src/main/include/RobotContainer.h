@@ -20,6 +20,7 @@
 #include "commands/ExtendClimber.h"
 #include "commands/RetractClimber.h"
 #include "commands/OperateManualClimber.h"
+#include "commands/EngageClimberLock.h"
 #include "Constants.h"
 
 #include "subsystems/DriveTrain.h"
