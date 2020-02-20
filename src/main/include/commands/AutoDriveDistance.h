@@ -21,7 +21,7 @@
 class AutoDriveDistance
     : public frc2::CommandHelper<frc2::CommandBase, AutoDriveDistance> {
  public:
-  explicit AutoDriveDistance(DriveTrain *drivetrain);
+  explicit AutoDriveDistance(DriveTrain *drivetrain, double distance);
 
 #ifdef ENABLE_DRIVETRAIN
   void Initialize() override;
@@ -35,4 +35,6 @@ class AutoDriveDistance
 
  private:
   DriveTrain *m_driveTrain;
+  double m_distance;
+  double m_speedOut = 0.0;
 };
