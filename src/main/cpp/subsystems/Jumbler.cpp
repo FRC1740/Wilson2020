@@ -5,14 +5,9 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+#include "subsystems/Jumbler.h"
 
-#include <frc2/command/CommandHelper.h>
-#include <frc2/command/SequentialCommandGroup.h>
-#include "subsystems/DriveTrain.h"
+Jumbler::Jumbler() {}
 
-class AutoDrive
-    : public frc2::CommandHelper<frc2::SequentialCommandGroup, AutoDrive> {
- public:
-  explicit AutoDrive(DriveTrain *drivetrain);
-};
+// This method will be called once per scheduler run
+void Jumbler::Periodic() {}

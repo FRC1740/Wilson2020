@@ -5,24 +5,24 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/AutoDriveAngle.h"
+#include "commands/OperateManualClimber.h"
+#include "subsystems/Climber.h"
 
-AutoDriveAngle::AutoDriveAngle(DriveTrain *drivetrain, double angle) : m_driveTrain(drivetrain), m_angle(angle) {
+OperateManualClimber::OperateManualClimber(Climber *climber, std::function<double()> speed) : m_climber(climber), m_speed(speed) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(drivetrain);
+  AddRequirements(climber);
 }
 
-#ifdef ENABLE_DRIVETRAIN
 // Called when the command is initially scheduled.
-void AutoDriveAngle::Initialize() {}
+void OperateManualClimber::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void AutoDriveAngle::Execute() {}
+void OperateManualClimber::Execute() {
+  m_climber->Go(m_speed());
+}
 
 // Called once the command ends or is interrupted.
-void AutoDriveAngle::End(bool interrupted) {}
+void OperateManualClimber::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool AutoDriveAngle::IsFinished() { return false; }
-
-#endif // ENABLE_DRIVETRAIN
+bool OperateManualClimber::IsFinished() { return false; }

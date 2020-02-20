@@ -5,24 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/AutoDriveAngle.h"
+#include "commands/EngageClimberLock.h"
 
-AutoDriveAngle::AutoDriveAngle(DriveTrain *drivetrain, double angle) : m_driveTrain(drivetrain), m_angle(angle) {
+EngageClimberLock::EngageClimberLock(Climber *climber) : m_climber(climber) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(drivetrain);
 }
 
-#ifdef ENABLE_DRIVETRAIN
 // Called when the command is initially scheduled.
-void AutoDriveAngle::Initialize() {}
+void EngageClimberLock::Initialize() {
+  m_climber->Lock();
+}
 
 // Called repeatedly when this Command is scheduled to run
-void AutoDriveAngle::Execute() {}
+void EngageClimberLock::Execute() {}
 
 // Called once the command ends or is interrupted.
-void AutoDriveAngle::End(bool interrupted) {}
+void EngageClimberLock::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool AutoDriveAngle::IsFinished() { return false; }
-
-#endif // ENABLE_DRIVETRAIN
+bool EngageClimberLock::IsFinished() { return true; }

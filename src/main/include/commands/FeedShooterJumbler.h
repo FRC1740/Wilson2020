@@ -9,7 +9,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/DriveTrain.h"
+#include "subsystems/Jumbler.h"
 
 /**
  * An example command.
@@ -18,12 +18,11 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class AutoDriveAngle
-    : public frc2::CommandHelper<frc2::CommandBase, AutoDriveAngle> {
+class FeedShooterJumbler
+    : public frc2::CommandHelper<frc2::CommandBase, FeedShooterJumbler> {
  public:
-  explicit AutoDriveAngle(DriveTrain *drivetrain, double angle);
+  explicit FeedShooterJumbler(Jumbler *jumbler);
 
-#ifdef ENABLE_DRIVETRAIN
   void Initialize() override;
 
   void Execute() override;
@@ -31,9 +30,7 @@ class AutoDriveAngle
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-#endif // ENABLE_DRIVETRAIN
 
  private:
-  DriveTrain *m_driveTrain;
-  double m_angle;
+  Jumbler *m_jumbler;
 };

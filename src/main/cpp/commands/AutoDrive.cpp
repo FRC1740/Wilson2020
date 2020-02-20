@@ -6,24 +6,21 @@
 /*----------------------------------------------------------------------------*/
 
 #include "commands/AutoDrive.h"
+#include "commands/AutoDriveDistance.h"
+#include "commands/AutoDriveAngle.h"
 
-AutoDrive::AutoDrive(DriveTrain *drivetrain) : m_driveTrain(drivetrain) {
-  // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(drivetrain);
-}
+// NOTE:  Consider using this command inline, rather than writing a subclass.
+// For more information, see:
+// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 
-#ifdef ENABLE_DRIVETRAIN
-// Called when the command is initially scheduled.
-void AutoDrive::Initialize() {}
-
-// Called repeatedly when this Command is scheduled to run
-void AutoDrive::Execute() {}
-
-// Called once the command ends or is interrupted.
-void AutoDrive::End(bool interrupted) {}
-
-// Returns true when the command should end.
-bool AutoDrive::IsFinished() {
-  return true;
-}
+AutoDrive::AutoDrive(DriveTrain *drivetrain) {
+#if 0 //def ENABLE_DRIVETRAIN
+  // Add your commands here, e.g.
+  // AddCommands(FooCommand(), BarCommand());
+  AddCommands (
+    AutoDriveDistance(drivetrain, 10.0),
+    //AutoDriveAngle(drivetrain, 90),
+    AutoDriveDistance(drivetrain, -10.0)
+  );
 #endif // ENABLE_DRIVETRAIN
+}

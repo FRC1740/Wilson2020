@@ -5,24 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/AutoDriveAngle.h"
+#include "commands/StarveShooterJumbler.h"
 
-AutoDriveAngle::AutoDriveAngle(DriveTrain *drivetrain, double angle) : m_driveTrain(drivetrain), m_angle(angle) {
+StarveShooterJumbler::StarveShooterJumbler(Jumbler *jumbler) : m_jumbler(jumbler) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(drivetrain);
+  AddRequirements(jumbler);
 }
 
-#ifdef ENABLE_DRIVETRAIN
 // Called when the command is initially scheduled.
-void AutoDriveAngle::Initialize() {}
+void StarveShooterJumbler::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void AutoDriveAngle::Execute() {}
+void StarveShooterJumbler::Execute() {}
 
 // Called once the command ends or is interrupted.
-void AutoDriveAngle::End(bool interrupted) {}
+void StarveShooterJumbler::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool AutoDriveAngle::IsFinished() { return false; }
-
-#endif // ENABLE_DRIVETRAIN
+bool StarveShooterJumbler::IsFinished() { return false; }

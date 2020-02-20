@@ -96,8 +96,6 @@ namespace ConXBOXControl {
 
     // Driver controller Port
     constexpr int DRIVER_CONTROLLER_PORT = 0;
-    // CoDriver controller port
-    constexpr int CODRIVER_CONTROLLER_PORT = 1;
 }
 
 // DeadZone lambda function
@@ -106,17 +104,18 @@ auto DeadZone = [] (double a) { return (std::fabs(a) > ConXBOXControl::DEAD_ZONE
 // Texas Instruments Controller (MSP430F5529 LaunchPad)
 namespace ConLaunchPad {
     namespace Button {
-        constexpr int RED = 11;
-        constexpr int BLUE = 10;
-        constexpr int YELLOW = 5;
-        constexpr int GREEN = 3;
+        constexpr int RED = 1; // 11;
+        constexpr int BLUE = 2; // 10;
+        constexpr int YELLOW = 3; // 5;
+        constexpr int GREEN = 4; // 3;
+        constexpr int WHITE = 5; // New
     }
 
     namespace Switch {
-        constexpr int RED = 7;
-        constexpr int BLUE = 9;
-        constexpr int YELLOW = 4;
-        constexpr int GREEN = 2;
+        constexpr int RED = 6; // 7;
+        constexpr int BLUE = 7; // 9;
+        constexpr int YELLOW = 8; // 4;
+        constexpr int GREEN = 9; // 2;
     }
 
     namespace Dial {
@@ -129,5 +128,5 @@ namespace ConLaunchPad {
     constexpr int RIGHT_STICK_Y = 7;
     constexpr int RIGHT_STICK_X = 3;
 
-    constexpr int LAUNCHPAD_CONTROLLER_PORT = 4;
+    constexpr int LAUNCHPAD_CONTROLLER_PORT = 1;
 }

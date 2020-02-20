@@ -16,6 +16,7 @@ Climber::Climber() {
     m_dutyCycleEncoder.Reset();
     m_climberPosition = m_dutyCycleEncoder.GetDistance();
     m_motor.BurnFlash();
+    Lock(); // Starting Configuration: Engage locking dog
     
 #endif // ENABLE_CLIMBER
 }
@@ -50,17 +51,37 @@ void Climber::ResetEncoder() {
 }
 
 void Climber::Go(double speed) {
-  //m_motor.Set(ControlMode::PercentOutput, speed);
-  m_motor.Set(speed);
+  if ((m_codriver_control != nullptr) && 
+      (m_codriver_control->GetRawButton(ConLaunchPad::Button::WHITE))) {
+    m_motor.Set(speed);
+  }
+  else {
+    m_motor.Set(0.0);
+  }
+  //m_motor.Set(ControlMode::PercentOutput, speed); // If we're using a Talon
+}
+
+void Climber::Lock() {
+  m_climberLock.Set(frc::DoubleSolenoid::kForward);
+}
+
+void Climber::Unlock() {
+  m_climberLock.Set(frc::DoubleSolenoid::kReverse);
 }
 
 // This method will be called once per scheduler run
 void Climber::Periodic() {
   m_climberPosition = m_dutyCycleEncoder.GetDistance();
   m_tabClimberDistance.SetDouble(m_climberPosition);
-  
-  if (codriver_control.GetRawButton(ConXBOXControl::START)) {
+
+  if ((m_codriver_control != nullptr) && 
+      (m_codriver_control->GetRawButton(ConLaunchPad::Switch::GREEN))) { // Nearest to climber controls
     ResetEncoder();
   }
 }
+
+void Climber::SetCodriverControl(frc::XboxController *codriver_control) {
+  m_codriver_control = codriver_control;
+}
+
 #endif // ENABLE_CLIMBER

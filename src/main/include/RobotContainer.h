@@ -7,24 +7,30 @@
 
 #pragma once
 
+#include "commands/EngageClimberLock.h"
+
+/* Aren't the following  all included in RobotContainer.cpp ? */
 #include <frc/XboxController.h>
 #include <frc2/command/Command.h>
 #include <frc/XboxController.h>
 
+#include "commands/AutoDrive.h"
 #include "commands/AutoDriveDistance.h"
 #include "commands/SpinUpShooter.h"
 #include "commands/ActivateShooter.h"
 #include "commands/ExtendClimber.h"
 #include "commands/RetractClimber.h"
+#include "commands/OperateManualClimber.h"
+#include "commands/EngageClimberLock.h"
 #include "Constants.h"
 
 #include "subsystems/DriveTrain.h"
 #include "subsystems/Climber.h"
 #include "subsystems/Shooter.h"
+#include "subsystems/Jumbler.h"
 #include "subsystems/ControlPanelManipulator.h"
 #include "subsystems/Vision.h"
 
-#include "commands/AutoDrive.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -38,16 +44,20 @@ class RobotContainer {
   RobotContainer();
 
   frc2::Command* GetAutonomousCommand();
+  frc2::Command* GetDisabledCommand();
 
  private:
   // The robot's subsystems and commands are defined here...
   DriveTrain m_driveTrain;
   Climber m_climber;
   Shooter m_shooter;
+  Jumbler m_jumbler;
   ControlPanelManipulator m_controlPanelManipulator;
   Vision m_vision;
 
   AutoDrive m_autoDrive;
+  EngageClimberLock m_lockClimber;
+
   /*
   EXAMPLE:
   int m_x;
@@ -63,10 +73,11 @@ class RobotContainer {
   m_driveTrain is the member of RobotContainer
   */
 
+public:
   // The driver's game controller
   frc::XboxController driver_control{ConXBOXControl::DRIVER_CONTROLLER_PORT};
   // The codriver's game controller
-  frc::XboxController codriver_control{ConXBOXControl::CODRIVER_CONTROLLER_PORT};
+  frc::XboxController codriver_control{ConLaunchPad::LAUNCHPAD_CONTROLLER_PORT};
 
   void ConfigureButtonBindings();
 };
