@@ -64,9 +64,9 @@ void RobotContainer::ConfigureButtonBindings() {
 
 #ifdef ENABLE_CLIMBER
   // Climber
-  //FIXME: Test these
-  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::X); }).WhileHeld(new ExtendClimber(&m_climber));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::Y); }).WhileHeld(new RetractClimber(&m_climber));
+  OperateManualClimber( &m_climber, [this] { return codriver_control.GetRawAxis(ConLaunchPad::RIGHT_STICK_Y); } );
+  // frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::X); }).WhileHeld(new ExtendClimber(&m_climber));
+  // frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::Y); }).WhileHeld(new RetractClimber(&m_climber));
 #endif // ENABLE_CLIMBER
 
 #ifdef ENABLE_SHOOTER
@@ -76,8 +76,9 @@ void RobotContainer::ConfigureButtonBindings() {
   //frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::A); }).WhenHeld(new JumbleShooter(&m_shooter));
 //  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::LEFT_BUMPER); }).WhenHeld(new SpinUpShooter(&m_shooter));
 //  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_BUMPER); }).WhenHeld(new JumbleShooter(&m_shooter));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Switch::GREEN); }).WhenHeld(new SpinUpShooter(&m_shooter));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::GREEN); }).WhenHeld(new FeedShooterJumbler(&m_jumbler));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Switch::RED); }).WhenHeld(new SpinUpShooter(&m_shooter));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); }).WhenHeld(new FeedShooterJumbler(&m_jumbler));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); }).WhenHeld(new StarveShooterJumbler(&m_jumbler));
 #endif // ENABLE_SHOOTER
 
 #ifdef ENABLE_VISION
@@ -92,8 +93,9 @@ void RobotContainer::ConfigureButtonBindings() {
   // ControlPanelManipulator
   // FIXME: change RotateThreeCPM and GoToColorCPM to be on the LaunchPad
   // frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::B); }).WhenPressed(new GoToColorCPM(&m_controlPanelManipulator), false);
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::GREEN); }).WhenPressed(new RotateThreeCPM(&m_controlPanelManipulator), false);
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::YELLOW); }).WhenPressed(new GoToColorCPM(&m_controlPanelManipulator), false);
+  
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::YELLOW); }).WhenPressed(new RotateThreeCPM(&m_controlPanelManipulator), false);
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::GREEN); }).WhenPressed(new GoToColorCPM(&m_controlPanelManipulator), false);
 
   // FIXME: Convert to the Launchpad? 
   /*
@@ -104,8 +106,6 @@ void RobotContainer::ConfigureButtonBindings() {
     [this] { return codriver_control.GetRawAxis(ConLaunchPad::RIGHT_STICK_X); } );
 
 #endif // ENABLE_CONTROL_PANEL_MANIPULATOR
-
-  OperateManualClimber( &m_climber, [this] { return codriver_control.GetRawAxis(ConLaunchPad::RIGHT_STICK_Y); } );
 
 #if 1
   frc2::Button([this] { return true; }).WhileHeld(new LogDataToDashboard(&m_shooter));

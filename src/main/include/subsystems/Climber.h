@@ -35,7 +35,7 @@ class Climber : public frc2::SubsystemBase {
   Climber();
 
 #ifdef ENABLE_CLIMBER
-  frc::ShuffleboardTab *m_tabClimber;
+  frc::ShuffleboardTab *m_sbt_Climber;
 
   void ExtendClimber();
 
@@ -64,7 +64,8 @@ class Climber : public frc2::SubsystemBase {
   //TalonSRX m_motor{ConClimber::MOTOR_ID};
   rev::CANSparkMax m_motor{ConClimber::MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless}; //Replace with SparkMAX
   frc::DutyCycleEncoder m_dutyCycleEncoder{0};
-  nt::NetworkTableEntry m_tabClimberDistance;
+  nt::NetworkTableEntry m_nte_ClimberDistance;
+  nt::NetworkTableEntry m_nte_ClimberSpeed;
   double m_climberPosition;
 // CRE: The driver/codriver controller objects are defined in RobotContainer
 //  frc::XboxController codriver_control{ConXBOXControl::CODRIVER_CONTROLLER_PORT};
