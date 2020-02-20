@@ -30,7 +30,7 @@
 
 #include "RobotContainer.h"
 
-RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain) {
+RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain), m_lockClimber(&m_climber) {
   // ANOTHER WAY OF CONSTRUCTING: m_autoDriveDistance = AutoDriveDistance(&m_driveTrain);
   
   // Initialize all of your commands and subsystems here
@@ -47,6 +47,7 @@ RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain) {
 #endif // ENABLE_DRIVETRAIN
 #ifdef ENABLE_CLIMBER
   m_climber.SetCodriverControl(&codriver_control);
+  // m_shooter.SetCodriverControl(&codriver_control);
 #endif // ENABLE_CLIMBER
 }
 
@@ -128,4 +129,9 @@ void RobotContainer::ConfigureButtonBindings() {
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
   return &m_autoDrive;
+}
+
+frc2::Command* RobotContainer::GetDisabledCommand() {
+  // An example command will be run in disabled mode
+  return &m_lockClimber;
 }

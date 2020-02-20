@@ -16,6 +16,7 @@
 #include "commands/ActivateShooter.h"
 #include "commands/ExtendClimber.h"
 #include "commands/RetractClimber.h"
+#include "commands/EngageClimberLock.h"
 #include "Constants.h"
 
 #include "subsystems/DriveTrain.h"
@@ -39,6 +40,7 @@ class RobotContainer {
   RobotContainer();
 
   frc2::Command* GetAutonomousCommand();
+  frc2::Command* GetDisabledCommand();
 
  private:
   // The robot's subsystems and commands are defined here...
@@ -50,6 +52,8 @@ class RobotContainer {
   Vision m_vision;
 
   AutoDrive m_autoDrive;
+  EngageClimberLock m_lockClimber;
+
   /*
   EXAMPLE:
   int m_x;
