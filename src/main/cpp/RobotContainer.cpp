@@ -45,6 +45,9 @@ RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain) {
     [this] { return driver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER) - driver_control.GetRawAxis(ConXBOXControl::LEFT_TRIGGER); },
     [this] { return driver_control.GetRawAxis(ConXBOXControl::LEFT_JOYSTICK_X); }));
 #endif // ENABLE_DRIVETRAIN
+#ifdef ENABLE_CLIMBER
+  m_climber.SetCodriverControl(&codriver_control);
+#endif // ENABLE_CLIMBER
 }
 
 void RobotContainer::ConfigureButtonBindings() {
