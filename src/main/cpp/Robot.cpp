@@ -36,9 +36,17 @@ void Robot::RobotPeriodic() { frc2::CommandScheduler::GetInstance().Run(); }
  * can use it to reset any subsystem information you want to clear when the
  * robot is disabled.
  */
-void Robot::DisabledInit() {}
+void Robot::DisabledInit() {
+   // Ensure that we lock the climber whenever we're disabled
+  m_disabledCommand = m_container.GetDisabledCommand();
+  if (m_disabledCommand != nullptr) {
+    m_disabledCommand->Schedule();
+  }
 
-void Robot::DisabledPeriodic() {}
+}
+
+void Robot::DisabledPeriodic() {
+}
 
 /**
  * This autonomous runs the autonomous command selected by your {@link
