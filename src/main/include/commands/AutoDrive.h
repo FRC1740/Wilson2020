@@ -7,32 +7,12 @@
 
 #pragma once
 
-#include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include <frc2/command/SequentialCommandGroup.h>
 #include "subsystems/DriveTrain.h"
 
-/**
- * An example command.
- *
- * <p>Note that this extends CommandHelper, rather extending CommandBase
- * directly; this is crucially important, or else the decorator functions in
- * Command will *not* work!
- */
 class AutoDrive
-    : public frc2::CommandHelper<frc2::CommandBase, AutoDrive> {
+    : public frc2::CommandHelper<frc2::SequentialCommandGroup, AutoDrive> {
  public:
   explicit AutoDrive(DriveTrain *drivetrain);
-
-#ifdef ENABLE_DRIVETRAIN
-  void Initialize() override;
-
-  void Execute() override;
-
-  void End(bool interrupted) override;
-
-  bool IsFinished() override;
-#endif // ENABLE_DRIVETRAIN
-
- private:
-  DriveTrain *m_driveTrain;
 };

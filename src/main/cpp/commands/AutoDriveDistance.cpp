@@ -7,22 +7,37 @@
 
 #include "commands/AutoDriveDistance.h"
 
-AutoDriveDistance::AutoDriveDistance(DriveTrain *drivetrain) : m_driveTrain(drivetrain) {
+AutoDriveDistance::AutoDriveDistance(DriveTrain *drivetrain, double distance) : m_driveTrain(drivetrain), m_distance(distance) {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements(drivetrain);
 }
 
 #ifdef ENABLE_DRIVETRAIN
 // Called when the command is initially scheduled.
-void AutoDriveDistance::Initialize() {}
+void AutoDriveDistance::Initialize() {
+  m_driveTrain->ResetEncoders();
+}
 
 // Called repeatedly when this Command is scheduled to run
-void AutoDriveDistance::Execute() {}
+void AutoDriveDistance::Execute() {
+  constexpr double speedN = 15.0; // length of digital filter
+  constexpr double maxSpeed = 0.1; // tune for appropriate desired speed
+  constexpr double rotation = 0.0;
+
+  double desiredSpeed = (m_distance > m_driveTrain->GetAverageEncoderDistance()) ? maxSpeed : -maxSpeed;
+  double speed = (((speedN - 1.0) * m_speedOut) + desiredSpeed) / speedN;
+  m_driveTrain->ArcadeDrive(speed, rotation);
+  m_speedOut = speed;
+}
 
 // Called once the command ends or is interrupted.
-void AutoDriveDistance::End(bool interrupted) {}
+void AutoDriveDistance::End(bool interrupted) {
+  m_driveTrain->ArcadeDrive(0.0, 0.0);
+}
 
 // Returns true when the command should end.
-bool AutoDriveDistance::IsFinished() { return false; }
-
+bool AutoDriveDistance::IsFinished() {
+  constexpr double epsilon = 1.0;
+  return (fabs(m_distance - m_driveTrain->GetAverageEncoderDistance()) < epsilon);
+}
 #endif // ENABLE_DRIVETRAIN

@@ -7,7 +7,7 @@
 
 #include "commands/AutoDriveAngle.h"
 
-AutoDriveAngle::AutoDriveAngle(DriveTrain *drivetrain) : m_driveTrain(drivetrain) {
+AutoDriveAngle::AutoDriveAngle(DriveTrain *drivetrain, double angle) : m_driveTrain(drivetrain), m_angle(angle) {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements(drivetrain);
 }
