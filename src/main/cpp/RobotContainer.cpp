@@ -48,7 +48,7 @@ RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain), m_lockClimber(&m_
     [this] { return driver_control.GetRawAxis(ConXBOXControl::LEFT_JOYSTICK_X); }));
 #endif // ENABLE_DRIVETRAIN
 #ifdef ENABLE_CLIMBER
-  m_climber.SetCodriverControl(&codriver_control); // This seems messy...
+  m_climber.SetCodriverControl(&codriver_control);
   // m_shooter.SetCodriverControl(&codriver_control);
 #endif // ENABLE_CLIMBER
 }
