@@ -21,7 +21,7 @@
 class AutoDriveAngle
     : public frc2::CommandHelper<frc2::CommandBase, AutoDriveAngle> {
  public:
-  explicit AutoDriveAngle(DriveTrain *drivetrain);
+  explicit AutoDriveAngle(DriveTrain *drivetrain, double angle);
 
 #ifdef ENABLE_DRIVETRAIN
   void Initialize() override;
@@ -35,4 +35,5 @@ class AutoDriveAngle
 
  private:
   DriveTrain *m_driveTrain;
+  double m_angle;
 };
