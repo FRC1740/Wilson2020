@@ -106,12 +106,14 @@ Shooter::Shooter() {
     .WithPosition(0, 3)
     .GetEntry();
 
+  /*
   m_nte_JumblerStatus = m_sbt_Shooter->
     AddPersistent("Jumbler Status", false)
     .WithWidget(frc::BuiltInWidgets::kToggleButton)
     .WithSize(2, 1)
     .WithPosition(3, 2)
     .GetEntry();
+  */
 
 }
 
@@ -122,7 +124,7 @@ void Shooter::Periodic() {
     // Update Network Table/Shuffleboard Values
     m_nte_TopMotorOutputRPM.SetDouble(GetTopMotorSpeed());
     m_nte_BottomMotorOutputRPM.SetDouble(GetBottomMotorSpeed());
-    m_nte_JumblerStatus.SetBoolean(m_run_jumbler);
+    //m_nte_JumblerStatus.SetBoolean(m_run_jumbler);
 
 
     //m_nte_FeederMotorSpeed.GetDouble(0.0);
@@ -138,12 +140,14 @@ void Shooter::Periodic() {
         frc::SmartDashboard::PutBoolean("PowerCell", false);
     } 
     */
-   if (m_run_jumbler) {
+   
+   /*if (m_run_jumbler) {
      
-    m_hopperMotor.Set(ControlMode::PercentOutput, ConShooter::Hopper::MOTOR_SPEED);
+    m_hopperMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.75);
 
 
    }
+   */
 }
 
 void Shooter::SetBottomMotorSpeed(double velocity) {
@@ -196,7 +200,7 @@ void Shooter::StopSpinUp(){
 //}
 
 void Shooter::Activate() {
-  m_hopperMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, ConShooter::Hopper::MOTOR_SPEED);
+  m_hopperMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.75);
   //  Change to:  , m_nte_FeederMotorSpeed.GetDouble(0.0));  
 }
 
