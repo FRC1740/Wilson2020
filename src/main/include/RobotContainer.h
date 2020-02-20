@@ -14,6 +14,7 @@
 #include <frc2/command/Command.h>
 #include <frc/XboxController.h>
 
+#include "commands/AutoDrive.h"
 #include "commands/AutoDriveDistance.h"
 #include "commands/SpinUpShooter.h"
 #include "commands/ActivateShooter.h"
