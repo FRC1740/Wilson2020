@@ -59,10 +59,14 @@ void Climber::Periodic() {
   m_climberPosition = m_dutyCycleEncoder.GetDistance();
   m_tabClimberDistance.SetDouble(m_climberPosition);
 
-/* FIXME: 
-  if (codriver_control.GetRawButton(ConXBOXControl::START)) {
+  if ((m_codriver_control != nullptr) && 
+      (m_codriver_control->GetRawButton(ConXBOXControl::START))) {
     ResetEncoder();
   }
-*/
 }
+
+void Climber::SetCodriverControl(frc::XboxController *codriver_control) {
+  m_codriver_control = codriver_control;
+}
+
 #endif // ENABLE_CLIMBER

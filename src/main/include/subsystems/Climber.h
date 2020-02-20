@@ -49,6 +49,8 @@ class Climber : public frc2::SubsystemBase {
    */
   void Periodic();
 
+  void SetCodriverControl(frc::XboxController *codriver_control);
+
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
@@ -59,5 +61,6 @@ class Climber : public frc2::SubsystemBase {
   double m_climberPosition;
 // CRE: The driver/codriver controller objects are defined in RobotContainer
 //  frc::XboxController codriver_control{ConXBOXControl::CODRIVER_CONTROLLER_PORT};
+  frc::XboxController *m_codriver_control = nullptr;
 #endif // ENABLE_CLIMBER
 };
