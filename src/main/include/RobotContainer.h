@@ -7,15 +7,20 @@
 
 #pragma once
 
+#include "commands/EngageClimberLock.h"
+
+/* Aren't the following  all included in RobotContainer.cpp ? */
 #include <frc/XboxController.h>
 #include <frc2/command/Command.h>
 #include <frc/XboxController.h>
 
+#include "commands/AutoDrive.h"
 #include "commands/AutoDriveDistance.h"
 #include "commands/SpinUpShooter.h"
 #include "commands/ActivateShooter.h"
 #include "commands/ExtendClimber.h"
 #include "commands/RetractClimber.h"
+#include "commands/OperateManualClimber.h"
 #include "commands/EngageClimberLock.h"
 #include "Constants.h"
 
@@ -26,7 +31,6 @@
 #include "subsystems/ControlPanelManipulator.h"
 #include "subsystems/Vision.h"
 
-#include "commands/AutoDrive.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
