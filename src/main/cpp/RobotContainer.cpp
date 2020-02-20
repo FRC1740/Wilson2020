@@ -9,9 +9,11 @@
 #include <frc2/command/button/Button.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 
+/* Aren't these included in RobotContainer.h? */
 #include "commands/AutoDrive.h"
 #include "commands/TeleOpDrive.h"
 #include "commands/TeleOpSlowDrive.h"
+#include "commands/OperateManualClimber.h"
 #include "commands/ExtendClimber.h"
 #include "commands/RetractClimber.h"
 #include "commands/SpinUpShooter.h"
@@ -26,7 +28,7 @@
 #include "commands/JumbleShooter.h"
 #include "commands/FeedShooterJumbler.h"
 #include "commands/StarveShooterJumbler.h"
-#include "commands/LogDataToDashboard.h"
+#include "commands/LogDataToDashboard.h" 
 
 #include "RobotContainer.h"
 
@@ -46,7 +48,7 @@ RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain), m_lockClimber(&m_
     [this] { return driver_control.GetRawAxis(ConXBOXControl::LEFT_JOYSTICK_X); }));
 #endif // ENABLE_DRIVETRAIN
 #ifdef ENABLE_CLIMBER
-  m_climber.SetCodriverControl(&codriver_control);
+  m_climber.SetCodriverControl(&codriver_control); // This seems messy...
   // m_shooter.SetCodriverControl(&codriver_control);
 #endif // ENABLE_CLIMBER
 }
@@ -88,18 +90,22 @@ void RobotContainer::ConfigureButtonBindings() {
 
 #ifdef ENABLE_CONTROL_PANEL_MANIPULATOR
   // ControlPanelManipulator
-  //FIXME: change RotateThreeCPM and GoToColorCPM to be on the D-Pad
-  //frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::A); }).WhenPressed(new RotateThreeCPM(&m_controlPanelManipulator), false);
-  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::B); }).WhenPressed(new GoToColorCPM(&m_controlPanelManipulator), false);
+  // FIXME: change RotateThreeCPM and GoToColorCPM to be on the LaunchPad
+  // frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::B); }).WhenPressed(new GoToColorCPM(&m_controlPanelManipulator), false);
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::GREEN); }).WhenPressed(new RotateThreeCPM(&m_controlPanelManipulator), false);
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::YELLOW); }).WhenPressed(new GoToColorCPM(&m_controlPanelManipulator), false);
 
-  
-  // FIXME: Combine these two?
+  // FIXME: Convert to the Launchpad? 
+  /*
+  RotateManualCPM( &m_controlPanelManipulator,
+    [this] { return codriver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER) - codriver_control.GetRawAxis(ConXBOXControl::LEFT_TRIGGER); } ); */
 
-    RotateManualCPM( &m_controlPanelManipulator,
-    [this] { return codriver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER) - codriver_control.GetRawAxis(ConXBOXControl::LEFT_TRIGGER); } );
-//  frc2::Button([this] {return codriver_control.GetRawAxis(ConXBOXControl::LEFT_TRIGGER); }).WhenHeld(new RotateManualCPM(&m_controlPanelManipulator));
-//  frc2::Button([this] {return codriver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER); }).WhenHeld(new RotateManualCPM(&m_controlPanelManipulator));
+  RotateManualCPM( &m_controlPanelManipulator,
+    [this] { return codriver_control.GetRawAxis(ConLaunchPad::RIGHT_STICK_X); } );
+
 #endif // ENABLE_CONTROL_PANEL_MANIPULATOR
+
+  OperateManualClimber( &m_climber, [this] { return codriver_control.GetRawAxis(ConLaunchPad::RIGHT_STICK_Y); } );
 
 #if 1
   frc2::Button([this] { return true; }).WhileHeld(new LogDataToDashboard(&m_shooter));
