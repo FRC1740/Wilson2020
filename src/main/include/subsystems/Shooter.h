@@ -101,11 +101,12 @@ class Shooter : public frc2::SubsystemBase {
 
   //void StopBottom();
 
-  void Activate();
+  void Activate(double speed);
 
   void Deactivate();
 
   void SetFeedSpeed(double speed);
+
 
   // Hopper is covered by Activate/Deactivate
   //void SetHopperSpeed(double speed);

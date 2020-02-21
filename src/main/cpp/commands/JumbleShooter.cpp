@@ -7,7 +7,7 @@
 
 #include "commands/JumbleShooter.h"
 
-JumbleShooter::JumbleShooter(Shooter *shooter) : m_shooter(shooter) {
+JumbleShooter::JumbleShooter(Shooter *shooter, double speed) : m_shooter(shooter), m_speed(speed) {
   // Use addRequirements() here to declare subsystem dependencies.
   //AddRequirements(shooter);
 }
@@ -18,7 +18,7 @@ void JumbleShooter::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void JumbleShooter::Execute() {
-  m_shooter->Activate();
+  m_shooter->Activate(m_speed);
   //m_shooter->SetHopperSpeed(ConShooter::Hopper::MOTOR_SPEED);
 }
 

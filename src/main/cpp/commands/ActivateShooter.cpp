@@ -18,12 +18,12 @@ void ActivateShooter::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void ActivateShooter::Execute() {
-  m_shooter->Activate();
+  //m_shooter->Activate();
 }
 
 // Called once the command ends or is interrupted.
 void ActivateShooter::End(bool interrupted) {
-  m_shooter->Deactivate();
+  //m_shooter->Deactivate();
 }
 
 // Returns true when the command should end.
