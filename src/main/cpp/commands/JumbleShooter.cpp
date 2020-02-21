@@ -9,7 +9,7 @@
 
 JumbleShooter::JumbleShooter(Shooter *shooter) : m_shooter(shooter) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(shooter);
+  //AddRequirements(shooter);
 }
 
 #ifdef ENABLE_SHOOTER

@@ -201,12 +201,12 @@ void Shooter::StopSpinUp(){
 //}
 
 void Shooter::Activate() {
-  //m_hopperMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.75);
+  m_hopperMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.75);
   //  Change to:  , m_nte_FeederMotorSpeed.GetDouble(0.0));  
 }
 
 void Shooter::Deactivate() {
-  //m_hopperMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+  m_hopperMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
 }
 
 void Shooter::SetFeedSpeed(double speed) {

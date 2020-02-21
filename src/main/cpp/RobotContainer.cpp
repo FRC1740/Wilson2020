@@ -17,7 +17,6 @@
 #include "commands/ExtendClimber.h"
 #include "commands/RetractClimber.h"
 #include "commands/SpinUpShooter.h"
-#include "commands/ActivateShooter.h"
 #include "commands/AlignToPlayerStation.h"
 #include "commands/AlignToPowerPort.h"
 #include "commands/SwitchCamera.h"
@@ -75,10 +74,10 @@ void RobotContainer::ConfigureButtonBindings() {
   //FIXME: add SpinUpCloseShooter - right bumper, SpinUpFarShooter - left bumper, and JumbleShooter - A
   //frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::A); }).WhenHeld(new JumbleShooter(&m_shooter));
 //  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::LEFT_BUMPER); }).WhenHeld(new SpinUpShooter(&m_shooter));
-//  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_BUMPER); }).WhenHeld(new JumbleShooter(&m_shooter));
+  //frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_BUMPER); }).WhenHeld(new JumbleShooter(&m_shooter));
   frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Switch::RED); }).WhenHeld(new SpinUpShooter(&m_shooter));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); }).WhenHeld(new FeedShooterJumbler(&m_jumbler));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); }).WhenHeld(new StarveShooterJumbler(&m_jumbler));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); }).WhenHeld(new JumbleShooter(&m_shooter));
+  //frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); }).WhenHeld(new StarveShooterJumbler(&m_jumbler));
 #endif // ENABLE_SHOOTER
 
 #ifdef ENABLE_VISION
