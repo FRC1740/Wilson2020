@@ -52,7 +52,7 @@ namespace ConShooter {
     }
     namespace Hopper {
         constexpr int MOTOR_ID = 1;
-        constexpr int MOTOR_SPEED = 2.0/3.0;
+        constexpr int MOTOR_SPEED = 0.5; // 2.0/3.0;
     }
 }
 
@@ -98,7 +98,7 @@ class Shooter : public frc2::SubsystemBase {
 
   //void StopBottom();
 
-  void Activate();
+  void Activate(double speed);
 
   void Deactivate();
 

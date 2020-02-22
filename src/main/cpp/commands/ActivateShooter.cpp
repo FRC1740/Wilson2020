@@ -9,7 +9,7 @@
 
 ActivateShooter::ActivateShooter(Shooter *shooter) : m_shooter(shooter) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(shooter);
+  // AddRequirements(shooter);
 }
 
 #ifdef ENABLE_SHOOTER
@@ -18,7 +18,7 @@ void ActivateShooter::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void ActivateShooter::Execute() {
-  m_shooter->Activate();
+  m_shooter->Activate(0.0); // FIXME: ARE WE USING THIS?
 }
 
 // Called once the command ends or is interrupted.
