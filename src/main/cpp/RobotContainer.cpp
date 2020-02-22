@@ -64,7 +64,7 @@ void RobotContainer::ConfigureButtonBindings() {
 
 #ifdef ENABLE_CLIMBER
   // Climber
-  OperateManualClimber( &m_climber, [this] { return codriver_control.GetRawAxis(ConLaunchPad::RIGHT_STICK_Y); } );
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::WHITE); }).WhileHeld(new OperateManualClimber(&m_climber));
   // frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::X); }).WhileHeld(new ExtendClimber(&m_climber));
   // frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::Y); }).WhileHeld(new RetractClimber(&m_climber));
 #endif // ENABLE_CLIMBER
@@ -106,7 +106,7 @@ void RobotContainer::ConfigureButtonBindings() {
 
 #endif // ENABLE_CONTROL_PANEL_MANIPULATOR
 
-  OperateManualClimber( &m_climber, [this] { return codriver_control.GetRawAxis(ConLaunchPad::RIGHT_STICK_Y); } );
+//  OperateManualClimber( &m_climber, [this] { return codriver_control.GetRawAxis(ConLaunchPad::RIGHT_STICK_Y); } );
 
 #if 1
   frc2::Button([this] { return true; }).WhileHeld(new LogDataToDashboard(&m_shooter));

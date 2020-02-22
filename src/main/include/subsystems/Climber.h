@@ -35,8 +35,10 @@ class Climber : public frc2::SubsystemBase {
  public:
   Climber();
 
-#ifdef ENABLE_CLIMBER
   frc::ShuffleboardTab *m_sbt_Climber;
+
+#ifdef ENABLE_CLIMBER
+  frc::XboxController *m_codriver_control = nullptr;
 
   void ExtendClimber();
 
@@ -47,6 +49,8 @@ class Climber : public frc2::SubsystemBase {
   void ResetEncoder();
 
   void Go(double speed);
+
+  void Stop();
 
   void Lock();
 
@@ -71,7 +75,6 @@ class Climber : public frc2::SubsystemBase {
   double m_climberPosition;
 // CRE: The driver/codriver controller objects are defined in RobotContainer
 //  frc::XboxController codriver_control{ConXBOXControl::CODRIVER_CONTROLLER_PORT};
-  frc::XboxController *m_codriver_control = nullptr;
   frc::DoubleSolenoid m_climberLock{ConClimber::SOLENOID_LOCK_ID, ConClimber::SOLENOID_UNLOCK_ID};
   bool m_Locked;
 #endif // ENABLE_CLIMBER

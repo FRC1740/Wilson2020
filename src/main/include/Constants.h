@@ -119,14 +119,16 @@ namespace ConLaunchPad {
     }
 
     namespace Dial {
-        constexpr int LEFT = 0;
-        constexpr int RIGHT = 4;
+        constexpr int LEFT = 2; //0;
+        constexpr int RIGHT = 3; // 4;
     }
 
     constexpr int SLIDER = 6;
+    constexpr int LEFT_STICK_X = 0;
+    constexpr int LEFT_STICK_Y = 1;
 
-    constexpr int RIGHT_STICK_Y = 7;
-    constexpr int RIGHT_STICK_X = 3;
+    constexpr int RIGHT_STICK_X = 5; // 3;
+    constexpr int RIGHT_STICK_Y = 4; // 7;
 
     constexpr int LAUNCHPAD_CONTROLLER_PORT = 1;
 }

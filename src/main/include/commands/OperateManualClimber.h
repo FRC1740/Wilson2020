@@ -21,7 +21,7 @@
 class OperateManualClimber
     : public frc2::CommandHelper<frc2::CommandBase, OperateManualClimber> {
  public:
-  explicit OperateManualClimber(Climber *climber, std::function<double()> speed);
+  explicit OperateManualClimber(Climber *climber);
 
   void Initialize() override;
 
@@ -33,5 +33,4 @@ class OperateManualClimber
 
 private:
   Climber *m_climber;
-  std::function<double()> m_speed;
 };

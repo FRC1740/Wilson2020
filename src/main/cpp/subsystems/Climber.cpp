@@ -73,19 +73,25 @@ void Climber::ResetEncoder() {
 }
 
 void Climber::Go(double speed) {
+
+/*
   if ((m_codriver_control != nullptr) && 
-      (m_codriver_control->GetRawButton(ConLaunchPad::Button::WHITE))) {
-    Unlock();
+      (m_codriver_control->GetRawButton(ConLaunchPad::Button::WHITE))) { */
+  if (!m_Locked) {
     m_motor.Set(speed);
   }
   else {
     m_motor.Set(0.0);
-    Lock();
   }
   //m_motor.Set(ControlMode::PercentOutput, speed); // If we're using a Talon
 }
 
+void Climber::Stop() {
+  m_motor.Set(0.0);
+}
+
 void Climber::Lock() {
+  m_motor.Set(0.0);
   m_climberLock.Set(frc::DoubleSolenoid::kForward);
   m_Locked = true;
 }
