@@ -81,8 +81,6 @@ void RobotContainer::ConfigureButtonBindings() {
       .WhenHeld(new JumbleShooter(&m_shooter, -m_shooter.m_nte_HopperMotorSpeed.GetDouble(-ConShooter::Hopper::MOTOR_SPEED)));
   frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); })
       .WhenHeld(new JumbleShooter(&m_shooter, m_shooter.m_nte_HopperMotorSpeed.GetDouble(ConShooter::Hopper::MOTOR_SPEED)));
-  // frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); }).WhenHeld(new FeedShooterJumbler(&m_jumbler));
-  // frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); }).WhenHeld(new StarveShooterJumbler(&m_jumbler));
 #endif // ENABLE_SHOOTER
 
 #ifdef ENABLE_VISION
