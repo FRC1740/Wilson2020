@@ -41,6 +41,12 @@ DriveTrain::DriveTrain() {
     .WithSize(2, 1)
     .WithPosition(0, 1)
     .GetEntry();
+
+  m_nte_InputExponent = m_sbt_DriveTrain->
+    AddPersistent("Input Exponent", 1.0)
+    .WithSize(1, 1)
+    .WithPosition(0, 2)
+    .GetEntry();
 }
 
 #ifdef ENABLE_DRIVETRAIN

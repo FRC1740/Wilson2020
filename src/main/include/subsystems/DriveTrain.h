@@ -44,6 +44,7 @@ class DriveTrain : public frc2::SubsystemBase {
   frc::ShuffleboardTab *m_sbt_DriveTrain;
   nt::NetworkTableEntry m_nte_DriveSpeedFilter;
   nt::NetworkTableEntry m_nte_DriveRotationFilter;
+  nt::NetworkTableEntry m_nte_InputExponent;
 
 #ifdef ENABLE_DRIVETRAIN
   /**
