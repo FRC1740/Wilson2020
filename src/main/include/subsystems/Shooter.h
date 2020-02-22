@@ -53,6 +53,8 @@ namespace ConShooter {
     namespace Hopper {
         constexpr int MOTOR_ID = 1;
         constexpr int MOTOR_SPEED = 0.5; // 2.0/3.0;
+        constexpr double FEED_SPEED = -0.5;
+        constexpr double STARVE_SPEED = 0.5;
     }
 }
 
