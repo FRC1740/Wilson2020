@@ -77,10 +77,18 @@ void RobotContainer::ConfigureButtonBindings() {
 //  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::LEFT_BUMPER); }).WhenHeld(new SpinUpShooter(&m_shooter));
 //  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_BUMPER); }).WhenHeld(new JumbleShooter(&m_shooter));
   frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Switch::RED); }).WhenHeld(new SpinUpShooter(&m_shooter));
+
+  /* SHUFFLEBOARD NOT PLAYING NICE!!!
   frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); })
       .WhenHeld(new JumbleShooter(&m_shooter, -m_shooter.m_nte_HopperMotorSpeed.GetDouble(-ConShooter::Hopper::MOTOR_SPEED)));
   frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); })
       .WhenHeld(new JumbleShooter(&m_shooter, m_shooter.m_nte_HopperMotorSpeed.GetDouble(ConShooter::Hopper::MOTOR_SPEED)));
+  */
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); })
+      .WhenHeld(new JumbleShooter(&m_shooter, ConShooter::Hopper::FEED_SPEED));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); })
+      .WhenHeld(new JumbleShooter(&m_shooter, ConShooter::Hopper::STARVE_SPEED));
+
 #endif // ENABLE_SHOOTER
 
 #ifdef ENABLE_VISION
