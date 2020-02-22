@@ -8,8 +8,8 @@
 #include "subsystems/Climber.h"
 
 Climber::Climber() {
-#ifdef ENABLE_CLIMBER
     m_sbt_Climber = &frc::Shuffleboard::GetTab(ConShuffleboard::ClimberTab);
+#ifdef ENABLE_CLIMBER
     m_nte_ClimberDistance = m_sbt_Climber->AddPersistent("Climber Position", 0.0)
           .WithSize(2,1)
           .WithPosition(0,0)
