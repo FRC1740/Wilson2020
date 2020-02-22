@@ -17,7 +17,7 @@ Shooter::Shooter() {
     m_topMotor.SetInverted(false);
     m_bottomMotor.SetInverted(true);
     m_feedMotor.SetInverted(true);
-    m_hopperMotor.SetInverted(true);
+    // m_hopperMotor.SetInverted(true);
 
     // Set velocity of shaft relative to velocity of wheel
     m_topEncoder.SetVelocityConversionFactor(ConShooter::Top::VELOCITY_FACTOR);
@@ -178,7 +178,6 @@ void Shooter::StopSpinUp(){
 //}
 
 void Shooter::Activate(double speed) {
-//  m_hopperMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed);
    m_hopperMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput,  m_nte_HopperMotorSpeed.GetDouble(ConShooter::Hopper::MOTOR_SPEED));
 }
 
