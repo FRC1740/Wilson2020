@@ -30,9 +30,13 @@ void TeleOpDrive::Execute() {
   double rotationN = m_driveTrain->m_nte_DriveRotationFilter.GetDouble(15.0);
   if (speedN < 1.0) { speedN = 1.0; }
   if (rotationN < 1.0) { rotationN = 1.0; }
-  double speed = (((speedN - 1.0) * m_speedOut) + m_speed()) / speedN;
-  double rotation = (((rotationN - 1.0) * m_rotationOut) + m_rotation()) / rotationN;
+  double exponent = m_driveTrain->m_nte_InputExponent.GetDouble(1.0);
+  if (exponent < 1.0) { exponent = 1.0; }
+  if (exponent > 3.0) { exponent = 3.0; }
+  double adjustedSpeed = pow(m_speed(), exponent);
 
+  double speed = (((speedN - 1.0) * m_speedOut) + adjustedSpeed) / speedN;
+  double rotation = (((rotationN - 1.0) * m_rotationOut) + m_rotation()) / rotationN;
   m_driveTrain->ArcadeDrive(speed, rotation);
 
   m_speedOut = speed;
