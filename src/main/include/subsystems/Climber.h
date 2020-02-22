@@ -15,14 +15,15 @@
 #include <frc/shuffleboard/ShuffleboardTab.h>
 #include <frc/XboxController.h>
 #include <frc/DoubleSolenoid.h>
+// #include <frc/Solenoid.h> // Maybe do it this way instead? May need to use two single solenoids?
 
 #include "Constants.h"
 
 namespace ConClimber {
     // Motor
     constexpr int MOTOR_ID = 1; // 9?;
-    constexpr int SOLENOID_LOCK_ID = 0; // 1? Test - may have to swap these
-    constexpr int SOLENOID_UNLOCK_ID = 1; // 0? Test - may have to swap these
+    constexpr int SOLENOID_LOCK_ID = 6; // Test - may have to swap these
+    constexpr int SOLENOID_UNLOCK_ID = 7; // Test - may have to swap these
     constexpr double EXT_SPEED = -0.5; // CRE 02-10 Negative motor input should extend
     constexpr double RET_SPEED = 0.5; // CRE 02-10 Positive motor input should retract
     constexpr double ROTATION_DISTANCE = 3.75; // inches #35 Chain = .375 pitch x 10 tooth = 3.75 inches
@@ -34,8 +35,10 @@ class Climber : public frc2::SubsystemBase {
  public:
   Climber();
 
-#ifdef ENABLE_CLIMBER
   frc::ShuffleboardTab *m_sbt_Climber;
+
+#ifdef ENABLE_CLIMBER
+  frc::XboxController *m_codriver_control = nullptr;
 
   void ExtendClimber();
 
@@ -46,6 +49,8 @@ class Climber : public frc2::SubsystemBase {
   void ResetEncoder();
 
   void Go(double speed);
+
+  void Stop();
 
   void Lock();
 
@@ -66,10 +71,11 @@ class Climber : public frc2::SubsystemBase {
   frc::DutyCycleEncoder m_dutyCycleEncoder{0};
   nt::NetworkTableEntry m_nte_ClimberDistance;
   nt::NetworkTableEntry m_nte_ClimberSpeed;
+  nt::NetworkTableEntry m_nte_Locked;
   double m_climberPosition;
 // CRE: The driver/codriver controller objects are defined in RobotContainer
 //  frc::XboxController codriver_control{ConXBOXControl::CODRIVER_CONTROLLER_PORT};
-  frc::XboxController *m_codriver_control = nullptr;
-  frc::DoubleSolenoid m_climberLock{ConClimber::SOLENOID_LOCK_ID, ConClimber::SOLENOID_UNLOCK_ID}; 
+  frc::DoubleSolenoid m_climberLock{ConClimber::SOLENOID_LOCK_ID, ConClimber::SOLENOID_UNLOCK_ID};
+  bool m_Locked;
 #endif // ENABLE_CLIMBER
 };

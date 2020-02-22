@@ -8,21 +8,28 @@
 #include "commands/OperateManualClimber.h"
 #include "subsystems/Climber.h"
 
-OperateManualClimber::OperateManualClimber(Climber *climber, std::function<double()> speed) : m_climber(climber), m_speed(speed) {
+OperateManualClimber::OperateManualClimber(Climber *climber) : m_climber(climber) {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements(climber);
 }
 
 // Called when the command is initially scheduled.
-void OperateManualClimber::Initialize() {}
+void OperateManualClimber::Initialize() {
+  m_climber->Unlock();
+}
 
 // Called repeatedly when this Command is scheduled to run
 void OperateManualClimber::Execute() {
-  m_climber->Go(m_speed());
+//  double speed = -m_climber->m_codriver_control->GetRawAxis(ConLaunchPad::RIGHT_STICK_Y);
+  double speed = -m_climber->m_codriver_control->GetRawAxis(0);
+  m_climber->Go(speed);
 }
 
 // Called once the command ends or is interrupted.
-void OperateManualClimber::End(bool interrupted) {}
+void OperateManualClimber::End(bool interrupted) {
+  m_climber->Stop();
+  m_climber->Lock();
+}
 
 // Returns true when the command should end.
 bool OperateManualClimber::IsFinished() { return false; }
