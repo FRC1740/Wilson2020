@@ -23,6 +23,7 @@ class EngageClimberLock
  public:
   EngageClimberLock(Climber *climber);
 
+#ifdef ENABLE_CLIMBER
   void Initialize() override;
 
   void Execute() override;
@@ -30,8 +31,8 @@ class EngageClimberLock
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+#endif // ENABLE_CLIMBER
 
  private:
   Climber *m_climber;
-
 };
