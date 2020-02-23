@@ -13,12 +13,9 @@ void Robot::RobotInit() {
   // Create and get reference to SB tab
   m_sbt_Robot = &frc::Shuffleboard::GetTab(ConShuffleboard::RobotTab);
   // See https://docs.wpilib.org/en/latest/docs/software/wpilib-tools/shuffleboard/layouts-with-code/using-tabs.html
+
   // Create widget for code version
-  m_nte_CodeVersion = m_sbt_Robot->
-    Add("Code Version", ROBOT_VERSION_STRING)
-    .WithSize(3, 1)
-    .WithPosition(0, 0)
-    .GetEntry();
+  m_nte_CodeVersion = m_sbt_Robot->Add("Code Version", ROBOT_VERSION_STRING).WithSize(3, 1).WithPosition(0, 0).GetEntry();
 }
 
 /**
@@ -39,10 +36,10 @@ void Robot::RobotPeriodic() { frc2::CommandScheduler::GetInstance().Run(); }
 void Robot::DisabledInit() {
    // Ensure that we lock the climber whenever we're disabled
   m_disabledCommand = m_container.GetDisabledCommand();
+  
   if (m_disabledCommand != nullptr) {
     m_disabledCommand->Schedule();
   }
-
 }
 
 void Robot::DisabledPeriodic() {

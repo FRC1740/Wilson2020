@@ -9,7 +9,6 @@
 
 TeleOpSlowDrive::TeleOpSlowDrive(DriveTrain *drivetrain) : m_driveTrain(drivetrain) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(drivetrain);
 }
 
 #ifdef ENABLE_DRIVETRAIN

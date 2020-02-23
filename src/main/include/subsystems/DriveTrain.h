@@ -16,19 +16,13 @@
 
 #include "Constants.h"
 
-namespace ConAuto {
-    // Conversion factor Ticks -> Inches
-    constexpr double ENCODER_TICKS_TO_INCHES = 2.0 + (2/9); // 0.58
-    constexpr double ENCODER_TICKS_OFFSET = -6.0 - (2/3);
-}
-
 namespace ConDriveTrain {
     // Motors
     constexpr int RIGHT_MOTOR_A_ID = 2;
     constexpr int RIGHT_MOTOR_B_ID = 4;
     constexpr int LEFT_MOTOR_A_ID = 3;
     constexpr int LEFT_MOTOR_B_ID = 5;
-    constexpr double ROTATION_FACTOR = 1/1.3;
+    //constexpr double ROTATION_FACTOR = 1/1.3;
 
     //Spark Max Settings
     constexpr int RAMP_RATE = 0.100; //seconds
@@ -36,6 +30,10 @@ namespace ConDriveTrain {
     //Conversions
     constexpr double IN_2_ENCODER = (10.71*42)/(6*ConMath::PI); //encoder to motor 42 counts/rev, motor to shaft 10.71:1, 6in wheel
     constexpr double ENCODER_2_IN = 1/IN_2_ENCODER; 
+
+    // Conversion factor Ticks -> Inches
+    constexpr double ENCODER_TICKS_TO_INCHES = 2.0 + (2/9); // 0.58
+    constexpr double ENCODER_TICKS_OFFSET = -6.0 - (2/3);
 }
 
 class DriveTrain : public frc2::SubsystemBase {
@@ -50,7 +48,7 @@ class DriveTrain : public frc2::SubsystemBase {
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
-  void Periodic();
+  //void Periodic();
 
   /**
    * Drives the robot using arcade controls.
@@ -66,9 +64,9 @@ class DriveTrain : public frc2::SubsystemBase {
 
   void SetMaxOutput(double maxOutput);
 
-  double GetRightDistance();
+  //double GetRightDistance();
 
-  double GetLeftDistance();
+  //double GetLeftDistance();
 
   double GetAverageEncoderDistance();
 
