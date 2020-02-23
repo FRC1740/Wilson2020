@@ -7,9 +7,8 @@
 
 #include "commands/JumbleShooter.h"
 
-JumbleShooter::JumbleShooter(Shooter *shooter, double speed) : m_shooter(shooter), m_speed(speed) {
+JumbleShooter::JumbleShooter(Shooter *shooter, int direction) : m_shooter(shooter), m_direction(direction) {
   // Use addRequirements() here to declare subsystem dependencies.
-  // AddRequirements(shooter);
 }
 
 #ifdef ENABLE_SHOOTER
@@ -18,14 +17,12 @@ void JumbleShooter::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void JumbleShooter::Execute() {
-  m_shooter->Activate(m_speed);
-  //m_shooter->SetHopperSpeed(ConShooter::Hopper::MOTOR_SPEED);
+  m_shooter->Jumble(m_direction);
 }
 
 // Called once the command ends or is interrupted.
 void JumbleShooter::End(bool interrupted) {
-    m_shooter->Deactivate();
-    //m_shooter->SetHopperSpeed(0.0);
+    m_shooter->Dejumble();
 }
 
 // Returns true when the command should end.

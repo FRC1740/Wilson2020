@@ -17,7 +17,6 @@
 #include "commands/ExtendClimber.h"
 #include "commands/RetractClimber.h"
 #include "commands/SpinUpShooter.h"
-#include "commands/ActivateShooter.h"
 #include "commands/AlignToPlayerStation.h"
 #include "commands/AlignToPowerPort.h"
 #include "commands/SwitchCamera.h"
@@ -26,8 +25,6 @@
 #include "commands/GoToColorCPM.h"
 #include "commands/RotateManualCPM.h"
 #include "commands/JumbleShooter.h"
-#include "commands/FeedShooterJumbler.h"
-#include "commands/StarveShooterJumbler.h"
 #include "commands/LogDataToDashboard.h" 
 
 #include "RobotContainer.h"
@@ -78,17 +75,8 @@ void RobotContainer::ConfigureButtonBindings() {
 //  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_BUMPER); }).WhenHeld(new JumbleShooter(&m_shooter));
   frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Switch::RED); }).WhenHeld(new SpinUpShooter(&m_shooter));
 
-  /* SHUFFLEBOARD NOT PLAYING NICE!!!
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); })
-      .WhenHeld(new JumbleShooter(&m_shooter, -m_shooter.m_nte_HopperMotorSpeed.GetDouble(-ConShooter::Hopper::MOTOR_SPEED)));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); })
-      .WhenHeld(new JumbleShooter(&m_shooter, m_shooter.m_nte_HopperMotorSpeed.GetDouble(ConShooter::Hopper::MOTOR_SPEED)));
-  */
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); })
-      .WhenHeld(new JumbleShooter(&m_shooter, ConShooter::Hopper::FEED_SPEED));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); })
-      .WhenHeld(new JumbleShooter(&m_shooter, ConShooter::Hopper::STARVE_SPEED));
-
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); }).WhileHeld(new JumbleShooter(&m_shooter, 1));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); }).WhileHeld(new JumbleShooter(&m_shooter, -1));
 #endif // ENABLE_SHOOTER
 
 #ifdef ENABLE_VISION
