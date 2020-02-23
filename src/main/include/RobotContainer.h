@@ -14,14 +14,6 @@
 #include <frc2/command/Command.h>
 #include <frc/XboxController.h>
 
-//#include "commands/AutoDrive.h"
-//#include "commands/AutoDriveDistance.h"
-//#include "commands/SpinUpShooter.h"
-//#include "commands/ActivateShooter.h"
-//#include "commands/ExtendClimber.h"
-//#include "commands/RetractClimber.h"
-//#include "commands/OperateManualClimber.h"
-//#include "commands/EngageClimberLock.h"
 #include "Constants.h"
 
 #include "subsystems/DriveTrain.h"

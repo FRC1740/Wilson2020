@@ -11,6 +11,7 @@ EngageClimberLock::EngageClimberLock(Climber *climber) : m_climber(climber) {
   // Use addRequirements() here to declare subsystem dependencies.
 }
 
+#ifdef ENABLE_CLIMBER
 // Called when the command is initially scheduled.
 void EngageClimberLock::Initialize() {
   m_climber->Lock();
@@ -24,3 +25,4 @@ void EngageClimberLock::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool EngageClimberLock::IsFinished() { return true; }
+#endif // ENABLE_CLIMBER

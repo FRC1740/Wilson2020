@@ -9,13 +9,10 @@
 #include <frc2/command/button/Button.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 
-/* Aren't these included in RobotContainer.h? */
 #include "commands/AutoDrive.h"
 #include "commands/TeleOpDrive.h"
 #include "commands/TeleOpSlowDrive.h"
 #include "commands/OperateManualClimber.h"
-#include "commands/ExtendClimber.h"
-#include "commands/RetractClimber.h"
 #include "commands/SpinUpShooter.h"
 #include "commands/AlignToPlayerStation.h"
 #include "commands/AlignToPowerPort.h"
@@ -46,6 +43,7 @@ RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain), m_lockClimber(&m_
 #endif // ENABLE_DRIVETRAIN
 
 #ifdef ENABLE_CLIMBER
+  // Make climber aware of operator input
   m_climber.SetCodriverControl(&codriver_control);
 #endif // ENABLE_CLIMBER
 }
@@ -62,8 +60,6 @@ void RobotContainer::ConfigureButtonBindings() {
 #ifdef ENABLE_CLIMBER
   // Climber
   frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::WHITE); }).WhileHeld(new OperateManualClimber(&m_climber));
-  // frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::X); }).WhileHeld(new ExtendClimber(&m_climber));
-  // frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::Y); }).WhileHeld(new RetractClimber(&m_climber));
 #endif // ENABLE_CLIMBER
 
 #ifdef ENABLE_SHOOTER
