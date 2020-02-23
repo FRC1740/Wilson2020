@@ -92,43 +92,43 @@ namespace ConXBOXControl {
     constexpr int RIGHT_JOYSTICK = 10;
 
     // Dead zone
-    constexpr double DEAD_ZONE = 0.5; //approximate value
+    constexpr double DEAD_ZONE = 0.1;
 
     // Driver controller Port
     constexpr int DRIVER_CONTROLLER_PORT = 0;
 }
 
 // DeadZone lambda function
-auto DeadZone = [] (double a) { return (std::fabs(a) > ConXBOXControl::DEAD_ZONE) ? a : 0.0; };
+auto DeadZone = [] (double value) { return (std::fabs(value) > ConXBOXControl::DEAD_ZONE) ? value : 0.0; };
 
 // Texas Instruments Controller (MSP430F5529 LaunchPad)
 namespace ConLaunchPad {
     namespace Button {
-        constexpr int RED = 1; // 11;
-        constexpr int BLUE = 2; // 10;
-        constexpr int YELLOW = 3; // 5;
-        constexpr int GREEN = 4; // 3;
-        constexpr int WHITE = 5; // New
+        constexpr int RED = 1;
+        constexpr int BLUE = 2;
+        constexpr int YELLOW = 3;
+        constexpr int GREEN = 4;
+        constexpr int WHITE = 5;
     }
 
     namespace Switch {
-        constexpr int RED = 6; // 7;
-        constexpr int BLUE = 7; // 9;
-        constexpr int YELLOW = 8; // 4;
-        constexpr int GREEN = 9; // 2;
+        constexpr int RED = 6;
+        constexpr int BLUE = 7;
+        constexpr int YELLOW = 8;
+        constexpr int GREEN = 9;
     }
 
     namespace Dial {
-        constexpr int LEFT = 2; //0;
-        constexpr int RIGHT = 3; // 4;
+        constexpr int LEFT = 2;
+        constexpr int RIGHT = 3;
     }
 
     constexpr int SLIDER = 6;
     constexpr int LEFT_STICK_X = 0;
     constexpr int LEFT_STICK_Y = 1;
 
-    constexpr int RIGHT_STICK_X = 5; // 3;
-    constexpr int RIGHT_STICK_Y = 4; // 7;
+    constexpr int RIGHT_STICK_X = 5;
+    constexpr int RIGHT_STICK_Y = 4;
 
     constexpr int LAUNCHPAD_CONTROLLER_PORT = 1;
 }

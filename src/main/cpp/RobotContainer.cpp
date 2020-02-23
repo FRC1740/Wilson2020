@@ -47,9 +47,9 @@ RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain), m_lockClimber(&m_
     [this] { return driver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER) - driver_control.GetRawAxis(ConXBOXControl::LEFT_TRIGGER); },
     [this] { return driver_control.GetRawAxis(ConXBOXControl::LEFT_JOYSTICK_X); }));
 #endif // ENABLE_DRIVETRAIN
+
 #ifdef ENABLE_CLIMBER
   m_climber.SetCodriverControl(&codriver_control);
-  // m_shooter.SetCodriverControl(&codriver_control);
 #endif // ENABLE_CLIMBER
 }
 
@@ -110,17 +110,17 @@ void RobotContainer::ConfigureButtonBindings() {
 
   // FIXME: Convert to the Launchpad? 
   /*
+  Cannot call a command directly
   RotateManualCPM( &m_controlPanelManipulator,
-    [this] { return codriver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER) - codriver_control.GetRawAxis(ConXBOXControl::LEFT_TRIGGER); } ); */
+    [this] { return codriver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER) - codriver_control.GetRawAxis(ConXBOXControl::LEFT_TRIGGER); } );
 
   RotateManualCPM( &m_controlPanelManipulator,
-    [this] { return codriver_control.GetRawAxis(ConLaunchPad::RIGHT_STICK_X); } );
+    [this] { return codriver_control.GetRawAxis(ConLaunchPad::RIGHT_STICK_X); } ); */
 
 #endif // ENABLE_CONTROL_PANEL_MANIPULATOR
 
-//  OperateManualClimber( &m_climber, [this] { return codriver_control.GetRawAxis(ConLaunchPad::RIGHT_STICK_Y); } );
-
-#if 1
+#if 0
+  // FIXME: This does not mave a button assigned- remove?
   frc2::Button([this] { return true; }).WhileHeld(new LogDataToDashboard(&m_shooter));
 #endif
 
@@ -146,11 +146,11 @@ void RobotContainer::ConfigureButtonBindings() {
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
-  // An example command will be run in autonomous
+  // Command will be run in autonomous
   return &m_autoDrive;
 }
 
 frc2::Command* RobotContainer::GetDisabledCommand() {
-  // An example command will be run in disabled mode
+  // Command will be run in disabled mode
   return &m_lockClimber;
 }
