@@ -13,7 +13,7 @@
 #include <rev/CANEncoder.h>
 #include <rev/CANSparkMax.h>
 #include <ctre/Phoenix.h>
-#include <TimeOfFlight.h>
+//#include <TimeOfFlight.h>
 #include <frc/Encoder.h>
 #include <frc/shuffleboard/Shuffleboard.h>
 #include <frc/shuffleboard/ShuffleboardTab.h>
@@ -46,15 +46,13 @@ namespace ConShooter {
         constexpr double D = 2e-3;
         constexpr double FF = 1.7e-4;
     }
-    namespace Feeder {
+    namespace Kicker {
         constexpr int MOTOR_ID = 7;
         constexpr double MOTOR_SPEED = 0.5;
     }
-    namespace Hopper {
+    namespace Jumbler {
         constexpr int MOTOR_ID = 1;
-        constexpr int MOTOR_SPEED = 0.5; // 2.0/3.0;
-        constexpr double FEED_SPEED = -0.5;
-        constexpr double STARVE_SPEED = 0.5;
+        constexpr int MOTOR_SPEED = 0.5;
     }
 }
 
@@ -62,8 +60,6 @@ class Shooter : public frc2::SubsystemBase {
  public:
   Shooter();
   frc::ShuffleboardTab *m_sbt_Shooter;
-  //nt::NetworkTableEntry m_nte_TopMotorRPM; // TARGET value
-  //nt::NetworkTableEntry m_nte_BottomMotorRPM; // TARGET value
 
   nt::NetworkTableEntry m_nte_TopMotorInputRPM; // TARGET value
   nt::NetworkTableEntry m_nte_BottomMotorInputRPM; // TARGET value
@@ -71,8 +67,8 @@ class Shooter : public frc2::SubsystemBase {
   nt::NetworkTableEntry m_nte_BottomMotorOutputRPM; // Actual value
   nt::NetworkTableEntry m_nte_EnableMotorGraphs;
 
-  nt::NetworkTableEntry m_nte_FeederMotorSpeed;
-  nt::NetworkTableEntry m_nte_HopperMotorSpeed;
+  nt::NetworkTableEntry m_nte_KickerMotorSpeed;
+  nt::NetworkTableEntry m_nte_JumblerMotorSpeed;
 
 #ifdef ENABLE_SHOOTER
   /**
@@ -90,24 +86,13 @@ class Shooter : public frc2::SubsystemBase {
 
   void SpinUp();
 
-  //void SpinTop();
-
-  //void SpinBottom();
-  
   void StopSpinUp();
 
-  //void StopTop();
+  void Jumble(int direction);
 
-  //void StopBottom();
+  void Dejumble();
 
-  void Activate(double speed);
-
-  void Deactivate();
-
-  void SetFeedSpeed(double speed);
-
-  // Hopper is covered by Activate/Deactivate
-  //void SetHopperSpeed(double speed);
+  void SetKickerSpeed(double speed);
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
@@ -124,9 +109,9 @@ class Shooter : public frc2::SubsystemBase {
   rev::CANPIDController m_topVelocityPID = m_topMotor.GetPIDController();
   rev::CANPIDController m_bottomVelocityPID = m_bottomMotor.GetPIDController();
 
-  TalonSRX m_feedMotor{ConShooter::Feeder::MOTOR_ID};
-  TalonSRX m_hopperMotor{ConShooter::Hopper::MOTOR_ID};
+  TalonSRX m_kickerMotor{ConShooter::Kicker::MOTOR_ID};
+  TalonSRX m_jumblerMotor{ConShooter::Jumbler::MOTOR_ID};
 
-  frc::TimeOfFlight m_powerCellDetector{0};
+  //frc::TimeOfFlight m_powerCellDetector{0};
 #endif // ENABLE_SHOOTER
 };
