@@ -89,6 +89,15 @@ Shooter::Shooter() {
     .WithSize(2, 1)
     .WithPosition(0, 3)
     .GetEntry();
+
+  /*
+  m_nte_JumblerStatus = m_sbt_Shooter->
+    AddPersistent("Jumbler Status", false)
+    .WithWidget(frc::BuiltInWidgets::kToggleButton)
+    .WithSize(2, 1)
+    .WithPosition(3, 2)
+    .GetEntry();
+  */
 }
 
 #ifdef ENABLE_SHOOTER

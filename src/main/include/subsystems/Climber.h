@@ -16,6 +16,7 @@
 #include <frc/shuffleboard/ShuffleboardTab.h>
 #include <networktables/NetworkTableEntry.h>
 #include <frc/XboxController.h>
+#include <frc/Timer.h>
 
 #include "Constants.h"
 
@@ -73,5 +74,6 @@ class Climber : public frc2::SubsystemBase {
 
   double m_climberPosition;
   bool m_Locked;
+  frc::Timer m_timer;
 #endif // ENABLE_CLIMBER
 };

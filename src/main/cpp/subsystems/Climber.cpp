@@ -31,6 +31,11 @@ Climber::Climber() {
     m_climberPosition = m_dutyCycleEncoder.GetDistance();
     m_motor.BurnFlash();
     Lock(); // Starting Configuration: Engage chain lock
+    /*
+    // FIXME: is it better to keep our own timer or use the GetMatchTime() function?
+    m_timer = frc::Timer();
+    m_timer.Start();
+    */
 #endif // ENABLE_CLIMBER
 }
 
@@ -81,6 +86,15 @@ void Climber::Periodic() {
       (m_codriver_control->GetRawButton(ConLaunchPad::Switch::GREEN))) { // Nearest to climber controls
     ResetEncoder();
   }
+  /*
+  // FIXME: Determine which of these to do
+  if (m_timer.GetMatchTime() < 1) {
+    Climber::Lock();
+  }
+  if (m_timer.HasPeriodPassed(145)) {
+    Climber::Lock();
+  }
+  */
 }
 
 // Used by RobotContainer to bring controller object into subsystem

@@ -8,12 +8,20 @@
 #pragma once
 
 #include <frc2/command/CommandHelper.h>
-#include <frc2/command/SequentialCommandGroup.h>
+#include <frc2/command/PIDCommand.h>
 #include "subsystems/DriveTrain.h"
-#include "subsystems/Shooter.h"
+#include "subsystems/Vision.h"
 
-class AutoDrive
-    : public frc2::CommandHelper<frc2::SequentialCommandGroup, AutoDrive> {
+class AlignToPowerPortPID
+    : public frc2::CommandHelper<frc2::PIDCommand, AlignToPowerPortPID> {
  public:
-  explicit AutoDrive(DriveTrain *drivetrain, Shooter *shooter);
+  AlignToPowerPortPID(Vision *vision, DriveTrain *driveTrain);
+
+  bool IsFinished() override;
+
+  void End(bool interrupted) override;
+
+ private:
+  DriveTrain *m_driveTrain;
+  Vision *m_vision;
 };
