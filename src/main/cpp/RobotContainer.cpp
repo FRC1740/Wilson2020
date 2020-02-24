@@ -15,7 +15,7 @@
 #include "commands/OperateManualClimber.h"
 #include "commands/SpinUpShooter.h"
 #include "commands/AlignToPlayerStationPID.h"
-#include "commands/AlignToPowerPort.h"
+#include "commands/AlignToPowerPortPID.h"
 #include "commands/SwitchCamera.h"
 #include "commands/ToggleVisionLight.h"
 #include "commands/RotateThreeCPM.h"
@@ -26,7 +26,7 @@
 
 #include "RobotContainer.h"
 
-RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain), m_lockClimber(&m_climber) {
+RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain, &m_shooter), m_lockClimber(&m_climber) {
   // ANOTHER WAY OF CONSTRUCTING: m_autoDriveDistance = AutoDriveDistance(&m_driveTrain);
   
   // Initialize all of your commands and subsystems here
@@ -78,7 +78,7 @@ void RobotContainer::ConfigureButtonBindings() {
 #ifdef ENABLE_VISION
   // Vision
   frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::SELECT); }).WhenHeld(new AlignToPlayerStationPID(&m_vision, &m_driveTrain));
-  frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::START); }).WhenHeld(new AlignToPowerPort(&m_vision));
+  frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::START); }).WhenHeld(new AlignToPowerPortPID(&m_vision, &m_driveTrain));
   frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::X); }).WhenHeld(new SwitchCamera(&m_vision));
   frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::Y); }).WhenHeld(new ToggleVisionLight(&m_vision));
 #endif // ENABLE_VISION

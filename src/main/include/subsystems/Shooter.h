@@ -69,6 +69,7 @@ class Shooter : public frc2::SubsystemBase {
 
   nt::NetworkTableEntry m_nte_KickerMotorSpeed;
   nt::NetworkTableEntry m_nte_JumblerMotorSpeed;
+  nt::NetworkTableEntry m_nte_JumblerStatus;
 
 #ifdef ENABLE_SHOOTER
   /**
