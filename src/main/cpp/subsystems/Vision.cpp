@@ -8,7 +8,10 @@
 #include "subsystems/Vision.h"
 
 Vision::Vision() {
-    m_tabLimelight = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
+    m_nt_Limelight = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
+#ifdef ENABLE_VISION
+    Vision::LightOff();
+#endif
 }
 
 #ifdef ENABLE_VISION
@@ -16,20 +19,36 @@ Vision::Vision() {
 void Vision::Periodic() {}
 
 double Vision::Align() {
-    m_tx = m_tabLimelight->GetNumber("tx", 0.0);
-    return m_tx;
+    m_nte_tx = m_nt_Limelight->GetNumber("tx", 0.0);
+    return m_nte_tx;
 }
 
 void Vision::ToggleLight() {
-    constexpr int ON = 3;
-    //constexpr int BLINK = 2;
-    constexpr int OFF = 1;
-
-    if (m_tabLimelight->GetNumber("ledMode", ON) == OFF) {
-        m_tabLimelight->PutNumber("ledMode", ON);
+    if (m_nt_Limelight->GetNumber("ledMode", ConVision::ON) == ConVision::OFF) {
+        m_nt_Limelight->PutNumber("ledMode", ConVision::ON);
     } 
     else {
-        m_tabLimelight->PutNumber("ledMode", OFF);
+        m_nt_Limelight->PutNumber("ledMode", ConVision::OFF);
     }
+}
+
+void Vision::LightOn() {
+    m_nt_Limelight->PutNumber("ledMode", ConVision::ON);
+}
+
+void Vision::LightOff() {
+    m_nt_Limelight->PutNumber("ledMode", ConVision::OFF);
+}
+
+void Vision::SelectPlayerStationPipeline() {
+    m_nt_Limelight->PutNumber("pipeline", 0);
+}
+
+void Vision::SelectNearGoalPipeline() {
+    m_nt_Limelight->PutNumber("pipeline", 1);
+}
+
+void Vision::SelectFarGoalPipeline() {
+    m_nt_Limelight->PutNumber("pipeline", 2);
 }
 #endif // ENABLE_VISION

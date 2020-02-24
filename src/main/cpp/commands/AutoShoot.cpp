@@ -5,27 +5,45 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/ActivateShooter.h"
+#include "commands/AutoShoot.h"
 
-ActivateShooter::ActivateShooter(Shooter *shooter) : m_shooter(shooter) {
+AutoShoot::AutoShoot(Shooter *shooter) : m_shooter(shooter) {
   // Use addRequirements() here to declare subsystem dependencies.
-  // AddRequirements(shooter);
+  timer = frc::Timer();
 }
 
-#ifdef ENABLE_SHOOTER
 // Called when the command is initially scheduled.
-void ActivateShooter::Initialize() {}
+void AutoShoot::Initialize() {
+  timer.Reset();
+  timer.Start();
+  m_feeding = false;
+}
 
 // Called repeatedly when this Command is scheduled to run
-void ActivateShooter::Execute() {
-  m_shooter->Activate(0.0); // FIXME: ARE WE USING THIS?
+void AutoShoot::Execute() {
+  m_shooter->SpinUp();
+  if (timer.Get() > 0.5) {
+    if (int(timer.Get() * 10) % 3 == 0) // Turn the feeder on and off every 0.3 seconds
+    {
+      m_feeding = !m_feeding;
+    }
+  }
+
+  if (m_feeding) {
+    //FIXME: make this read the networktable jumbler speed
+    m_shooter->Jumble(1);
+  } else {
+    m_shooter->Dejumble();
+  }
+
+
 }
 
 // Called once the command ends or is interrupted.
-void ActivateShooter::End(bool interrupted) {
-  m_shooter->Deactivate();
+void AutoShoot::End(bool interrupted) {
+  m_shooter->StopSpinUp();
+  m_shooter->Dejumble();
 }
 
 // Returns true when the command should end.
-bool ActivateShooter::IsFinished() { return false; }
-#endif // ENABLE_SHOOTER
+bool AutoShoot::IsFinished() { return timer.Get() >= 10.0; }

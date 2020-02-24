@@ -5,26 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/AlignToPlayerStationPID.h"
+#include "commands/AlignToPowerPortPID.h"
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-AlignToPlayerStationPID::AlignToPlayerStationPID(Vision *vision, DriveTrain *driveTrain)
+AlignToPowerPortPID::AlignToPowerPortPID(Vision *vision, DriveTrain *driveTrain)
     : CommandHelper(frc2::PIDController(
-      ConVision::AlignToPlayerStation::P,
-      ConVision::AlignToPlayerStation::I,
-      ConVision::AlignToPlayerStation::D),
+                    ConVision::AlignToPlayerStation::P,
+                    ConVision::AlignToPlayerStation::I,
+                    ConVision::AlignToPlayerStation::D),
 #if defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
                     // This should return the measurement
                     [vision] { return vision->Align(); },
                     // This should return the setpoint (can also be a constant)
-                    [] { return 0.0; },
+                    [] { return 0; },
                     // This uses the output
                     [driveTrain](double output) {
                       // Use the output here
                       driveTrain->TankDrive(-output, output);
-                    },
+                    }, 
 #else // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
     [] { return 0.0; },
     [] { return 0.0; },
@@ -33,24 +33,24 @@ AlignToPlayerStationPID::AlignToPlayerStationPID(Vision *vision, DriveTrain *dri
                     { driveTrain, vision }
                     ) {
 #if defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
-                      m_vision = vision;
-                      m_driveTrain = driveTrain;
-                      m_vision->SelectPlayerStationPipeline();
-                      m_vision->LightOn();
-#endif
-                    }
-                    
+                        m_vision = vision;
+                        m_driveTrain = driveTrain;
+                        m_vision->SelectFarGoalPipeline();
+                        m_vision->LightOn();
+#endif // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
+                      }
+
+// Returns true when the command should end.
 #if defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
 // Returns true when the command should end.
-bool AlignToPlayerStationPID::IsFinished() { return GetController().AtSetpoint(); }
+bool AlignToPowerPortPID::IsFinished() { return GetController().AtSetpoint(); }
 
-void AlignToPlayerStationPID::End(bool interrupted) {
+void AlignToPowerPortPID::End(bool interrupted) {
   m_vision->LightOff();
   m_driveTrain->TankDrive(0, 0);
 }
 #else // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
-bool AlignToPlayerStationPID::IsFinished() { return true; }
+bool AlignToPowerPortPID::IsFinished() { return true; }
 
-void AlignToPlayerStationPID::End(bool interrupted) {}
-
+void AlignToPowerPortPID::End(bool interrupted) {}
 #endif // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)

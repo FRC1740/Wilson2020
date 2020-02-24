@@ -30,43 +30,30 @@ DriveTrain::DriveTrain() {
   m_sbt_DriveTrain = &frc::Shuffleboard::GetTab(ConShuffleboard::DriveTrainTab);
 
   // Create widgets for digital filter lengths
-  m_nte_DriveSpeedFilter = m_sbt_DriveTrain->
-    AddPersistent("Drive Speed Filter", 15.0)
-    .WithSize(2, 1)
-    .WithPosition(0, 0)
-    .GetEntry();
+  m_nte_DriveSpeedFilter    = m_sbt_DriveTrain->AddPersistent("Drive Speed Filter", 15.0)   .WithSize(2, 1).WithPosition(0, 0).GetEntry();
+  m_nte_DriveRotationFilter = m_sbt_DriveTrain->AddPersistent("Drive Rotation Filter", 5.0) .WithSize(2, 1).WithPosition(0, 1).GetEntry();
 
-  m_nte_DriveRotationFilter = m_sbt_DriveTrain->
-    AddPersistent("Drive Rotation Filter", 15.0)
-    .WithSize(2, 1)
-    .WithPosition(0, 1)
-    .GetEntry();
-
-  m_nte_InputExponent = m_sbt_DriveTrain->
-    AddPersistent("Input Exponent", 1.0)
-    .WithSize(1, 1)
-    .WithPosition(0, 2)
-    .GetEntry();
+  // Create widget for non-linear input
+  m_nte_InputExponent       = m_sbt_DriveTrain->AddPersistent("Input Exponent", 1.0)        .WithSize(1, 1).WithPosition(0, 2).GetEntry();
 }
 
 #ifdef ENABLE_DRIVETRAIN
 // This method will be called once per scheduler run
-void DriveTrain::Periodic() {}
+//void DriveTrain::Periodic() {}
 
-#define DEAD_ZONE 0.1
-auto myDeadZone = [] (double a) { return (std::fabs(a) > DEAD_ZONE) ? a : 0.0; };
-
+// Used by TeleOpDrive
 void DriveTrain::ArcadeDrive(double speed, double rotation) {
-//  m_driveTrain.ArcadeDrive(speed, DeadZone(rotation));
-  m_driveTrain.ArcadeDrive(speed, myDeadZone(rotation));
+  m_driveTrain.ArcadeDrive(speed, DeadZone(rotation));
 }
 
+// Used by AlignToPlayerStationPID
 void DriveTrain::TankDrive(double left, double right){
   m_driveTrain.TankDrive(left, right);
 }
 
+// Used by TeleOpSlowDrive
 double DriveTrain::GetMaxOutput() {
-    return m_maxOutput; 
+    return m_maxOutput;
 }
 
 void DriveTrain::SetMaxOutput(double maxOutput) {
@@ -74,7 +61,7 @@ void DriveTrain::SetMaxOutput(double maxOutput) {
   m_driveTrain.SetMaxOutput(maxOutput);
 }
 
-// This is used by autonomous code
+// Used by AutoDriveDistance
 void DriveTrain::ResetEncoders() {
   m_rightEncoderA.SetPosition(0.0);
   m_rightEncoderB.SetPosition(0.0);
@@ -83,15 +70,15 @@ void DriveTrain::ResetEncoders() {
 }
 
 // FIXME: Account for two encoders per side
-// Right Encoder set to negative b/c motor flipped
-double DriveTrain::GetRightDistance() {
-  return (m_rightEncoderA.GetPosition() * ConAuto::ENCODER_TICKS_TO_INCHES) + ConAuto::ENCODER_TICKS_OFFSET;
-}
+//double DriveTrain::GetRightDistance() {
+//  return (m_rightEncoderA.GetPosition() * ConDriveTrain::ENCODER_TICKS_TO_INCHES) + ConDriveTrain::ENCODER_TICKS_OFFSET;
+//}
 
-double DriveTrain::GetLeftDistance() {
-  return (m_leftEncoderA.GetPosition() * ConAuto::ENCODER_TICKS_TO_INCHES) + ConAuto::ENCODER_TICKS_OFFSET;
-}
+//double DriveTrain::GetLeftDistance() {
+//  return (m_leftEncoderA.GetPosition() * ConDriveTrain::ENCODER_TICKS_TO_INCHES) + ConDriveTrain::ENCODER_TICKS_OFFSET;
+//}
 
+// Used by AutoDriveDistance
 double DriveTrain::GetAverageEncoderDistance() {
   return (m_leftEncoderA.GetPosition() + m_rightEncoderA.GetPosition()) / 2.0;
 }

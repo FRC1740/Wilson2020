@@ -26,17 +26,25 @@ void TeleOpDrive::Initialize() {}
 void TeleOpDrive::Execute() {
   // Digital filter lengths- between 1.0 (no filter) and 20.0 (90% at 1 second) (11.0 is 90% at 0.5 sec)
   // Idea from simple filter at https://www.chiefdelphi.com/t/moderating-acceleration-deceleration/77960/4
+
+  // Get adjustment values
   double speedN = m_driveTrain->m_nte_DriveSpeedFilter.GetDouble(15.0);
-  double rotationN = m_driveTrain->m_nte_DriveRotationFilter.GetDouble(15.0);
+  double rotationN = m_driveTrain->m_nte_DriveRotationFilter.GetDouble(5.0);
   if (speedN < 1.0) { speedN = 1.0; }
   if (rotationN < 1.0) { rotationN = 1.0; }
   double exponent = m_driveTrain->m_nte_InputExponent.GetDouble(1.0);
   if (exponent < 1.0) { exponent = 1.0; }
   if (exponent > 3.0) { exponent = 3.0; }
-  double adjustedSpeed = pow(m_speed(), exponent);
 
-  double speed = (((speedN - 1.0) * m_speedOut) + adjustedSpeed) / speedN;
+  // Adjust input speed with exponentiation
+  double speed = m_speed();
+  double adjustedSpeed = copysign(pow(fabs(speed), exponent), speed);
+
+  // Adjust input speed and input rotation with filters
+  speed = (((speedN - 1.0) * m_speedOut) + adjustedSpeed) / speedN;
   double rotation = (((rotationN - 1.0) * m_rotationOut) + m_rotation()) / rotationN;
+
+  // Do it
   m_driveTrain->ArcadeDrive(speed, rotation);
 
   m_speedOut = speed;

@@ -9,30 +9,24 @@
 #include <frc2/command/button/Button.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 
-/* Aren't these included in RobotContainer.h? */
 #include "commands/AutoDrive.h"
 #include "commands/TeleOpDrive.h"
 #include "commands/TeleOpSlowDrive.h"
 #include "commands/OperateManualClimber.h"
-#include "commands/ExtendClimber.h"
-#include "commands/RetractClimber.h"
 #include "commands/SpinUpShooter.h"
-#include "commands/ActivateShooter.h"
-#include "commands/AlignToPlayerStation.h"
-#include "commands/AlignToPowerPort.h"
+#include "commands/AlignToPlayerStationPID.h"
+#include "commands/AlignToPowerPortPID.h"
 #include "commands/SwitchCamera.h"
 #include "commands/ToggleVisionLight.h"
 #include "commands/RotateThreeCPM.h"
 #include "commands/GoToColorCPM.h"
 #include "commands/RotateManualCPM.h"
 #include "commands/JumbleShooter.h"
-#include "commands/FeedShooterJumbler.h"
-#include "commands/StarveShooterJumbler.h"
 #include "commands/LogDataToDashboard.h" 
 
 #include "RobotContainer.h"
 
-RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain), m_lockClimber(&m_climber) {
+RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain, &m_shooter), m_lockClimber(&m_climber) {
   // ANOTHER WAY OF CONSTRUCTING: m_autoDriveDistance = AutoDriveDistance(&m_driveTrain);
   
   // Initialize all of your commands and subsystems here
@@ -47,9 +41,10 @@ RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain), m_lockClimber(&m_
     [this] { return driver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER) - driver_control.GetRawAxis(ConXBOXControl::LEFT_TRIGGER); },
     [this] { return driver_control.GetRawAxis(ConXBOXControl::LEFT_JOYSTICK_X); }));
 #endif // ENABLE_DRIVETRAIN
+
 #ifdef ENABLE_CLIMBER
+  // Make climber aware of operator input
   m_climber.SetCodriverControl(&codriver_control);
-  // m_shooter.SetCodriverControl(&codriver_control);
 #endif // ENABLE_CLIMBER
 }
 
@@ -65,8 +60,6 @@ void RobotContainer::ConfigureButtonBindings() {
 #ifdef ENABLE_CLIMBER
   // Climber
   frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::WHITE); }).WhileHeld(new OperateManualClimber(&m_climber));
-  // frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::X); }).WhileHeld(new ExtendClimber(&m_climber));
-  // frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::Y); }).WhileHeld(new RetractClimber(&m_climber));
 #endif // ENABLE_CLIMBER
 
 #ifdef ENABLE_SHOOTER
@@ -78,23 +71,14 @@ void RobotContainer::ConfigureButtonBindings() {
 //  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_BUMPER); }).WhenHeld(new JumbleShooter(&m_shooter));
   frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Switch::RED); }).WhenHeld(new SpinUpShooter(&m_shooter));
 
-  /* SHUFFLEBOARD NOT PLAYING NICE!!!
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); })
-      .WhenHeld(new JumbleShooter(&m_shooter, -m_shooter.m_nte_HopperMotorSpeed.GetDouble(-ConShooter::Hopper::MOTOR_SPEED)));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); })
-      .WhenHeld(new JumbleShooter(&m_shooter, m_shooter.m_nte_HopperMotorSpeed.GetDouble(ConShooter::Hopper::MOTOR_SPEED)));
-  */
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); })
-      .WhenHeld(new JumbleShooter(&m_shooter, ConShooter::Hopper::FEED_SPEED));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); })
-      .WhenHeld(new JumbleShooter(&m_shooter, ConShooter::Hopper::STARVE_SPEED));
-
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); }).WhileHeld(new JumbleShooter(&m_shooter, 1));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); }).WhileHeld(new JumbleShooter(&m_shooter, -1));
 #endif // ENABLE_SHOOTER
 
 #ifdef ENABLE_VISION
   // Vision
-  frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::SELECT); }).WhenHeld(new AlignToPlayerStation(&m_vision, &m_driveTrain));
-  frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::START); }).WhenHeld(new AlignToPowerPort(&m_vision));
+  frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::SELECT); }).WhenHeld(new AlignToPlayerStationPID(&m_vision, &m_driveTrain));
+  frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::START); }).WhenHeld(new AlignToPowerPortPID(&m_vision, &m_driveTrain));
   frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::X); }).WhenHeld(new SwitchCamera(&m_vision));
   frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::Y); }).WhenHeld(new ToggleVisionLight(&m_vision));
 #endif // ENABLE_VISION
@@ -110,17 +94,17 @@ void RobotContainer::ConfigureButtonBindings() {
 
   // FIXME: Convert to the Launchpad? 
   /*
+  Cannot call a command directly
   RotateManualCPM( &m_controlPanelManipulator,
-    [this] { return codriver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER) - codriver_control.GetRawAxis(ConXBOXControl::LEFT_TRIGGER); } ); */
+    [this] { return codriver_control.GetRawAxis(ConXBOXControl::RIGHT_TRIGGER) - codriver_control.GetRawAxis(ConXBOXControl::LEFT_TRIGGER); } );
 
   RotateManualCPM( &m_controlPanelManipulator,
-    [this] { return codriver_control.GetRawAxis(ConLaunchPad::RIGHT_STICK_X); } );
+    [this] { return codriver_control.GetRawAxis(ConLaunchPad::RIGHT_STICK_X); } ); */
 
 #endif // ENABLE_CONTROL_PANEL_MANIPULATOR
 
-//  OperateManualClimber( &m_climber, [this] { return codriver_control.GetRawAxis(ConLaunchPad::RIGHT_STICK_Y); } );
-
-#if 1
+#if 0
+  // FIXME: This does not mave a button assigned- remove?
   frc2::Button([this] { return true; }).WhileHeld(new LogDataToDashboard(&m_shooter));
 #endif
 
@@ -146,11 +130,11 @@ void RobotContainer::ConfigureButtonBindings() {
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
-  // An example command will be run in autonomous
+  // Command will be run in autonomous
   return &m_autoDrive;
 }
 
 frc2::Command* RobotContainer::GetDisabledCommand() {
-  // An example command will be run in disabled mode
+  // Command will be run in disabled mode
   return &m_lockClimber;
 }

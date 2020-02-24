@@ -7,32 +7,21 @@
 
 #pragma once
 
-#include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/Shooter.h"
+#include <frc2/command/PIDCommand.h>
+#include "subsystems/DriveTrain.h"
+#include "subsystems/Vision.h"
 
-/**
- * An example command.
- *
- * <p>Note that this extends CommandHelper, rather extending CommandBase
- * directly; this is crucially important, or else the decorator functions in
- * Command will *not* work!
- */
-class SpinUpCloseShooter
-    : public frc2::CommandHelper<frc2::CommandBase, SpinUpCloseShooter> {
+class AlignToPowerPortPID
+    : public frc2::CommandHelper<frc2::PIDCommand, AlignToPowerPortPID> {
  public:
-  explicit SpinUpCloseShooter(Shooter *shooter);
+  AlignToPowerPortPID(Vision *vision, DriveTrain *driveTrain);
 
-#ifdef ENABLE_SHOOTER
-  void Initialize() override;
-
-  void Execute() override;
+  bool IsFinished() override;
 
   void End(bool interrupted) override;
 
-  bool IsFinished() override;
-#endif // ENABLE_SHOOTER
-
  private:
-  Shooter *m_shooter;
+  DriveTrain *m_driveTrain;
+  Vision *m_vision;
 };

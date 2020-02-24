@@ -5,12 +5,12 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/AlignToPlayerStationPID.h"
+#include "commands/AutoAlign.h"
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-AlignToPlayerStationPID::AlignToPlayerStationPID(Vision *vision, DriveTrain *driveTrain)
+AutoAlign::AutoAlign(DriveTrain *driveTrain, Vision *vision)
     : CommandHelper(frc2::PIDController(
       ConVision::AlignToPlayerStation::P,
       ConVision::AlignToPlayerStation::I,
@@ -23,7 +23,7 @@ AlignToPlayerStationPID::AlignToPlayerStationPID(Vision *vision, DriveTrain *dri
                     // This uses the output
                     [driveTrain](double output) {
                       // Use the output here
-                      driveTrain->TankDrive(-output, output);
+                      driveTrain->ArcadeDrive(output, -output);
                     },
 #else // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
     [] { return 0.0; },
@@ -35,22 +35,15 @@ AlignToPlayerStationPID::AlignToPlayerStationPID(Vision *vision, DriveTrain *dri
 #if defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
                       m_vision = vision;
                       m_driveTrain = driveTrain;
-                      m_vision->SelectPlayerStationPipeline();
+                      m_vision->SelectNearGoalPipeline();
                       m_vision->LightOn();
-#endif
+#endif // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
                     }
-                    
-#if defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
-// Returns true when the command should end.
-bool AlignToPlayerStationPID::IsFinished() { return GetController().AtSetpoint(); }
 
-void AlignToPlayerStationPID::End(bool interrupted) {
+// Returns true when the command should end.
+bool AutoAlign::IsFinished() { return false; }
+
+void AutoAlign::End(bool interrupted) {
   m_vision->LightOff();
   m_driveTrain->TankDrive(0, 0);
 }
-#else // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
-bool AlignToPlayerStationPID::IsFinished() { return true; }
-
-void AlignToPlayerStationPID::End(bool interrupted) {}
-
-#endif // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)

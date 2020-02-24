@@ -11,11 +11,12 @@
 #include <ctre/Phoenix.h>
 #include <rev/CANSparkMax.h>
 #include <frc/DutyCycleEncoder.h>
+#include <frc/DoubleSolenoid.h>
 #include <frc/shuffleboard/Shuffleboard.h>
 #include <frc/shuffleboard/ShuffleboardTab.h>
+#include <networktables/NetworkTableEntry.h>
 #include <frc/XboxController.h>
-#include <frc/DoubleSolenoid.h>
-// #include <frc/Solenoid.h> // Maybe do it this way instead? May need to use two single solenoids?
+#include <frc/Timer.h>
 
 #include "Constants.h"
 
@@ -37,17 +38,17 @@ class Climber : public frc2::SubsystemBase {
 
   frc::ShuffleboardTab *m_sbt_Climber;
 
+  nt::NetworkTableEntry m_nte_ClimberDistance;
+  nt::NetworkTableEntry m_nte_ClimberSpeed;
+  nt::NetworkTableEntry m_nte_Locked;
+
 #ifdef ENABLE_CLIMBER
+  // CRE: The driver/codriver controller objects are defined in RobotContainer
+  // frc::XboxController codriver_control{ConXBOXControl::CODRIVER_CONTROLLER_PORT};
   frc::XboxController *m_codriver_control = nullptr;
 
-  void ExtendClimber();
-
-  void RetractClimber();
-
-  void StopClimber();
-
   void ResetEncoder();
-
+ 
   void Go(double speed);
 
   void Stop();
@@ -69,13 +70,10 @@ class Climber : public frc2::SubsystemBase {
   //TalonSRX m_motor{ConClimber::MOTOR_ID};
   rev::CANSparkMax m_motor{ConClimber::MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless}; //Replace with SparkMAX
   frc::DutyCycleEncoder m_dutyCycleEncoder{0};
-  nt::NetworkTableEntry m_nte_ClimberDistance;
-  nt::NetworkTableEntry m_nte_ClimberSpeed;
-  nt::NetworkTableEntry m_nte_Locked;
-  double m_climberPosition;
-// CRE: The driver/codriver controller objects are defined in RobotContainer
-//  frc::XboxController codriver_control{ConXBOXControl::CODRIVER_CONTROLLER_PORT};
   frc::DoubleSolenoid m_climberLock{ConClimber::SOLENOID_LOCK_ID, ConClimber::SOLENOID_UNLOCK_ID};
+
+  double m_climberPosition;
   bool m_Locked;
+  frc::Timer m_timer;
 #endif // ENABLE_CLIMBER
 };

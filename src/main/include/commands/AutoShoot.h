@@ -9,7 +9,8 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/Jumbler.h"
+#include "subsystems/Shooter.h"
+#include <frc/Timer.h>
 
 /**
  * An example command.
@@ -18,10 +19,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class FeedShooterJumbler
-    : public frc2::CommandHelper<frc2::CommandBase, FeedShooterJumbler> {
+class AutoShoot
+    : public frc2::CommandHelper<frc2::CommandBase, AutoShoot> {
  public:
-  explicit FeedShooterJumbler(Jumbler *jumbler);
+  explicit AutoShoot(Shooter *shooter);
 
   void Initialize() override;
 
@@ -30,7 +31,9 @@ class FeedShooterJumbler
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-
  private:
-  Jumbler *m_jumbler;
+  Shooter *m_shooter;
+  frc::Timer timer;
+  bool m_feeding;
+
 };

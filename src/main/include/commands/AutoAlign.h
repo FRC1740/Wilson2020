@@ -7,32 +7,20 @@
 
 #pragma once
 
-#include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/Shooter.h"
+#include <frc2/command/PIDCommand.h>
+#include "subsystems/Vision.h"
+#include "subsystems/DriveTrain.h"
 
-/**
- * An example command.
- *
- * <p>Note that this extends CommandHelper, rather extending CommandBase
- * directly; this is crucially important, or else the decorator functions in
- * Command will *not* work!
- */
-class ActivateShooter
-    : public frc2::CommandHelper<frc2::CommandBase, ActivateShooter> {
+class AutoAlign
+    : public frc2::CommandHelper<frc2::PIDCommand, AutoAlign> {
  public:
-  explicit ActivateShooter(Shooter *shooter);
-
-#ifdef ENABLE_SHOOTER
-  void Initialize() override;
-
-  void Execute() override;
-
-  void End(bool interrupted) override;
+  explicit AutoAlign(DriveTrain *driveTrain, Vision *vision);
 
   bool IsFinished() override;
-#endif // ENABLE_SHOOTER
 
+  void End(bool interrupted) override;
  private:
-  Shooter *m_shooter;
+  DriveTrain *m_driveTrain;
+  Vision *m_vision;
 };

@@ -18,6 +18,9 @@ namespace ConVision {
         constexpr float I = 0.0;
         constexpr float D = 0.0;
     }
+    constexpr int ON = 3;
+    constexpr int BLINK = 2;
+    constexpr int OFF = 1;
 }
 
 class Vision : public frc2::SubsystemBase {
@@ -33,11 +36,22 @@ class Vision : public frc2::SubsystemBase {
   double Align();
 
   void ToggleLight();
+  
+  void LightOn();
+
+  void LightOff();
+
+  void SelectPlayerStationPipeline();
+
+  void SelectNearGoalPipeline();
+
+  void SelectFarGoalPipeline();
+  
 #endif // ENABLE_VISION
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-  std::shared_ptr<NetworkTable> m_tabLimelight;
-  float m_tx;
+  std::shared_ptr<NetworkTable> m_nt_Limelight;
+  float m_nte_tx;
 };

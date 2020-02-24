@@ -19,8 +19,10 @@ class AlignToPlayerStationPID
 
   bool IsFinished() override;
 
+  void End(bool interrupted) override;
+
   private:
     // Member elements are not needed if the command is a lambda
-    //Vision *m_vision;
-    //DriveTrain *m_driveTrain;
+    Vision *m_vision;
+    DriveTrain *m_driveTrain;
 };

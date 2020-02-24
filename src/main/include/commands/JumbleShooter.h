@@ -21,7 +21,7 @@
 class JumbleShooter
     : public frc2::CommandHelper<frc2::CommandBase, JumbleShooter> {
  public:
-  explicit JumbleShooter(Shooter *shooter, double speed);
+  explicit JumbleShooter(Shooter *shooter, int direction);
 
 #ifdef ENABLE_SHOOTER
   void Initialize() override;
@@ -35,5 +35,5 @@ class JumbleShooter
 
  private:
   Shooter *m_shooter;
-  double m_speed;
+  int m_direction;
 };
