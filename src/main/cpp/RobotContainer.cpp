@@ -14,7 +14,7 @@
 #include "commands/TeleOpSlowDrive.h"
 #include "commands/OperateManualClimber.h"
 #include "commands/SpinUpShooter.h"
-#include "commands/AlignToPlayerStation.h"
+#include "commands/AlignToPlayerStationPID.h"
 #include "commands/AlignToPowerPort.h"
 #include "commands/SwitchCamera.h"
 #include "commands/ToggleVisionLight.h"
