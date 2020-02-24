@@ -38,6 +38,6 @@ class Vision : public frc2::SubsystemBase {
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-  std::shared_ptr<NetworkTable> m_tabLimelight;
-  float m_tx;
+  std::shared_ptr<NetworkTable> m_nt_Limelight;
+  float m_nte_tx;
 };
