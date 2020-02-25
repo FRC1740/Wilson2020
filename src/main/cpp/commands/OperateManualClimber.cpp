@@ -21,8 +21,8 @@ void OperateManualClimber::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void OperateManualClimber::Execute() {
-//  double speed = -m_climber->m_codriver_control->GetRawAxis(ConLaunchPad::RIGHT_STICK_Y);
-  double speed = -m_climber->m_codriver_control->GetRawAxis(0);
+  double speed = m_climber->m_codriver_control->GetRawAxis(ConLaunchPad::RIGHT_STICK_Y); // Inverted
+  // double speed = -m_climber->m_codriver_control->GetRawAxis(ConLaunchPad::LEFT_STICK_Y); // Inverted
   m_climber->Go(speed);
 }
 

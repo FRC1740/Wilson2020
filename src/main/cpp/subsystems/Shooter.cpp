@@ -41,6 +41,13 @@ Shooter::Shooter() {
     m_topMotor.BurnFlash();
     m_bottomMotor.BurnFlash();
     
+    m_kickerMotor.SelectProfileSlot(0,0);
+    m_kickerMotor.Config_kP(0, ConShooter::Kicker::P); // "Slot", Value
+    m_kickerMotor.Config_kI(0, ConShooter::Kicker::I); // "Slot", Value
+    m_kickerMotor.Config_kD(0, ConShooter::Kicker::D); // "Slot", Value
+    m_kickerMotor.Config_kF(0, ConShooter::Kicker::F); // "Slot", Value
+
+
 #endif // ENABLE_SHOOTER
   // Create and get reference to SB tab
   m_sbt_Shooter = &frc::Shuffleboard::GetTab(ConShuffleboard::ShooterTab);
@@ -81,7 +88,7 @@ Shooter::Shooter() {
   m_nte_KickerMotorSpeed = m_sbt_Shooter->
     AddPersistent("Kicker Motor Speed", ConShooter::Kicker::MOTOR_SPEED)
     .WithSize(2, 1)
-    .WithPosition(0, 2)
+    .WithPosition(8, 1)
     .GetEntry();
 
   m_nte_JumblerMotorSpeed = m_sbt_Shooter->
@@ -89,6 +96,13 @@ Shooter::Shooter() {
     .WithSize(2, 1)
     .WithPosition(0, 3)
     .GetEntry();
+
+  m_nte_KickerInputRPM = m_sbt_Shooter->
+    AddPersistent("Kicker RPM", ConShooter::Kicker::OPTIMAL_RPM)
+    .WithSize(1, 1)
+    .WithPosition(0, 2)
+    .GetEntry();
+
 
   /*
   m_nte_JumblerStatus = m_sbt_Shooter->
@@ -107,6 +121,7 @@ void Shooter::Periodic() {
     // Update Network Table/Shuffleboard Values
     m_nte_TopMotorOutputRPM.SetDouble(GetTopMotorSpeed());
     m_nte_BottomMotorOutputRPM.SetDouble(GetBottomMotorSpeed());
+    m_nte_KickerMotorVoltage.SetDouble(GetKickerMotorVoltage());
 
 #if 0 // NOT PLANNING TO USE THIS SENSOR
     // Check TimeofFLight sensor to see if a powerCell is ... stuck? loaded? ??
@@ -142,6 +157,11 @@ double Shooter::GetTopMotorSpeed() {
     return m_topEncoder.GetVelocity();
 }
 
+// Used internally only for dashboard
+double Shooter::GetKickerMotorVoltage() {
+    return m_kickerMotor.GetMotorOutputVoltage();
+}
+
 // Used by SpinUpShooter
 void Shooter::SpinUp()
 {
@@ -161,17 +181,22 @@ void Shooter::StopSpinUp(){
 void Shooter::Jumble(int direction) {
   double speed = m_nte_JumblerMotorSpeed.GetDouble(ConShooter::Jumbler::MOTOR_SPEED);
   if (direction != 1) { speed = -speed; }
-  m_jumblerMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed);
+  m_jumblerMotor.Set(TalonSRXControlMode::PercentOutput, speed);
+  m_hopperFlapper.Set(TalonSRXControlMode::PercentOutput, ConShooter::HopperFlapper::MOTOR_SPEED);
 }
 
 // Used by JumbleShooter
 void Shooter::Dejumble() {
-  m_jumblerMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+  m_jumblerMotor.Set(TalonSRXControlMode::PercentOutput, 0.0);
+  m_hopperFlapper.Set(TalonSRXControlMode::PercentOutput, 0.0);
 }
 
 // Used internally only
 void Shooter::SetKickerSpeed(double speed) {
-  m_kickerMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed);
+  // Power Mode...
+  m_kickerMotor.Set(TalonSRXControlMode::PercentOutput, speed);
+  /// Velocity Mode for use with hex shaft encoder
+  // m_kickerMotor.Set(TalonSRXControlMode::Velocity, speed); 
 }
 
 #endif // ENABLE_SHOOTER
