@@ -49,10 +49,20 @@ namespace ConShooter {
     namespace Kicker {
         constexpr int MOTOR_ID = 7;
         constexpr double MOTOR_SPEED = 0.5;
+        constexpr double OPTIMAL_RPM = 3500.00; // RPM 
+        // PID gains
+        constexpr double P = 0.0;
+        constexpr double I = 0.0;
+        constexpr double D = 0.0;
+        constexpr double F = 0.0;
     }
     namespace Jumbler {
         constexpr int MOTOR_ID = 1;
-        constexpr int MOTOR_SPEED = 0.5;
+        constexpr double MOTOR_SPEED = 0.5;
+    }
+    namespace HopperFlapper {
+        constexpr int MOTOR_ID = 3;
+        constexpr double MOTOR_SPEED = 0.5;
     }
 }
 
@@ -67,7 +77,10 @@ class Shooter : public frc2::SubsystemBase {
   nt::NetworkTableEntry m_nte_BottomMotorOutputRPM; // Actual value
   nt::NetworkTableEntry m_nte_EnableMotorGraphs;
 
+  nt::NetworkTableEntry m_nte_KickerInputRPM;
   nt::NetworkTableEntry m_nte_KickerMotorSpeed;
+  nt::NetworkTableEntry m_nte_KickerMotorVoltage;
+
   nt::NetworkTableEntry m_nte_JumblerMotorSpeed;
   nt::NetworkTableEntry m_nte_JumblerStatus;
 
@@ -84,6 +97,8 @@ class Shooter : public frc2::SubsystemBase {
   double GetBottomMotorSpeed();
   
   double GetTopMotorSpeed();
+
+  double GetKickerMotorVoltage();
 
   void SpinUp();
 
@@ -113,6 +128,19 @@ class Shooter : public frc2::SubsystemBase {
   TalonSRX m_kickerMotor{ConShooter::Kicker::MOTOR_ID};
   TalonSRX m_jumblerMotor{ConShooter::Jumbler::MOTOR_ID};
 
-  //frc::TimeOfFlight m_powerCellDetector{0};
+  // Feb 24 - Adding Kicker Motor Encoder Feedback for Velocity mode 
+  TalonSRXFeedbackDevice m_kickerEncoder;
+  TalonSRXConfiguration m_kickerConfig;
+
+  // For the new (Feb 24) hopper "flapper" actuator, either use this:
+  TalonSRX m_hopperFlapper{ConShooter::HopperFlapper::MOTOR_ID}; // Window motor for "flapper"
+  
+  /// == OR == this:  
+  // #include <frc/Solenoid.h> // Move to top of file
+  // frc::Solenoid m_hopperActuator{1}; // Alternative method for "flapper"
+  
+  // Then provide a simple On/Off control from O/I at a constant power level
+
+  //frc::TimeOfFlight m_powerCellDetector{0}; // Unused
 #endif // ENABLE_SHOOTER
 };

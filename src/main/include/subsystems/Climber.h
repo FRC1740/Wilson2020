@@ -28,8 +28,8 @@ namespace ConClimber {
     constexpr double EXT_SPEED = -0.5; // CRE 02-10 Negative motor input should extend
     constexpr double RET_SPEED = 0.5; // CRE 02-10 Positive motor input should retract
     constexpr double ROTATION_DISTANCE = 3.75; // inches #35 Chain = .375 pitch x 10 tooth = 3.75 inches
-    constexpr double EXT_LIMIT = -31.0; // inches FIXME: Guesstimate in inches
-    constexpr double RET_LIMIT = -1.6023; // Starting Configuration: fully retracted, Encoder=0
+    constexpr double EXT_LIMIT = -31.0; // Soft limit (inches) to prevent over-extending
+    constexpr double RET_LIMIT = -1.6023; // Account for drift - Starting Configuration: fully retracted, Encoder=0
 }
 
 class Climber : public frc2::SubsystemBase {

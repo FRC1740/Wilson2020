@@ -71,8 +71,8 @@ void RobotContainer::ConfigureButtonBindings() {
 //  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_BUMPER); }).WhenHeld(new JumbleShooter(&m_shooter));
   frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Switch::RED); }).WhenHeld(new SpinUpShooter(&m_shooter));
 
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); }).WhileHeld(new JumbleShooter(&m_shooter, 1));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); }).WhileHeld(new JumbleShooter(&m_shooter, -1));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); }).WhileHeld(new JumbleShooter(&m_shooter, -1));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); }).WhileHeld(new JumbleShooter(&m_shooter, 1));
 #endif // ENABLE_SHOOTER
 
 #ifdef ENABLE_VISION
