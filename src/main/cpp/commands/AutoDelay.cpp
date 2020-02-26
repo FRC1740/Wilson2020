@@ -5,43 +5,24 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/AutoShoot.h"
+#include "commands/AutoDelay.h"
 
-AutoShoot::AutoShoot(Shooter *shooter) : m_shooter(shooter) {
+AutoDelay::AutoDelay(double seconds) : m_seconds(seconds) {
   // Use addRequirements() here to declare subsystem dependencies.
   m_timer = frc::Timer();
 }
 
 // Called when the command is initially scheduled.
-void AutoShoot::Initialize() {
+void AutoDelay::Initialize() {
   m_timer.Reset();
   m_timer.Start();
-  m_feeding = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
-void AutoShoot::Execute() {
-  m_shooter->SpinUp();
-  if (m_timer.Get() > 0.5) {
-    if (int(m_timer.Get() * 10) % 3 == 0) // Turn the feeder on and off every 0.3 seconds
-    {
-      m_feeding = !m_feeding;
-    }
-  }
-
-  if (m_feeding) {
-    //FIXME: make this read the networktable jumbler speed
-    m_shooter->Jumble(1);
-  } else {
-    m_shooter->Dejumble();
-  }
-}
+//void AutoDelay::Execute() {}
 
 // Called once the command ends or is interrupted.
-void AutoShoot::End(bool interrupted) {
-  m_shooter->StopSpinUp();
-  m_shooter->Dejumble();
-}
+//void AutoDelay::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool AutoShoot::IsFinished() { return m_timer.Get() >= 10.0; }
+bool AutoDelay::IsFinished() { return m_timer.Get() > m_seconds; }
