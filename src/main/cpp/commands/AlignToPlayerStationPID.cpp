@@ -17,7 +17,15 @@ AlignToPlayerStationPID::AlignToPlayerStationPID(Vision *vision, DriveTrain *dri
       ConVision::AlignToPlayerStation::D),
 #if defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
                     // This should return the measurement
-                    [vision] { return vision->Align(); },
+                    [vision,this] {
+                      double P = vision->m_nte_Align_P.GetDouble(0.0);
+                      double I = vision->m_nte_Align_I.GetDouble(0.0);
+                      double D = vision->m_nte_Align_D.GetDouble(0.0);
+                      GetController().SetP(P);
+                      GetController().SetI(I);
+                      GetController().SetD(D);
+                      return vision->Align(); 
+                    },
                     // This should return the setpoint (can also be a constant)
                     [] { return 0.0; },
                     // This uses the output
@@ -42,6 +50,9 @@ AlignToPlayerStationPID::AlignToPlayerStationPID(Vision *vision, DriveTrain *dri
                     
 #if defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
 // Returns true when the command should end.
+
+
+
 bool AlignToPlayerStationPID::IsFinished() { return GetController().AtSetpoint(); }
 
 void AlignToPlayerStationPID::End(bool interrupted) {
