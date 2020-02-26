@@ -11,6 +11,9 @@
 #include <frc2/command/SubsystemBase.h>
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableInstance.h>
+#include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/shuffleboard/ShuffleboardTab.h>
+#include <networktables/NetworkTableEntry.h>
 
 namespace ConVision {
     namespace AlignToPlayerStation {
@@ -53,5 +56,12 @@ class Vision : public frc2::SubsystemBase {
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
   std::shared_ptr<NetworkTable> m_nt_Limelight;
+
+ public:
+  frc::ShuffleboardTab *m_sbt_Vision;
+  nt::NetworkTableEntry m_nte_Align_P;
+  nt::NetworkTableEntry m_nte_Align_I;
+  nt::NetworkTableEntry m_nte_Align_D;
+
   float m_nte_tx;
 };

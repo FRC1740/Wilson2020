@@ -9,6 +9,11 @@
 
 Vision::Vision() {
     m_nt_Limelight = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
+    m_sbt_Vision = &frc::Shuffleboard::GetTab(ConShuffleboard::VisionTab);
+    m_nte_Align_P = m_sbt_Vision->AddPersistent("Vision P", 1.0)  .WithSize(1, 1).WithPosition(0, 0).GetEntry();;
+    m_nte_Align_I = m_sbt_Vision->AddPersistent("Vision I", 0.0)  .WithSize(1, 1).WithPosition(0, 1).GetEntry();;
+    m_nte_Align_D = m_sbt_Vision->AddPersistent("Vision D", 100.0).WithSize(1, 1).WithPosition(0, 2).GetEntry();;
+
 #ifdef ENABLE_VISION
     Vision::LightOff();
 #endif
