@@ -30,7 +30,7 @@ void AutoShoot::Execute() {
   }
 
   if (m_feeding) {
-    //FIXME: make this read the networktable jumbler speed
+    //FIXME: make this read the networktable jumbler speed // CRE: I don't think we want the command reading the NTE.
     m_shooter->Jumble(1);
   } else {
     m_shooter->Dejumble();
