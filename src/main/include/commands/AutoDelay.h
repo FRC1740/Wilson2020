@@ -9,7 +9,6 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/Shooter.h"
 #include <frc/Timer.h>
 
 /**
@@ -19,21 +18,20 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class AutoShoot
-    : public frc2::CommandHelper<frc2::CommandBase, AutoShoot> {
+class AutoDelay
+    : public frc2::CommandHelper<frc2::CommandBase, AutoDelay> {
  public:
-  explicit AutoShoot(Shooter *shooter);
+  explicit AutoDelay(double seconds);
 
   void Initialize() override;
 
-  void Execute() override;
+  //void Execute() override;
 
-  void End(bool interrupted) override;
+  //void End(bool interrupted) override;
 
   bool IsFinished() override;
- private:
-  Shooter *m_shooter;
-  frc::Timer m_timer;
-  bool m_feeding;
 
+ private:
+  double m_seconds;
+  frc::Timer m_timer;
 };

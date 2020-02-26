@@ -9,11 +9,16 @@
 
 #include <frc2/command/CommandHelper.h>
 #include <frc2/command/SequentialCommandGroup.h>
+#include <frc2/command/ParallelCommandGroup.h>
+#include <frc2/command/ParallelRaceGroup.h>
 #include "subsystems/DriveTrain.h"
 #include "subsystems/Shooter.h"
 
 class AutoDrive
-    : public frc2::CommandHelper<frc2::SequentialCommandGroup, AutoDrive> {
+    : public frc2::CommandHelper<frc2::ParallelCommandGroup, AutoDrive> {
  public:
   explicit AutoDrive(DriveTrain *drivetrain, Shooter *shooter);
+
+ private:
+  DriveTrain *m_driveTrain;
 };
