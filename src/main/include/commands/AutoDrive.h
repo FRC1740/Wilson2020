@@ -18,4 +18,7 @@ class AutoDrive
     : public frc2::CommandHelper<frc2::ParallelCommandGroup, AutoDrive> {
  public:
   explicit AutoDrive(DriveTrain *drivetrain, Shooter *shooter);
+
+ private:
+  DriveTrain *m_driveTrain;
 };

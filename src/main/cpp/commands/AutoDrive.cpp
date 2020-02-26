@@ -28,13 +28,14 @@ From Kyle:
 That would allow for shoot then scoot or scoot then shoot by changing delays and durations, as required by our reliable minimum shooting range.
 */
 
-AutoDrive::AutoDrive(DriveTrain *drivetrain, Shooter *shooter) {
+AutoDrive::AutoDrive(DriveTrain *drivetrain, Shooter *shooter) : m_driveTrain(drivetrain) {
 #if defined(ENABLE_DRIVETRAIN) && defined(ENABLE_SHOOTER)
-  constexpr double a = 0.0; // Drive delay
-  constexpr double b = 0.0; // Drive distance (inches)
-  constexpr double c = 0.0; // Shooter spin time
-  constexpr double d = 0.0; // Jumbler delay
-  constexpr double e = 0.0; // Jumbler on time
+  double a = m_driveTrain->m_nte_a_DriveDelay.GetDouble(0.0); // Drive delay
+  double b = m_driveTrain->m_nte_b_DriveDistance.GetDouble(0.0); // Drive distance (inches)
+  double c = m_driveTrain->m_nte_c_ShooterSpinTime.GetDouble(0.0); // Shooter spin time
+  double d = m_driveTrain->m_nte_d_JumblerDelay.GetDouble(0.0); // Jumbler delay
+  double e = m_driveTrain->m_nte_e_JumblerOnTime.GetDouble(0.0); // Jumbler on time
+
   // Add your commands here, e.g.
   // AddCommands(FooCommand(), BarCommand());
   AddCommands (

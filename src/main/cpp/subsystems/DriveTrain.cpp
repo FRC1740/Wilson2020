@@ -35,6 +35,13 @@ DriveTrain::DriveTrain() {
 
   // Create widget for non-linear input
   m_nte_InputExponent       = m_sbt_DriveTrain->AddPersistent("Input Exponent", 1.0)        .WithSize(1, 1).WithPosition(0, 2).GetEntry();
+
+  // Create widgets for AutoDrive
+  m_nte_a_DriveDelay        = m_sbt_DriveTrain->AddPersistent("Drive Delay", 0.0)           .WithSize(1, 1).WithPosition(1, 0).GetEntry();
+  m_nte_b_DriveDistance     = m_sbt_DriveTrain->AddPersistent("Drive Distance", 0.0)        .WithSize(1, 1).WithPosition(1, 1).GetEntry();
+  m_nte_c_ShooterSpinTime   = m_sbt_DriveTrain->AddPersistent("Shooter Spin Time", 0.0)     .WithSize(1, 1).WithPosition(1, 2).GetEntry();
+  m_nte_d_JumblerDelay      = m_sbt_DriveTrain->AddPersistent("Jumbler Delay ", 0.0)        .WithSize(1, 1).WithPosition(1, 3).GetEntry();
+  m_nte_e_JumblerOnTime     = m_sbt_DriveTrain->AddPersistent("Jumbler On Time", 0.0)       .WithSize(1, 1).WithPosition(1, 4).GetEntry();
 }
 
 #ifdef ENABLE_DRIVETRAIN
