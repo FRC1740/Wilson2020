@@ -23,6 +23,7 @@
 #include "commands/RotateManualCPM.h"
 #include "commands/JumbleShooter.h"
 #include "commands/LogDataToDashboard.h" 
+#include "commands/AutoDriveDistance.h"
 
 #include "RobotContainer.h"
 
@@ -50,6 +51,15 @@ RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain, &m_shooter), m_loc
 
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
+
+#if 0 // Testing AutoDriveDistance
+  frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::A); }).WhileHeld(new AutoDriveDistance(&m_driveTrain, 10.0));
+  frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::B); }).WhileHeld(new AutoDriveDistance(&m_driveTrain, -10.0));
+  frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::X); }).WhileHeld(new AutoDriveDistance(&m_driveTrain, 100.0));
+  frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::Y); }).WhileHeld(new AutoDriveDistance(&m_driveTrain, -100.0));
+  frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::SELECT); }).WhileHeld(new AutoDriveDistance(&m_driveTrain, 1000.0));
+  frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::START); }).WhileHeld(new AutoDriveDistance(&m_driveTrain, -1000.0));
+#endif
 
 #ifdef ENABLE_DRIVETRAIN
   // Commence reduced speed driving when bumper(s) pressed
