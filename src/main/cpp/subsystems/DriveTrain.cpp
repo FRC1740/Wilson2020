@@ -77,16 +77,17 @@ void DriveTrain::ResetEncoders() {
 }
 
 // FIXME: Account for two encoders per side
-//double DriveTrain::GetRightDistance() {
-//  return (m_rightEncoderA.GetPosition() * ConDriveTrain::ENCODER_TICKS_TO_INCHES) + ConDriveTrain::ENCODER_TICKS_OFFSET;
-//}
+double DriveTrain::GetRightDistance() {
+  return (m_rightEncoderA.GetPosition() * ConDriveTrain::ENCODER_2_IN);
+}
 
-//double DriveTrain::GetLeftDistance() {
-//  return (m_leftEncoderA.GetPosition() * ConDriveTrain::ENCODER_TICKS_TO_INCHES) + ConDriveTrain::ENCODER_TICKS_OFFSET;
-//}
+double DriveTrain::GetLeftDistance() {
+  return (m_leftEncoderA.GetPosition() * ConDriveTrain::ENCODER_2_IN);
+}
 
 // Used by AutoDriveDistance
 double DriveTrain::GetAverageEncoderDistance() {
-  return (m_leftEncoderA.GetPosition() + m_rightEncoderA.GetPosition()) / 2.0;
+  // return (m_leftEncoderA.GetPosition() - m_rightEncoderA.GetPosition()) / 2.0;
+  return ((GetLeftDistance() - GetRightDistance()) / 2.0)/ 13.16; // FIXME: Fudge Factor 
 }
 #endif // ENABLE_DRIVETRAIN
