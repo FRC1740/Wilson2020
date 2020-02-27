@@ -61,7 +61,7 @@ namespace ConShooter {
         constexpr double MOTOR_SPEED = 0.5;
     }
     namespace HopperFlapper {
-        constexpr int MOTOR_ID = 3;
+        constexpr int MOTOR_ID = 2;
         constexpr double MOTOR_SPEED = 0.5;
     }
 }

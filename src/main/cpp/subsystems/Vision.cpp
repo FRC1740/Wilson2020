@@ -15,7 +15,7 @@ Vision::Vision() {
     m_nte_Align_D = m_sbt_Vision->AddPersistent("Vision D", 100.0).WithSize(1, 1).WithPosition(0, 2).GetEntry();;
 
 #ifdef ENABLE_VISION
-    Vision::LightOff();
+    LightOff();
 #endif
 }
 

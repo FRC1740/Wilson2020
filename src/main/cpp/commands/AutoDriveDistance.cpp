@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "commands/AutoDriveDistance.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 
 AutoDriveDistance::AutoDriveDistance(DriveTrain *drivetrain, double distance) : m_driveTrain(drivetrain), m_distance(distance) {
   // Use addRequirements() here to declare subsystem dependencies.
@@ -21,8 +22,8 @@ void AutoDriveDistance::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void AutoDriveDistance::Execute() {
   // See TeleOpDrive for more filtering information
-  constexpr double speedN = 15.0; // length of digital filter
-  constexpr double maxSpeed = 0.1; // FIXME: tune for appropriate desired speed
+  constexpr double speedN = 11.0; // length of digital filter
+  constexpr double maxSpeed = 0.5; // FIXME: tune for appropriate desired speed
   constexpr double rotation = 0.0;
 
   double desiredSpeed = (m_distance > m_driveTrain->GetAverageEncoderDistance()) ? maxSpeed : -maxSpeed;
@@ -40,6 +41,7 @@ void AutoDriveDistance::End(bool interrupted) {
 bool AutoDriveDistance::IsFinished() {
   constexpr double epsilon = 1.0;
   // FIXME: when testing, need to calibrate GetAverageEncoderDistance to the correct units
+  frc::SmartDashboard::PutNumber("Drive Distance: ", m_driveTrain->GetAverageEncoderDistance());
   return (fabs(m_distance - m_driveTrain->GetAverageEncoderDistance()) < epsilon);
 }
 #endif // ENABLE_DRIVETRAIN

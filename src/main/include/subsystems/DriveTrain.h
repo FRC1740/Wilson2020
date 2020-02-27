@@ -28,12 +28,16 @@ namespace ConDriveTrain {
     constexpr int RAMP_RATE = 0.100; //seconds
     constexpr bool INVERSION = false; //
     //Conversions
-    constexpr double IN_2_ENCODER = (10.71*42)/(6*ConMath::PI); //encoder to motor 42 counts/rev, motor to shaft 10.71:1, 6in wheel
-    constexpr double ENCODER_2_IN = 1/IN_2_ENCODER; 
+    constexpr double IN_2_ENCODER = (6*ConMath::PI)/(42 * 10.71); //encoder to motor 42 counts/rev, motor to shaft 10.71:1, 6in wheel
+    // SHould be 6 * pi / (42 * 10.71)
+    // Reciprocal (42 * 10.71)/(6 * pi)
+    // Seems to scale at abt 40% of expected.
+    constexpr double ENCODER_2_IN = 1/IN_2_ENCODER;
+    // constexpr double ENCODER_2_IN = (42.0 * 10.71)/(6.0 * ConMath::PI);
 
     // Conversion factor Ticks -> Inches
-    constexpr double ENCODER_TICKS_TO_INCHES = 2.0 + (2/9); // 0.58
-    constexpr double ENCODER_TICKS_OFFSET = -6.0 - (2/3);
+    // constexpr double ENCODER_TICKS_TO_INCHES = 2.0 + (2/9); // 0.58
+    // constexpr double ENCODER_TICKS_OFFSET = -6.0 - (2/3);
 }
 
 class DriveTrain : public frc2::SubsystemBase {
@@ -70,9 +74,9 @@ class DriveTrain : public frc2::SubsystemBase {
 
   void SetMaxOutput(double maxOutput);
 
-  //double GetRightDistance();
+  double GetRightDistance();
 
-  //double GetLeftDistance();
+  double GetLeftDistance();
 
   double GetAverageEncoderDistance();
 
