@@ -1,5 +1,6 @@
 # Created by https://www.gitignore.io/api/c++,java,linux,macos,gradle,windows,visualstudiocode
 env.h
+cscope.files
 ### C++ ###
 # Prerequisites
 *.d
