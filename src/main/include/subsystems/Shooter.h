@@ -51,9 +51,9 @@ namespace ConShooter {
         constexpr double MOTOR_SPEED = 0.5;
         constexpr double OPTIMAL_RPM = 3500.00; // RPM 
         // PID gains
-        constexpr double P = 0.0;
+        constexpr double P = 1.0;
         constexpr double I = 0.0;
-        constexpr double D = 0.0;
+        constexpr double D = 250.0;
         constexpr double F = 0.0;
     }
     namespace Jumbler {

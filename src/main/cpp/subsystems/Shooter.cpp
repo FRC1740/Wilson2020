@@ -41,14 +41,27 @@ Shooter::Shooter() {
     m_topMotor.BurnFlash();
     m_bottomMotor.BurnFlash();
     
+    // First choose kicker sensor
+    m_kickerMotor.ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::FeedbackDevice::CTRE_MagEncoder_Absolute, 0, 30);    
+
+    // Set the peak and nominal outputs
+    m_kickerMotor.ConfigNominalOutputForward(0, 30);
+    m_kickerMotor.ConfigNominalOutputReverse(0, 30);
+    m_kickerMotor.ConfigPeakOutputForward(1, 30);
+    m_kickerMotor.ConfigPeakOutputReverse(-1, 30);
+
+    // Kicker motor PID code
     m_kickerMotor.SelectProfileSlot(0,0);
-    m_kickerMotor.Config_kP(0, ConShooter::Kicker::P); // "Slot", Value
-    m_kickerMotor.Config_kI(0, ConShooter::Kicker::I); // "Slot", Value
-    m_kickerMotor.Config_kD(0, ConShooter::Kicker::D); // "Slot", Value
-    m_kickerMotor.Config_kF(0, ConShooter::Kicker::F); // "Slot", Value
-
-
+    m_kickerMotor.Config_kP(0, ConShooter::Kicker::P, 30); // "Slot", Value
+    m_kickerMotor.Config_kI(0, ConShooter::Kicker::I, 30); // "Slot", Value
+    m_kickerMotor.Config_kD(0, ConShooter::Kicker::D, 30); // "Slot", Value
+    m_kickerMotor.Config_kF(0, ConShooter::Kicker::F, 30); // "Slot", Value
+    
+    m_kickerMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
+    m_jumblerMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
+    m_hopperFlapper.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
 #endif // ENABLE_SHOOTER
+
   // Create and get reference to SB tab
   m_sbt_Shooter = &frc::Shuffleboard::GetTab(ConShuffleboard::ShooterTab);
 
@@ -172,8 +185,10 @@ void Shooter::SpinUp()
 
 // Used by SpinUpShooter
 void Shooter::StopSpinUp(){
-  SetTopMotorSpeed(0.0);
-  SetBottomMotorSpeed(0.0);
+  //SetTopMotorSpeed(0.0);
+  //SetBottomMotorSpeed(0.0);
+  m_topVelocityPID.SetReference(0.0, rev::ControlType::kVoltage);
+  m_bottomVelocityPID.SetReference(0.0, rev::ControlType::kVoltage);
   SetKickerSpeed(0.0);
 }
 

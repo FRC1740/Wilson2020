@@ -127,8 +127,8 @@ namespace ConLaunchPad {
     constexpr int LEFT_STICK_X = 1; 
     constexpr int LEFT_STICK_Y = 0;
 
-    constexpr int RIGHT_STICK_X = 5;
-    constexpr int RIGHT_STICK_Y = 4;
+    constexpr int RIGHT_STICK_X = 5; // FIXME: Wes says 4
+    constexpr int RIGHT_STICK_Y = 4; // FIXME: Wes says 3
 
     constexpr int LAUNCHPAD_CONTROLLER_PORT = 1;
 }
