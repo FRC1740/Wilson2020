@@ -52,10 +52,10 @@ Shooter::Shooter() {
 
     // Kicker motor PID code
     m_kickerMotor.SelectProfileSlot(0,0);
-    m_kickerMotor.Config_kP(0, ConShooter::Kicker::P, 30); // "Slot", Value
-    m_kickerMotor.Config_kI(0, ConShooter::Kicker::I, 30); // "Slot", Value
-    m_kickerMotor.Config_kD(0, ConShooter::Kicker::D, 30); // "Slot", Value
-    m_kickerMotor.Config_kF(0, ConShooter::Kicker::F, 30); // "Slot", Value
+    m_kickerMotor.Config_kP(0, ConShooter::Kicker::P, 30); // "Slot", Value, timeout (ms)
+    m_kickerMotor.Config_kI(0, ConShooter::Kicker::I, 30);  
+    m_kickerMotor.Config_kD(0, ConShooter::Kicker::D, 30); 
+    m_kickerMotor.Config_kF(0, ConShooter::Kicker::F, 30);
     
     m_kickerMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
     m_jumblerMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
@@ -180,7 +180,7 @@ void Shooter::SpinUp()
 {
   SetTopMotorSpeed(m_nte_TopMotorInputRPM.GetDouble(ConShooter::Top::OPTIMAL_RPM));
   SetBottomMotorSpeed(m_nte_BottomMotorInputRPM.GetDouble(ConShooter::Bottom::OPTIMAL_RPM));
-  SetKickerSpeed(m_nte_KickerMotorSpeed.GetDouble(ConShooter::Kicker::MOTOR_SPEED));
+  SetKickerSpeed(m_nte_KickerMotorSpeed.GetDouble(ConShooter::Kicker::OPTIMAL_RPM));
 }
 
 // Used by SpinUpShooter
@@ -209,9 +209,9 @@ void Shooter::Dejumble() {
 // Used internally only
 void Shooter::SetKickerSpeed(double speed) {
   // Power Mode...
-  m_kickerMotor.Set(TalonSRXControlMode::PercentOutput, speed);
+  // m_kickerMotor.Set(TalonSRXControlMode::PercentOutput, speed);
   /// Velocity Mode for use with hex shaft encoder
-  // m_kickerMotor.Set(TalonSRXControlMode::Velocity, speed); 
+  m_kickerMotor.Set(TalonSRXControlMode::Velocity, speed); 
 }
 
 #endif // ENABLE_SHOOTER
