@@ -52,10 +52,10 @@ Shooter::Shooter() {
 
     // Kicker motor PID code
     m_kickerMotor.SelectProfileSlot(0,0);
-    m_kickerMotor.Config_kP(0, ConShooter::Kicker::P, 30); // "Slot", Value
-    m_kickerMotor.Config_kI(0, ConShooter::Kicker::I, 30); // "Slot", Value
-    m_kickerMotor.Config_kD(0, ConShooter::Kicker::D, 30); // "Slot", Value
-    m_kickerMotor.Config_kF(0, ConShooter::Kicker::F, 30); // "Slot", Value
+    m_kickerMotor.Config_kP(0, ConShooter::Kicker::P, 30); // "Slot", Value, timeout (ms)
+    m_kickerMotor.Config_kI(0, ConShooter::Kicker::I, 30);  
+    m_kickerMotor.Config_kD(0, ConShooter::Kicker::D, 30); 
+    m_kickerMotor.Config_kF(0, ConShooter::Kicker::F, 30);
     
     m_kickerMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
     m_jumblerMotor.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
@@ -92,16 +92,10 @@ Shooter::Shooter() {
     .GetEntry();
 
   m_nte_EnableMotorGraphs = m_sbt_Shooter->
-    AddPersistent("Enable Motor Graphs", 0.0)
+    AddPersistent("Enable Motor Graphs", true)
     .WithWidget(frc::BuiltInWidgets::kToggleButton)
     .WithSize(1, 1)
     .WithPosition(8, 0)
-    .GetEntry();
-
-  m_nte_KickerMotorSpeed = m_sbt_Shooter->
-    AddPersistent("Kicker Motor Speed", ConShooter::Kicker::MOTOR_SPEED)
-    .WithSize(2, 1)
-    .WithPosition(8, 1)
     .GetEntry();
 
   m_nte_JumblerMotorSpeed = m_sbt_Shooter->
@@ -116,6 +110,18 @@ Shooter::Shooter() {
     .WithPosition(0, 2)
     .GetEntry();
 
+  m_nte_KickerMotorError = m_sbt_Shooter->
+    AddPersistent("Kicker Error", 0.0)
+    .WithSize(2,1)
+    .WithPosition(6,1)
+    .GetEntry();
+
+  /* Is there a way to get the current speed of a TalonSRX Motor? */
+  m_nte_KickerMotorVoltage = m_sbt_Shooter->
+    AddPersistent("Kicker Motor Voltage", 0.0)
+    .WithSize(2, 1)
+    .WithPosition(6, 2)
+    .GetEntry();
 
   /*
   m_nte_JumblerStatus = m_sbt_Shooter->
@@ -135,6 +141,7 @@ void Shooter::Periodic() {
     m_nte_TopMotorOutputRPM.SetDouble(GetTopMotorSpeed());
     m_nte_BottomMotorOutputRPM.SetDouble(GetBottomMotorSpeed());
     m_nte_KickerMotorVoltage.SetDouble(GetKickerMotorVoltage());
+    m_nte_KickerMotorError.SetDouble(GetKickerError());
 
 #if 0 // NOT PLANNING TO USE THIS SENSOR
     // Check TimeofFLight sensor to see if a powerCell is ... stuck? loaded? ??
@@ -175,12 +182,17 @@ double Shooter::GetKickerMotorVoltage() {
     return m_kickerMotor.GetMotorOutputVoltage();
 }
 
+// Used internally only for dashboard
+double Shooter::GetKickerError() {
+    return m_kickerMotor.GetClosedLoopError();
+}
+
 // Used by SpinUpShooter
 void Shooter::SpinUp()
 {
   SetTopMotorSpeed(m_nte_TopMotorInputRPM.GetDouble(ConShooter::Top::OPTIMAL_RPM));
   SetBottomMotorSpeed(m_nte_BottomMotorInputRPM.GetDouble(ConShooter::Bottom::OPTIMAL_RPM));
-  SetKickerSpeed(m_nte_KickerMotorSpeed.GetDouble(ConShooter::Kicker::MOTOR_SPEED));
+  SetKickerSpeed(m_nte_KickerMotorSpeed.GetDouble(ConShooter::Kicker::OPTIMAL_RPM));
 }
 
 // Used by SpinUpShooter
@@ -209,9 +221,9 @@ void Shooter::Dejumble() {
 // Used internally only
 void Shooter::SetKickerSpeed(double speed) {
   // Power Mode...
-  m_kickerMotor.Set(TalonSRXControlMode::PercentOutput, speed);
+  // m_kickerMotor.Set(TalonSRXControlMode::PercentOutput, speed);
   /// Velocity Mode for use with hex shaft encoder
-  // m_kickerMotor.Set(TalonSRXControlMode::Velocity, speed); 
+  m_kickerMotor.Set(TalonSRXControlMode::Velocity, speed); 
 }
 
 #endif // ENABLE_SHOOTER

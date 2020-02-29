@@ -80,9 +80,10 @@ class Shooter : public frc2::SubsystemBase {
   nt::NetworkTableEntry m_nte_KickerInputRPM;
   nt::NetworkTableEntry m_nte_KickerMotorSpeed;
   nt::NetworkTableEntry m_nte_KickerMotorVoltage;
+  nt::NetworkTableEntry m_nte_KickerMotorError;
 
   nt::NetworkTableEntry m_nte_JumblerMotorSpeed;
-  nt::NetworkTableEntry m_nte_JumblerStatus;
+//  nt::NetworkTableEntry m_nte_JumblerStatus;
 
 #ifdef ENABLE_SHOOTER
   /**
@@ -99,6 +100,8 @@ class Shooter : public frc2::SubsystemBase {
   double GetTopMotorSpeed();
 
   double GetKickerMotorVoltage();
+
+  double GetKickerError();
 
   void SpinUp();
 
