@@ -52,7 +52,7 @@ RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain, &m_shooter), m_loc
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
 
-#if 1 // Testing AutoDriveDistance
+#if 0 // Testing AutoDriveDistance
   frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::A); }).WhenPressed(new AutoDriveDistance(&m_driveTrain, 10.0), false);
   frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::B); }).WhenPressed(new AutoDriveDistance(&m_driveTrain, -10.0), false);
   frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::X); }).WhenPressed(new AutoDriveDistance(&m_driveTrain, 100.0), false);
@@ -85,7 +85,7 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); }).WhileHeld(new JumbleShooter(&m_shooter, 1));
 #endif // ENABLE_SHOOTER
 
-#if 0 // def ENABLE_VISION
+#ifdef ENABLE_VISION
   // Vision
   frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::SELECT); }).WhenHeld(new AlignToPlayerStationPID(&m_vision, &m_driveTrain));
   frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::START); }).WhenHeld(new AlignToPowerPortPID(&m_vision, &m_driveTrain));
