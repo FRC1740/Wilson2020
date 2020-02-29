@@ -198,6 +198,13 @@ double Shooter::GetKickerError() {
 // Used by SpinUpShooter
 void Shooter::SpinUp()
 {
+  double bottomMotorTarget = m_nte_BottomMotorInputRPM.GetDouble(ConShooter::Bottom::OPTIMAL_RPM);
+
+  /* Implement Fine-Tuning of bottom shooter motor
+  if (m_codriver_control != nullptr) {
+    bottomMotorTarget += ConShooter::Bottom::RPM_FINE_TUNE * m_codriver_control->GetRawAxis(ConLaunchPad::Dial::RIGHT); 
+  }
+  */
   SetTopMotorSpeed(m_nte_TopMotorInputRPM.GetDouble(ConShooter::Top::OPTIMAL_RPM));
   SetBottomMotorSpeed(m_nte_BottomMotorInputRPM.GetDouble(ConShooter::Bottom::OPTIMAL_RPM));
   SetKickerSpeed(m_nte_KickerMotorSpeed.GetDouble(ConShooter::Kicker::OPTIMAL_RPM));
@@ -226,6 +233,16 @@ void Shooter::Dejumble() {
   m_hopperFlapper.Set(TalonSRXControlMode::PercentOutput, 0.0);
 }
 
+// "Choo choo" motor used by FlapHopper() for manual control
+void Shooter::FlapHopper() {
+  m_hopperFlapper.Set(TalonSRXControlMode::PercentOutput, ConShooter::HopperFlapper::MOTOR_SPEED);
+}
+
+// "Choo choo" motor used by FlapHopper() for manual control
+void Shooter::StopFlapper() {
+  m_hopperFlapper.Set(TalonSRXControlMode::PercentOutput, 0.0);  
+}
+
 // Used internally only
 void Shooter::SetKickerSpeed(double speed) {
   // Power Mode...
@@ -233,5 +250,12 @@ void Shooter::SetKickerSpeed(double speed) {
   /// Velocity Mode for use with hex shaft encoder
   m_kickerMotor.Set(TalonSRXControlMode::Velocity, speed); 
 }
+
+// Used by RobotContainer to bring controller object into subsystem
+// Periodic will check for reset of encoder
+void Shooter::SetCodriverControl(frc::XboxController *codriver_control) {
+  m_codriver_control = codriver_control;
+}
+
 
 #endif // ENABLE_SHOOTER

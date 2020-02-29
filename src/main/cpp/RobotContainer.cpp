@@ -24,6 +24,7 @@
 #include "commands/JumbleShooter.h"
 #include "commands/LogDataToDashboard.h" 
 #include "commands/AutoDriveDistance.h"
+#include "commands/FlapHopper.h"
 
 #include "RobotContainer.h"
 
@@ -47,6 +48,12 @@ RobotContainer::RobotContainer() : m_autoDrive(&m_driveTrain, &m_shooter), m_loc
   // Make climber aware of operator input
   m_climber.SetCodriverControl(&codriver_control);
 #endif // ENABLE_CLIMBER
+
+#ifdef ENABLE_SHOOTER
+  // Make shooter aware of operator input
+  m_shooter.SetCodriverControl(&codriver_control);
+#endif // ENABLE_SHOOTER
+
 }
 
 void RobotContainer::ConfigureButtonBindings() {
@@ -83,6 +90,8 @@ void RobotContainer::ConfigureButtonBindings() {
 
   frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); }).WhileHeld(new JumbleShooter(&m_shooter, -1));
   frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); }).WhileHeld(new JumbleShooter(&m_shooter, 1));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::YELLOW); }).WhileHeld(new FlapHopper(&m_shooter));
+
 #endif // ENABLE_SHOOTER
 
 #ifdef ENABLE_VISION
