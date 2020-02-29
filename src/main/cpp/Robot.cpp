@@ -68,12 +68,23 @@ void Robot::TeleopInit() {
     m_autonomousCommand->Cancel();
     m_autonomousCommand = nullptr;
   }
+  // Start a match timer... 
+  m_lockTimer.Reset();
+  m_lockTimer.Start();
 }
 
 /**
  * This function is called periodically during operator control.
  */
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() {
+  // Check the timer
+  double time_left = m_lockTimer.Get();
+  // If < 2 seconds, Ensure Climber is LOCKED
+  if (time_left >= CLIMBER_LOCK_TIME) {
+    frc::Shuffleboard::GetTab(ConShuffleboard::RobotTab).Add("Time Left", time_left).WithPosition(0,1).WithSize(1,1);
+    // UnlockClimber();
+  }
+}
 
 /**
  * This function is called periodically during test mode.

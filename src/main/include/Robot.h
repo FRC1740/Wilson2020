@@ -15,6 +15,8 @@
 
 #include "RobotContainer.h"
 
+constexpr int CLIMBER_LOCK_TIME=133; // 
+
 class Robot : public frc::TimedRobot {
  public:
   frc::ShuffleboardTab *m_sbt_Robot;
@@ -37,4 +39,5 @@ class Robot : public frc::TimedRobot {
   frc2::Command* m_disabledCommand = nullptr;
 
   RobotContainer m_container;
+  frc::Timer m_lockTimer;
 };
