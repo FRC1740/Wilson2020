@@ -87,8 +87,8 @@ void RobotContainer::ConfigureButtonBindings() {
 
 #ifdef ENABLE_VISION
   // Vision
-  frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::SELECT); }).WhenHeld(new AlignToPlayerStationPID(&m_vision, &m_driveTrain));
-  frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::START); }).WhenHeld(new AlignToPowerPortPID(&m_vision, &m_driveTrain));
+  frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::SELECT); }).WhileHeld(new AlignToPlayerStationPID(&m_vision, &m_driveTrain));
+  frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::START); }).WhileHeld(new AlignToPowerPortPID(&m_vision, &m_driveTrain));
   frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::X); }).WhenHeld(new SwitchCamera(&m_vision));
   frc2::Button([this] {return driver_control.GetRawButton(ConXBOXControl::Y); }).WhenHeld(new ToggleVisionLight(&m_vision));
 #endif // ENABLE_VISION
