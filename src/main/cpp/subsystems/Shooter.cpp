@@ -44,6 +44,12 @@ Shooter::Shooter() {
     // First choose kicker sensor
     m_kickerMotor.ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::FeedbackDevice::CTRE_MagEncoder_Absolute, 0, 30);    
 
+    // Set the current limit 
+    m_kickerMotor.EnableCurrentLimit(true);
+    m_kickerMotor.ConfigContinuousCurrentLimit(ConShooter::Kicker::CONT_CURRENT_LIMIT); 
+    m_kickerMotor.ConfigPeakCurrentLimit(ConShooter::Kicker::PEAK_CURRENT_LIMIT);
+    m_kickerMotor.ConfigPeakCurrentDuration(ConShooter::Kicker::PEAK_CURRENT_DURATION);
+
     // Set the peak and nominal outputs
     m_kickerMotor.ConfigNominalOutputForward(0, 30);
     m_kickerMotor.ConfigNominalOutputReverse(0, 30);
@@ -179,6 +185,8 @@ double Shooter::GetTopMotorSpeed() {
 
 // Used internally only for dashboard
 double Shooter::GetKickerMotorVoltage() {
+    // Showing current draw might be more useful?
+    // return m_kickerMotor.GetOutputCurrent();
     return m_kickerMotor.GetMotorOutputVoltage();
 }
 

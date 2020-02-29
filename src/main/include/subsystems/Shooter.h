@@ -55,6 +55,11 @@ namespace ConShooter {
         constexpr double I = 0.0;
         constexpr double D = 250.0;
         constexpr double F = 0.0;
+        // Current Limits
+        constexpr int CONT_CURRENT_LIMIT = 20; // Amps (continuous)
+        constexpr int PEAK_CURRENT_LIMIT = 30;     // Amps
+        constexpr int PEAK_CURRENT_DURATION = 200; // mSec
+
     }
     namespace Jumbler {
         constexpr int MOTOR_ID = 1;
