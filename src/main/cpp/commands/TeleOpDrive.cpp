@@ -28,7 +28,7 @@ void TeleOpDrive::Execute() {
   // Idea from simple filter at https://www.chiefdelphi.com/t/moderating-acceleration-deceleration/77960/4
 
   // Get adjustment values
-  double speedN = m_driveTrain->m_nte_DriveSpeedFilter.GetDouble(15.0);
+  double speedN = m_driveTrain->m_nte_DriveSpeedFilter.GetDouble(10.0);
   double rotationN = m_driveTrain->m_nte_DriveRotationFilter.GetDouble(5.0);
   if (speedN < 1.0) { speedN = 1.0; }
   if (rotationN < 1.0) { rotationN = 1.0; }
