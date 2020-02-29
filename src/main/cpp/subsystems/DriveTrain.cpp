@@ -30,18 +30,18 @@ DriveTrain::DriveTrain() {
   m_sbt_DriveTrain = &frc::Shuffleboard::GetTab(ConShuffleboard::DriveTrainTab);
 
   // Create widgets for digital filter lengths
-  m_nte_DriveSpeedFilter    = m_sbt_DriveTrain->AddPersistent("Drive Speed Filter", 15.0)   .WithSize(2, 1).WithPosition(0, 0).GetEntry();
+  m_nte_DriveSpeedFilter    = m_sbt_DriveTrain->AddPersistent("Drive Speed Filter", 10.0)   .WithSize(2, 1).WithPosition(0, 0).GetEntry();
   m_nte_DriveRotationFilter = m_sbt_DriveTrain->AddPersistent("Drive Rotation Filter", 5.0) .WithSize(2, 1).WithPosition(0, 1).GetEntry();
 
   // Create widget for non-linear input
   m_nte_InputExponent       = m_sbt_DriveTrain->AddPersistent("Input Exponent", 1.0)        .WithSize(1, 1).WithPosition(0, 2).GetEntry();
 
   // Create widgets for AutoDrive
-  m_nte_a_DriveDelay        = m_sbt_DriveTrain->AddPersistent("a Drive Delay", 0.0)           .WithSize(1, 1).WithPosition(1, 0).GetEntry();
-  m_nte_b_DriveDistance     = m_sbt_DriveTrain->AddPersistent("b Drive Distance", -20.0)        .WithSize(1, 1).WithPosition(1, 1).GetEntry();
-  m_nte_c_ShooterSpinTime   = m_sbt_DriveTrain->AddPersistent("c Shooter Spin Time", 10.0)     .WithSize(1, 1).WithPosition(1, 2).GetEntry();
-  m_nte_d_JumblerDelay      = m_sbt_DriveTrain->AddPersistent("d Jumbler Delay ", 5.0)        .WithSize(1, 1).WithPosition(1, 3).GetEntry();
-  m_nte_e_JumblerOnTime     = m_sbt_DriveTrain->AddPersistent("e Jumbler On Time", 15.0)       .WithSize(1, 1).WithPosition(1, 4).GetEntry();
+  m_nte_a_DriveDelay        = m_sbt_DriveTrain->AddPersistent("a Drive Delay", 0.0)         .WithSize(1, 1).WithPosition(1, 0).GetEntry();
+  m_nte_b_DriveDistance     = m_sbt_DriveTrain->AddPersistent("b Drive Distance", -20.0)    .WithSize(1, 1).WithPosition(1, 1).GetEntry();
+  m_nte_c_ShooterSpinTime   = m_sbt_DriveTrain->AddPersistent("c Shooter Spin Time", 10.0)  .WithSize(1, 1).WithPosition(1, 2).GetEntry();
+  m_nte_d_JumblerDelay      = m_sbt_DriveTrain->AddPersistent("d Jumbler Delay ", 5.0)      .WithSize(1, 1).WithPosition(1, 3).GetEntry();
+  m_nte_e_JumblerOnTime     = m_sbt_DriveTrain->AddPersistent("e Jumbler On Time", 15.0)    .WithSize(1, 1).WithPosition(1, 4).GetEntry();
 }
 
 #ifdef ENABLE_DRIVETRAIN
