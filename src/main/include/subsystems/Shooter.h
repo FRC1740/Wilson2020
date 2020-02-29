@@ -18,6 +18,7 @@
 #include <frc/shuffleboard/Shuffleboard.h>
 #include <frc/shuffleboard/ShuffleboardTab.h>
 #include <networktables/NetworkTableEntry.h>
+#include <frc/XBoxController.h>
 
 namespace ConShooter {
     namespace Top {
@@ -40,6 +41,8 @@ namespace ConShooter {
         constexpr double MOTOR_SPEED = 0.5;
         constexpr double OPTIMAL_RPM = 3100.0; // Calibrated RPM from Saturday testing
         constexpr double MAX_RPM = 4000.0;
+        constexpr double RPM_FINE_TUNE = 200.0; 
+
          //PID gains
         constexpr double P = 2e-4;
         constexpr double I = 0.0;
@@ -114,9 +117,17 @@ class Shooter : public frc2::SubsystemBase {
 
   void Jumble(int direction);
 
+  void FlapHopper();
+
+  void StopFlapper();
+
   void Dejumble();
 
   void SetKickerSpeed(double speed);
+
+  void SetCodriverControl(frc::XboxController *codriver_control);
+
+  frc::XboxController *m_codriver_control = nullptr;
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
