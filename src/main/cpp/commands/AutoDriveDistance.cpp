@@ -41,6 +41,6 @@ void AutoDriveDistance::End(bool interrupted) {
 bool AutoDriveDistance::IsFinished() {
   constexpr double epsilon = 5.0;
   frc::SmartDashboard::PutNumber("Drive Distance: ", m_driveTrain->GetAverageEncoderDistance());
-  return (fabs((m_distance + copysign(epsilon / 2.0, m_distance)))- m_driveTrain->GetAverageEncoderDistance()) < epsilon);
+  return ((fabs(m_distance + copysign(epsilon / 2.0, m_distance))- m_driveTrain->GetAverageEncoderDistance()) < epsilon);
 }
 #endif // ENABLE_DRIVETRAIN
