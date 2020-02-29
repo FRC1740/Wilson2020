@@ -23,7 +23,7 @@ void AutoDriveDistance::Initialize() {
 void AutoDriveDistance::Execute() {
   // See TeleOpDrive for more filtering information
   constexpr double speedN = 11.0; // length of digital filter
-  constexpr double maxSpeed = 0.5; // FIXME: tune for appropriate desired speed
+  constexpr double maxSpeed = 0.5;
   constexpr double rotation = 0.0;
 
   double desiredSpeed = (m_distance > m_driveTrain->GetAverageEncoderDistance()) ? maxSpeed : -maxSpeed;
@@ -39,9 +39,8 @@ void AutoDriveDistance::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool AutoDriveDistance::IsFinished() {
-  constexpr double epsilon = 1.0;
-  // FIXME: when testing, need to calibrate GetAverageEncoderDistance to the correct units
+  constexpr double epsilon = 5.0;
   frc::SmartDashboard::PutNumber("Drive Distance: ", m_driveTrain->GetAverageEncoderDistance());
-  return (fabs(m_distance - m_driveTrain->GetAverageEncoderDistance()) < epsilon);
+  return ((fabs(m_distance + copysign(epsilon / 2.0, m_distance))- m_driveTrain->GetAverageEncoderDistance()) < epsilon);
 }
 #endif // ENABLE_DRIVETRAIN

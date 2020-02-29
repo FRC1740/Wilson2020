@@ -17,9 +17,9 @@
 
 namespace ConVision {
     namespace AlignToPlayerStation {
-        constexpr float P = 0.15;
-        constexpr float I = 0.0;
-        constexpr float D = 0.0;
+        constexpr double P = 0.15;
+        constexpr double I = 0.0;
+        constexpr double D = 0.0;
     }
     constexpr int ON = 3;
     constexpr int BLINK = 2;
@@ -39,7 +39,7 @@ class Vision : public frc2::SubsystemBase {
   double Align();
 
   void ToggleLight();
-  
+
   void LightOn();
 
   void LightOff();
@@ -49,7 +49,7 @@ class Vision : public frc2::SubsystemBase {
   void SelectNearGoalPipeline();
 
   void SelectFarGoalPipeline();
-  
+
 #endif // ENABLE_VISION
 
  private:
@@ -63,5 +63,5 @@ class Vision : public frc2::SubsystemBase {
   nt::NetworkTableEntry m_nte_Align_I;
   nt::NetworkTableEntry m_nte_Align_D;
 
-  float m_nte_tx;
+  double m_nte_tx;
 };
