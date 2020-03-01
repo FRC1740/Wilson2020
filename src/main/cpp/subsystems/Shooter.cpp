@@ -200,11 +200,12 @@ void Shooter::SpinUp()
 {
   double bottomMotorTarget = m_nte_BottomMotorInputRPM.GetDouble(ConShooter::Bottom::OPTIMAL_RPM);
 
-  /* Implement Fine-Tuning of bottom shooter motor
+#if 0 // Implement Fine-Tuning of bottom shooter motor
   if (m_codriver_control != nullptr) {
     bottomMotorTarget += ConShooter::Bottom::RPM_FINE_TUNE * m_codriver_control->GetRawAxis(ConLaunchPad::Dial::RIGHT); 
   }
-  */
+#endif
+
   SetTopMotorSpeed(m_nte_TopMotorInputRPM.GetDouble(ConShooter::Top::OPTIMAL_RPM));
   SetBottomMotorSpeed(m_nte_BottomMotorInputRPM.GetDouble(ConShooter::Bottom::OPTIMAL_RPM));
   SetKickerSpeed(m_nte_KickerMotorSpeed.GetDouble(ConShooter::Kicker::OPTIMAL_RPM));
@@ -256,6 +257,5 @@ void Shooter::SetKickerSpeed(double speed) {
 void Shooter::SetCodriverControl(frc::XboxController *codriver_control) {
   m_codriver_control = codriver_control;
 }
-
 
 #endif // ENABLE_SHOOTER

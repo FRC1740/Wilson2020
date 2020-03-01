@@ -117,11 +117,11 @@ class Shooter : public frc2::SubsystemBase {
 
   void Jumble(int direction);
 
+  void Dejumble();
+
   void FlapHopper();
 
   void StopFlapper();
-
-  void Dejumble();
 
   void SetKickerSpeed(double speed);
 

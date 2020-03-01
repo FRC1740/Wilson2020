@@ -38,7 +38,7 @@ DriveTrain::DriveTrain() {
 
   // Create widgets for AutoDrive
   m_nte_a_DriveDelay        = m_sbt_DriveTrain->AddPersistent("a Drive Delay", 0.0)         .WithSize(1, 1).WithPosition(1, 0).GetEntry();
-  m_nte_b_DriveDistance     = m_sbt_DriveTrain->AddPersistent("b Drive Distance", -20.0)    .WithSize(1, 1).WithPosition(1, 1).GetEntry();
+  m_nte_b_DriveDistance     = m_sbt_DriveTrain->AddPersistent("b Drive Distance", -44.0)    .WithSize(1, 1).WithPosition(1, 1).GetEntry();
   m_nte_c_ShooterSpinTime   = m_sbt_DriveTrain->AddPersistent("c Shooter Spin Time", 10.0)  .WithSize(1, 1).WithPosition(1, 2).GetEntry();
   m_nte_d_JumblerDelay      = m_sbt_DriveTrain->AddPersistent("d Jumbler Delay ", 5.0)      .WithSize(1, 1).WithPosition(1, 3).GetEntry();
   m_nte_e_JumblerOnTime     = m_sbt_DriveTrain->AddPersistent("e Jumbler On Time", 15.0)    .WithSize(1, 1).WithPosition(1, 4).GetEntry();
