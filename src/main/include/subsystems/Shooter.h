@@ -18,7 +18,7 @@
 #include <frc/shuffleboard/Shuffleboard.h>
 #include <frc/shuffleboard/ShuffleboardTab.h>
 #include <networktables/NetworkTableEntry.h>
-#include <frc/XBoxController.h>
+#include <frc/XboxController.h>
 
 namespace ConShooter {
     namespace Top {

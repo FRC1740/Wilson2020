@@ -31,7 +31,7 @@ That would allow for shoot then scoot or scoot then shoot by changing delays and
 AutoDrive::AutoDrive(DriveTrain *drivetrain, Shooter *shooter) : m_driveTrain(drivetrain) {
 #if defined(ENABLE_DRIVETRAIN) && defined(ENABLE_SHOOTER)
   double a = m_driveTrain->m_nte_a_DriveDelay.GetDouble(0.0); // Drive delay
-  double b = m_driveTrain->m_nte_b_DriveDistance.GetDouble(-44.0); // Drive distance (inches)
+  double b = m_driveTrain->m_nte_b_DriveDistance.GetDouble(-20.0); // Drive distance (inches)
   double c = m_driveTrain->m_nte_c_ShooterSpinTime.GetDouble(10.0); // Shooter spin time
   double d = m_driveTrain->m_nte_d_JumblerDelay.GetDouble(5.0); // Jumbler delay
   double e = m_driveTrain->m_nte_e_JumblerOnTime.GetDouble(15.0); // Jumbler on time
@@ -39,7 +39,9 @@ AutoDrive::AutoDrive(DriveTrain *drivetrain, Shooter *shooter) : m_driveTrain(dr
   // Add your commands here, e.g.
   // AddCommands(FooCommand(), BarCommand());
   AddCommands (
-    frc2::SequentialCommandGroup{ AutoDelay(a), AutoDriveDistance(drivetrain, b) },
+    frc2::SequentialCommandGroup{ AutoDelay(a), 
+                                  frc2::ParallelRaceGroup{ AutoDriveDistance(drivetrain, b), AutoDelay(5.0) }
+                                },
     frc2::ParallelRaceGroup{ SpinUpShooter(shooter), AutoDelay(c) },
     frc2::SequentialCommandGroup{ AutoDelay(d),
                                   frc2::ParallelRaceGroup{ JumbleShooter(shooter, -1), AutoDelay(e) }
