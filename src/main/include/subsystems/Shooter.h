@@ -13,12 +13,13 @@
 #include <rev/CANEncoder.h>
 #include <rev/CANSparkMax.h>
 #include <ctre/Phoenix.h>
-//#include <TimeOfFlight.h>
+#include <TimeOfFlight.h>
 #include <frc/Encoder.h>
 #include <frc/shuffleboard/Shuffleboard.h>
 #include <frc/shuffleboard/ShuffleboardTab.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 #include <networktables/NetworkTableEntry.h>
-#include <frc/XBoxController.h>
+#include <frc/XboxController.h>
 
 namespace ConShooter {
     namespace Top {
@@ -70,6 +71,10 @@ namespace ConShooter {
     }
     namespace HopperFlapper {
         constexpr int MOTOR_ID = 2;
+        constexpr double MOTOR_SPEED = 0.5;
+    }
+    namespace Indexer {
+        constexpr int MOTOR_ID = 4; // check to make sure this isn't already populated
         constexpr double MOTOR_SPEED = 0.5;
     }
 }
@@ -160,6 +165,8 @@ class Shooter : public frc2::SubsystemBase {
   
   // Then provide a simple On/Off control from O/I at a constant power level
 
-  //frc::TimeOfFlight m_powerCellDetector{0}; // Unused
+  TalonSRX m_indexMotor{ConShooter::Indexer::MOTOR_ID};
+
+  frc::TimeOfFlight m_powerCellDetector{0}; // Unused
 #endif // ENABLE_SHOOTER
 };

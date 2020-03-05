@@ -149,14 +149,16 @@ void Shooter::Periodic() {
     m_nte_KickerMotorVoltage.SetDouble(GetKickerMotorVoltage());
     m_nte_KickerMotorError.SetDouble(GetKickerError());
 
-#if 0 // NOT PLANNING TO USE THIS SENSOR
+#if 1 // NOT PLANNING TO USE THIS SENSOR
     // Check TimeofFLight sensor to see if a powerCell is ... stuck? loaded? ??
     frc::SmartDashboard::PutNumber("Range: ", m_powerCellDetector.GetRange());
     if (m_powerCellDetector.GetRange() < 300.0)  { // FIXME: range in mm 
         frc::SmartDashboard::PutBoolean("PowerCell", true);
+        m_indexMotor.Set(TalonSRXControlMode::PercentOutput, ConShooter::HopperFlapper::MOTOR_SPEED);
     }
     else {
         frc::SmartDashboard::PutBoolean("PowerCell", false);
+        m_indexMotor.Set(TalonSRXControlMode::PercentOutput, 0.0);
     } 
 #endif
 }
