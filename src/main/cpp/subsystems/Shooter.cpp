@@ -207,7 +207,7 @@ void Shooter::SpinUp()
 #endif
 
   SetTopMotorSpeed(m_nte_TopMotorInputRPM.GetDouble(ConShooter::Top::OPTIMAL_RPM));
-  SetBottomMotorSpeed(m_nte_BottomMotorInputRPM.GetDouble(ConShooter::Bottom::OPTIMAL_RPM));
+  SetBottomMotorSpeed(bottomMotorTarget);
   SetKickerSpeed(m_nte_KickerMotorSpeed.GetDouble(ConShooter::Kicker::OPTIMAL_RPM));
 }
 
