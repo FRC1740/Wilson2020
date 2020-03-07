@@ -13,6 +13,9 @@
 Shooter::Shooter() {
 
 #ifdef ENABLE_SHOOTER
+
+    m_intakeTimer = frc::Timer();
+    m_intakeTimer.Start();
     // Invert shooter motors correctly
     m_topMotor.SetInverted(false);
     m_bottomMotor.SetInverted(true);
@@ -129,6 +132,18 @@ Shooter::Shooter() {
     .WithPosition(6, 2)
     .GetEntry();
 
+  m_nte_IndexSensorOutput = m_sbt_Shooter->
+    AddPersistent("Index Sensor Output", 0.0)
+    .WithSize(2,1)
+    .WithPosition(8, 1)
+    .GetEntry();
+
+  m_nte_LoadSensorOutput = m_sbt_Shooter->
+    AddPersistent("Load Sensor Output", 0.0)
+    .WithSize(2, 1)
+    .WithPosition(8, 2)
+    .GetEntry();
+
   /*
   m_nte_JumblerStatus = m_sbt_Shooter->
     AddPersistent("Jumbler Status", false)
@@ -148,20 +163,39 @@ void Shooter::Periodic() {
     m_nte_BottomMotorOutputRPM.SetDouble(GetBottomMotorSpeed());
     m_nte_KickerMotorVoltage.SetDouble(GetKickerMotorVoltage());
     m_nte_KickerMotorError.SetDouble(GetKickerError());
+    m_nte_IndexSensorOutput.SetDouble(m_IndexSensor.GetRange());
+    m_nte_LoadSensorOutput.SetDouble(m_LoadSensor.GetAverageVoltage());
 
-#if 1 // NOT PLANNING TO USE THIS SENSOR
+#if 0 // Test code for the sensors
     // Check TimeofFLight sensor to see if a powerCell is ... stuck? loaded? ??
-    frc::SmartDashboard::PutNumber("Range: ", m_powerCellDetector.GetRange());
-    if (m_powerCellDetector.GetRange() < 300.0)  { // FIXME: range in mm 
+    frc::SmartDashboard::PutNumber("Range: ", m_IndexSensor.GetRange());
+    // Greater than 30 b/c if no object is sensed it returns between 0-1, right in front of the sensor returns ~40
+    if (m_IndexSensor.GetRange() < 300.0 && m_IndexSensor.GetRange() > 30.0) { // FIXME: range in mm 
         frc::SmartDashboard::PutBoolean("PowerCell", true);
-        m_indexMotor.Set(TalonSRXControlMode::PercentOutput, ConShooter::HopperFlapper::MOTOR_SPEED);
+        m_indexMotor.Set(TalonSRXControlMode::PercentOutput, ConShooter::Indexer::MOTOR_SPEED);
     }
     else {
         frc::SmartDashboard::PutBoolean("PowerCell", false);
         m_indexMotor.Set(TalonSRXControlMode::PercentOutput, 0.0);
     } 
+
+  if (m_LoadSensor.GetAverageVoltage() < 2.0) {
+    m_loadMotor.Set(TalonSRXControlMode::PercentOutput, ConShooter::Loader::MOTOR_SPEED);
+  } else {
+    m_loadMotor.Set(TalonSRXControlMode::PercentOutput, 0);
+  }
 #endif
+
+  if (m_IndexSensor.GetRange() < 300.0 && m_IndexSensor.GetRange() > 30.0) {
+    m_loadMotor.Set(TalonSRXControlMode::PercentOutput, 0);
+  } else if (m_LoadSensor.GetAverageVoltage() < 2.0) {
+      m_loadMotor.Set(TalonSRXControlMode::PercentOutput, ConShooter::Loader::MOTOR_SPEED);
+  } else if (m_lastIntake + ConShooter::Loader::INTAKE_DELAY < m_intakeTimer.Get()) {
+    m_loadMotor.Set(TalonSRXControlMode::PercentOutput, 0);
+    m_lastIntake = m_intakeTimer.Get();
+  }
 }
+
 
 // Used internally only
 void Shooter::SetBottomMotorSpeed(double velocity) {

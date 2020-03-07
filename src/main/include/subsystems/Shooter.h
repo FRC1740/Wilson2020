@@ -20,6 +20,8 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <networktables/NetworkTableEntry.h>
 #include <frc/XboxController.h>
+#include <frc/AnalogInput.h>
+#include <frc/Timer.h>
 
 namespace ConShooter {
     namespace Top {
@@ -77,6 +79,12 @@ namespace ConShooter {
         constexpr int MOTOR_ID = 4; // check to make sure this isn't already populated
         constexpr double MOTOR_SPEED = 0.5;
     }
+
+    namespace Loader {
+        constexpr int MOTOR_ID = 12;
+        constexpr double MOTOR_SPEED = 0.1;
+        constexpr double INTAKE_DELAY = 5.0;
+    }
 }
 
 class Shooter : public frc2::SubsystemBase {
@@ -96,6 +104,9 @@ class Shooter : public frc2::SubsystemBase {
   nt::NetworkTableEntry m_nte_KickerMotorError;
 
   nt::NetworkTableEntry m_nte_JumblerMotorSpeed;
+
+  nt::NetworkTableEntry m_nte_IndexSensorOutput;
+  nt::NetworkTableEntry m_nte_LoadSensorOutput;
 //  nt::NetworkTableEntry m_nte_JumblerStatus;
 
 #ifdef ENABLE_SHOOTER
@@ -166,7 +177,13 @@ class Shooter : public frc2::SubsystemBase {
   // Then provide a simple On/Off control from O/I at a constant power level
 
   TalonSRX m_indexMotor{ConShooter::Indexer::MOTOR_ID};
+  TalonSRX m_loadMotor{ConShooter::Loader::MOTOR_ID};
 
-  frc::TimeOfFlight m_powerCellDetector{0}; // Unused
+  frc::TimeOfFlight m_IndexSensor{0};
+  frc::AnalogInput m_LoadSensor{0};
+
+  frc::Timer m_intakeTimer;
+  double m_lastIntake = 0.0;
+
 #endif // ENABLE_SHOOTER
 };
