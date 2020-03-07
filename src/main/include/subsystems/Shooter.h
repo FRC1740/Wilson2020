@@ -83,7 +83,7 @@ namespace ConShooter {
     namespace Loader {
         constexpr int MOTOR_ID = 12;
         constexpr double MOTOR_SPEED = 0.1;
-        constexpr double INTAKE_DELAY = 5.0;
+        //constexpr double INTAKE_DELAY = 1.0; //FIXME: change this delay when we put it on the actual elevator
     }
 }
 
@@ -107,6 +107,8 @@ class Shooter : public frc2::SubsystemBase {
 
   nt::NetworkTableEntry m_nte_IndexSensorOutput;
   nt::NetworkTableEntry m_nte_LoadSensorOutput;
+
+  nt::NetworkTableEntry m_nte_IntakeDelay;
 //  nt::NetworkTableEntry m_nte_JumblerStatus;
 
 #ifdef ENABLE_SHOOTER

@@ -144,6 +144,12 @@ Shooter::Shooter() {
     .WithPosition(8, 2)
     .GetEntry();
 
+  m_nte_IntakeDelay = m_sbt_Shooter->
+    AddPersistent("Intake delay", 0.5)
+    .WithSize(2,1)
+    .WithPosition(8,3)
+    .GetEntry();
+
   /*
   m_nte_JumblerStatus = m_sbt_Shooter->
     AddPersistent("Jumbler Status", false)
@@ -188,11 +194,13 @@ void Shooter::Periodic() {
 
   if (m_IndexSensor.GetRange() < 300.0 && m_IndexSensor.GetRange() > 30.0) {
     m_loadMotor.Set(TalonSRXControlMode::PercentOutput, 0);
+    m_lastIntake = (m_intakeTimer.Get() -  m_nte_IntakeDelay.GetDouble(0.0));
   } else if (m_LoadSensor.GetAverageVoltage() < 2.0) {
       m_loadMotor.Set(TalonSRXControlMode::PercentOutput, ConShooter::Loader::MOTOR_SPEED);
-  } else if (m_lastIntake + ConShooter::Loader::INTAKE_DELAY < m_intakeTimer.Get()) {
+      m_lastIntake = m_intakeTimer.Get();
+  } else if (m_lastIntake + m_nte_IntakeDelay.GetDouble(0.0) < m_intakeTimer.Get()) {
     m_loadMotor.Set(TalonSRXControlMode::PercentOutput, 0);
-    m_lastIntake = m_intakeTimer.Get();
+    
   }
 }
 
