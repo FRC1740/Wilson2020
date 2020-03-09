@@ -15,7 +15,8 @@ void Robot::RobotInit() {
   // See https://docs.wpilib.org/en/latest/docs/software/wpilib-tools/shuffleboard/layouts-with-code/using-tabs.html
 
   // Create widget for code version
-  m_nte_CodeVersion = m_sbt_Robot->Add("Code Version", ROBOT_VERSION_STRING).WithSize(3, 1).WithPosition(0, 0).GetEntry();
+  #define CODE_VERSION ROBOT_VERSION_STRING " " __DATE__ " " __TIME__ 
+  m_nte_CodeVersion = m_sbt_Robot->Add("Code Version", CODE_VERSION).WithSize(3, 1).WithPosition(0, 0).GetEntry();
 }
 
 /**
