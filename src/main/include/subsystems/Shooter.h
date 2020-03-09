@@ -109,6 +109,9 @@ class Shooter : public frc2::SubsystemBase {
   nt::NetworkTableEntry m_nte_LoadSensorOutput;
 
   nt::NetworkTableEntry m_nte_IntakeDelay;
+
+  nt::NetworkTableEntry m_nte_DesiredIntakeSpeed;
+  nt::NetworkTableEntry m_nte_ActualIntakeSpeed;
 //  nt::NetworkTableEntry m_nte_JumblerStatus;
 
 #ifdef ENABLE_SHOOTER
@@ -179,6 +182,7 @@ class Shooter : public frc2::SubsystemBase {
   // Then provide a simple On/Off control from O/I at a constant power level
 
   TalonSRX m_indexMotor{ConShooter::Indexer::MOTOR_ID};
+  
   TalonSRX m_loadMotor{ConShooter::Loader::MOTOR_ID};
 
   frc::TimeOfFlight m_IndexSensor{0};

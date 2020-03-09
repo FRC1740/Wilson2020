@@ -150,6 +150,17 @@ Shooter::Shooter() {
     .WithPosition(8,3)
     .GetEntry();
 
+  m_nte_DesiredIntakeSpeed = m_sbt_Shooter->
+    AddPersistent("Desired Intake Speed", 0.0)
+    .WithSize(2,1)
+    .WithPosition(8,4)
+    .GetEntry();
+  
+  m_nte_ActualIntakeSpeed = m_sbt_Shooter->
+    AddPersistent("Actual Intake Speed", 0.0)
+    .WithSize(2,1)
+    .WithPosition(8,5)
+    .GetEntry();
   /*
   m_nte_JumblerStatus = m_sbt_Shooter->
     AddPersistent("Jumbler Status", false)
@@ -171,6 +182,7 @@ void Shooter::Periodic() {
     m_nte_KickerMotorError.SetDouble(GetKickerError());
     m_nte_IndexSensorOutput.SetDouble(m_IndexSensor.GetRange());
     m_nte_LoadSensorOutput.SetDouble(m_LoadSensor.GetAverageVoltage());
+    m_nte_ActualIntakeSpeed.SetDouble(0.0);
 
 #if 0 // Test code for the sensors
     // Check TimeofFLight sensor to see if a powerCell is ... stuck? loaded? ??
