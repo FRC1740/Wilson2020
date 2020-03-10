@@ -82,7 +82,8 @@ namespace ConShooter {
 
     namespace Loader {
         constexpr int MOTOR_ID = 12;
-        constexpr double MOTOR_SPEED = 0.1;
+        constexpr double MOTOR_SPEED = 800;
+        constexpr double VOLTAGE_TO_IN = 0.50142857142857;
         //constexpr double INTAKE_DELAY = 1.0; //FIXME: change this delay when we put it on the actual elevator
     }
 }
@@ -106,12 +107,16 @@ class Shooter : public frc2::SubsystemBase {
   nt::NetworkTableEntry m_nte_JumblerMotorSpeed;
 
   nt::NetworkTableEntry m_nte_IndexSensorOutput;
+
   nt::NetworkTableEntry m_nte_LoadSensorOutput;
+  nt::NetworkTableEntry m_nte_LoadSensorDistance;
 
   nt::NetworkTableEntry m_nte_IntakeDelay;
 
   nt::NetworkTableEntry m_nte_DesiredIntakeSpeed;
   nt::NetworkTableEntry m_nte_ActualIntakeSpeed;
+
+  nt::NetworkTableEntry m_nte_ShooterDelay;
 //  nt::NetworkTableEntry m_nte_JumblerStatus;
 
 #ifdef ENABLE_SHOOTER
@@ -147,6 +152,16 @@ class Shooter : public frc2::SubsystemBase {
   void SetKickerSpeed(double speed);
 
   void SetCodriverControl(frc::XboxController *codriver_control);
+
+  void Index(int direction);
+
+  void Undex();
+
+  void ForceIndex(int direction);
+
+  bool IsIndexSensorClear();
+
+  double ShooterDelay();
 
   frc::XboxController *m_codriver_control = nullptr;
 

@@ -140,27 +140,40 @@ Shooter::Shooter() {
 
   m_nte_LoadSensorOutput = m_sbt_Shooter->
     AddPersistent("Load Sensor Output", 0.0)
-    .WithSize(2, 1)
+    .WithSize(1, 1)
     .WithPosition(8, 2)
+    .GetEntry();
+
+  m_nte_LoadSensorDistance = m_sbt_Shooter->
+    AddPersistent("Load Sensor Distance", 0.0)
+    .WithSize(1,1)
+    .WithPosition(9,2)
     .GetEntry();
 
   m_nte_IntakeDelay = m_sbt_Shooter->
     AddPersistent("Intake delay", 0.5)
-    .WithSize(2,1)
-    .WithPosition(8,3)
+    .WithSize(1,1)
+    .WithPosition(3,4)
     .GetEntry();
 
   m_nte_DesiredIntakeSpeed = m_sbt_Shooter->
     AddPersistent("Desired Intake Speed", 0.0)
-    .WithSize(2,1)
-    .WithPosition(8,4)
+    .WithSize(1,1)
+    .WithPosition(0,4)
     .GetEntry();
   
   m_nte_ActualIntakeSpeed = m_sbt_Shooter->
     AddPersistent("Actual Intake Speed", 0.0)
-    .WithSize(2,1)
+    .WithSize(1,1)
+    .WithPosition(1,4)
+    .GetEntry();
+
+  m_nte_ShooterDelay = m_sbt_Shooter->
+    AddPersistent("Shooter Delay", 0.0)
+    .WithSize(1,1)
     .WithPosition(8,5)
     .GetEntry();
+
   /*
   m_nte_JumblerStatus = m_sbt_Shooter->
     AddPersistent("Jumbler Status", false)
@@ -182,7 +195,8 @@ void Shooter::Periodic() {
     m_nte_KickerMotorError.SetDouble(GetKickerError());
     m_nte_IndexSensorOutput.SetDouble(m_IndexSensor.GetRange());
     m_nte_LoadSensorOutput.SetDouble(m_LoadSensor.GetAverageVoltage());
-    m_nte_ActualIntakeSpeed.SetDouble(0.0);
+    m_nte_LoadSensorDistance.SetDouble((m_LoadSensor.GetAverageVoltage() / ConShooter::Loader::VOLTAGE_TO_IN) + 1.7);
+    m_nte_ActualIntakeSpeed.SetDouble(0.0); //FIXME:: Make this return the Load Motor's speed
 
 #if 0 // Test code for the sensors
     // Check TimeofFLight sensor to see if a powerCell is ... stuck? loaded? ??
@@ -203,17 +217,7 @@ void Shooter::Periodic() {
     m_loadMotor.Set(TalonSRXControlMode::PercentOutput, 0);
   }
 #endif
-
-  if (m_IndexSensor.GetRange() < 300.0 && m_IndexSensor.GetRange() > 30.0) {
-    m_loadMotor.Set(TalonSRXControlMode::PercentOutput, 0);
-    m_lastIntake = (m_intakeTimer.Get() -  m_nte_IntakeDelay.GetDouble(0.0));
-  } else if (m_LoadSensor.GetAverageVoltage() < 2.0) {
-      m_loadMotor.Set(TalonSRXControlMode::PercentOutput, ConShooter::Loader::MOTOR_SPEED);
-      m_lastIntake = m_intakeTimer.Get();
-  } else if (m_lastIntake + m_nte_IntakeDelay.GetDouble(0.0) < m_intakeTimer.Get()) {
-    m_loadMotor.Set(TalonSRXControlMode::PercentOutput, 0);
-    
-  }
+ 
 }
 
 
@@ -314,4 +318,41 @@ void Shooter::SetCodriverControl(frc::XboxController *codriver_control) {
   m_codriver_control = codriver_control;
 }
 
+void Shooter::Index(int direction) {
+  if (m_IndexSensor.GetRange() < 300.0 && m_IndexSensor.GetRange() > 30.0) {
+    m_loadMotor.Set(TalonSRXControlMode::Velocity, 0);
+    m_nte_DesiredIntakeSpeed.SetDouble(0.0);
+    m_lastIntake = (m_intakeTimer.Get() -  m_nte_IntakeDelay.GetDouble(0.0));
+  } else if (m_LoadSensor.GetAverageVoltage() < 2.0) //FIXME: Change
+   {
+      m_loadMotor.Set(TalonSRXControlMode::Velocity, (ConShooter::Loader::MOTOR_SPEED * direction));
+      m_lastIntake = m_intakeTimer.Get();
+      m_nte_DesiredIntakeSpeed.SetDouble(800.0);
+  } else if (m_lastIntake + m_nte_IntakeDelay.GetDouble(0.0) < m_intakeTimer.Get()) {
+    m_loadMotor.Set(TalonSRXControlMode::Velocity, 0);
+    m_nte_DesiredIntakeSpeed.SetDouble(0.0);
+  }
+}
+
+void Shooter::Undex() {
+  m_loadMotor.Set(TalonSRXControlMode::Velocity, 0);
+  m_nte_DesiredIntakeSpeed.SetDouble(0.0);
+}
+
+void Shooter::ForceIndex(int direction) {
+  m_loadMotor.Set(TalonSRXControlMode::Velocity, -800);
+  m_nte_DesiredIntakeSpeed.SetDouble(-800.0);
+}
+
+bool Shooter::IsIndexSensorClear() {
+  if (m_IndexSensor.GetRange() > 300.0 && m_IndexSensor.GetRange() < 30.0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+double Shooter::ShooterDelay() {
+  return m_nte_ShooterDelay.GetDouble(0.0);
+}
 #endif // ENABLE_SHOOTER
