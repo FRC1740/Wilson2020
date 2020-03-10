@@ -17,7 +17,7 @@ void UntakeShooter::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void UntakeShooter::Execute() {
-  m_shooter->Jumble(1);
+  m_shooter->ForceJumble(1);
   m_shooter->ForceIndex(-1);
 
 }

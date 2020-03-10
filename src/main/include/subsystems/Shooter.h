@@ -155,6 +155,8 @@ class Shooter : public frc2::SubsystemBase {
 
   void Index(int direction);
 
+  void ForceJumble(int direction);
+
   void Undex();
 
   void ForceIndex(int direction);

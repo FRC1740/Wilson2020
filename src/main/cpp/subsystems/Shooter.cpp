@@ -283,6 +283,17 @@ void Shooter::StopSpinUp(){
 // Used by JumbleShooter
 void Shooter::Jumble(int direction) {
   double speed = m_nte_JumblerMotorSpeed.GetDouble(ConShooter::Jumbler::MOTOR_SPEED);
+  if (IsIndexSensorClear()) {
+  if (direction != 1) { speed = -speed; }
+  m_jumblerMotor.Set(TalonSRXControlMode::PercentOutput, speed);
+  m_hopperFlapper.Set(TalonSRXControlMode::PercentOutput, ConShooter::HopperFlapper::MOTOR_SPEED);
+  } else {
+    m_jumblerMotor.Set(TalonSRXControlMode::PercentOutput, 0);
+  }
+}
+
+void Shooter::ForceJumble(int direction) {
+  double speed = m_nte_JumblerMotorSpeed.GetDouble(ConShooter::Jumbler::MOTOR_SPEED);
   if (direction != 1) { speed = -speed; }
   m_jumblerMotor.Set(TalonSRXControlMode::PercentOutput, speed);
   m_hopperFlapper.Set(TalonSRXControlMode::PercentOutput, ConShooter::HopperFlapper::MOTOR_SPEED);
@@ -340,8 +351,8 @@ void Shooter::Undex() {
 }
 
 void Shooter::ForceIndex(int direction) {
-  m_loadMotor.Set(TalonSRXControlMode::Velocity, -800);
-  m_nte_DesiredIntakeSpeed.SetDouble(-800.0);
+  m_loadMotor.Set(TalonSRXControlMode::Velocity, 800 * direction);
+  m_nte_DesiredIntakeSpeed.SetDouble(800.0 * direction);
 }
 
 bool Shooter::IsIndexSensorClear() {

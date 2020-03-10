@@ -17,7 +17,7 @@ void JumbleShooter::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void JumbleShooter::Execute() {
-  m_shooter->Jumble(m_direction);
+  m_shooter->ForceJumble(m_direction);
 }
 
 // Called once the command ends or is interrupted.

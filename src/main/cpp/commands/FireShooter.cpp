@@ -22,7 +22,7 @@ void FireShooter::Execute() {
   m_shooter->ForceIndex(1);
 
   if (m_timer.Get() > m_shooter->ShooterDelay()) {
-    m_shooter->Jumble(-1);
+    m_shooter->ForceJumble(-1);
   }
 }
 

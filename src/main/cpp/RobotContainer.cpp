@@ -27,6 +27,7 @@
 #include "commands/FlapHopper.h"
 #include "commands/IntakeShooter.h"
 #include "commands/UntakeShooter.h"
+#include "commands/FireShooter.h"
 
 #include "RobotContainer.h"
 
@@ -92,7 +93,7 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Switch::BLUE); }).WhenHeld(new IntakeShooter(&m_shooter));
   frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Switch::YELLOW); }).WhileHeld(new FlapHopper(&m_shooter));
 
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); }).WhileHeld(new JumbleShooter(&m_shooter, -1));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); }).WhileHeld(new FireShooter(&m_shooter));
   frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); }).WhileHeld(new UntakeShooter(&m_shooter));
   frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::YELLOW); }).WhileHeld(new JumbleShooter(&m_shooter, 1));
   
