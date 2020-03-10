@@ -79,7 +79,7 @@ void RobotContainer::ConfigureButtonBindings() {
 
 #ifdef ENABLE_CLIMBER
   // Climber
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::WHITE); }).WhileHeld(new OperateManualClimber(&m_climber));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::WHITE); }).WhenReleased(new OperateManualClimber(&m_climber));
 #endif // ENABLE_CLIMBER
 
 #ifdef ENABLE_SHOOTER

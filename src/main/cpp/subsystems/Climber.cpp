@@ -30,7 +30,7 @@ Climber::Climber() {
     m_dutyCycleEncoder.Reset();
     m_climberPosition = m_dutyCycleEncoder.GetDistance();
     m_motor.BurnFlash();
-    Lock(); // Starting Configuration: Engage chain lock
+    Unlock(); // Starting Configuration: Engage chain lock
     /*
     // FIXME: is it better to keep our own timer or use the GetMatchTime() function?
     m_timer = frc::Timer();
