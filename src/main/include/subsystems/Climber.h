@@ -74,6 +74,7 @@ class Climber : public frc2::SubsystemBase {
 
   double m_climberPosition;
   bool m_Locked;
+  bool m_FirstLock;
   frc::Timer m_timer;
 #endif // ENABLE_CLIMBER
 };

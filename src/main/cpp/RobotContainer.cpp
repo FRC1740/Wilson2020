@@ -28,6 +28,8 @@
 #include "commands/IntakeShooter.h"
 #include "commands/UntakeShooter.h"
 #include "commands/FireShooter.h"
+#include "commands/EngageClimberLock.h"
+#include "commands/DisengageClimberLock.h"
 
 #include "RobotContainer.h"
 
@@ -79,7 +81,9 @@ void RobotContainer::ConfigureButtonBindings() {
 
 #ifdef ENABLE_CLIMBER
   // Climber
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::WHITE); }).WhenReleased(new OperateManualClimber(&m_climber));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::WHITE); }).WhenReleased(new DisengageClimberLock(&m_climber));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::WHITE); }).WhenPressed(new EngageClimberLock(&m_climber));
+  // frc2::Button([this] {return codriver_control.GetRawAxis(ConLaunchPad::RIGHT_STICK_Y); }).WhileActiveContinous(new EngageClimberLock(&m_climber));
 #endif // ENABLE_CLIMBER
 
 #ifdef ENABLE_SHOOTER

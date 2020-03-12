@@ -5,33 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/OperateManualClimber.h"
-#include "subsystems/Climber.h"
+#include "commands/DisengageClimberLock.h"
 
-OperateManualClimber::OperateManualClimber(Climber *climber) : m_climber(climber) {
+DisengageClimberLock::DisengageClimberLock(Climber *climber) : m_climber(climber) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(climber);
 }
 
-#ifdef ENABLE_CLIMBER
 // Called when the command is initially scheduled.
-void OperateManualClimber::Initialize() {
-  // m_climber->Unlock();
+void DisengageClimberLock::Initialize() {
+  m_climber->Unlock();
 }
 
 // Called repeatedly when this Command is scheduled to run
-void OperateManualClimber::Execute() {
-  double speed = m_climber->m_codriver_control->GetRawAxis(ConLaunchPad::RIGHT_STICK_Y); // Inverted
-  // double speed = -m_climber->m_codriver_control->GetRawAxis(ConLaunchPad::LEFT_STICK_Y); // Inverted
-  m_climber->Go(speed);
-}
+void DisengageClimberLock::Execute() {}
 
 // Called once the command ends or is interrupted.
-void OperateManualClimber::End(bool interrupted) {
-  // m_climber->Stop();
-  // m_climber->Lock();
-}
+void DisengageClimberLock::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool OperateManualClimber::IsFinished() { return false; }
-#endif // ENABLE_CLIMBER
+bool DisengageClimberLock::IsFinished() { return false; }
