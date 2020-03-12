@@ -330,6 +330,7 @@ void Shooter::SetCodriverControl(frc::XboxController *codriver_control) {
 }
 
 void Shooter::Index(int direction) {
+  #if 0 // Turned off to test TOF sensor as the index sensor
   if (m_IndexSensor.GetRange() < 300.0 && m_IndexSensor.GetRange() > 30.0) {
     m_loadMotor.Set(TalonSRXControlMode::Velocity, 0);
     m_nte_DesiredIntakeSpeed.SetDouble(0.0);
@@ -343,11 +344,28 @@ void Shooter::Index(int direction) {
     m_loadMotor.Set(TalonSRXControlMode::Velocity, 0);
     m_nte_DesiredIntakeSpeed.SetDouble(0.0);
   }
+  #endif
+
+  #if 0
+  if (m_IndexSensor.GetRange() < 100.0 ) {
+   m_loadMotor.Set(TalonSRXControlMode::PercentOutput, (idIntakeSpeed.GetDouble(0.1)));
+    m_lastIntake = m_intakeTimer.Get();
+  } else if ((m_lastIntake + m_nte_IntakeDelay.GetDouble(0.0) < m_intakeTimer.Get())) {
+    
+    m_loadMotor.Set(TalonSRXControlMode::PercentOutput, 0);
+  }
+  #endif
+  // if (m_IndexSensor.GetRange() < 100.0) {
+  //   m_loadMotor.Set(TalonSRXControlMode::PercentOutput, m_nte_DesiredIntakeSpeed.GetDouble(0.1));
+  // } else {
+  //   m_loadMotor.Set(TalonSRXControlMode::PercentOutput, 0);
+  // }
+
 }
 
 void Shooter::Undex() {
   m_loadMotor.Set(TalonSRXControlMode::Velocity, 0);
-  m_nte_DesiredIntakeSpeed.SetDouble(0.0);
+  //m_nte_DesiredIntakeSpeed.SetDouble(0.0);
 }
 
 void Shooter::ForceIndex(int direction) {
