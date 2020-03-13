@@ -98,7 +98,8 @@ void Climber::Periodic() {
   m_nte_ClimberSpeed.SetDouble(m_motor.Get());
   m_nte_Locked.SetBoolean(m_Locked);
 
-  if (!m_Locked) {
+  if ((!m_Locked) &&
+     (m_codriver_control != nullptr)) {
     Climber::Go(m_codriver_control->GetRawAxis(ConLaunchPad::RIGHT_STICK_Y));
   }
 

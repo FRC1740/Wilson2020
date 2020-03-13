@@ -7,6 +7,7 @@
 
 #include "subsystems/Shooter.h"
 #include <frc/shuffleboard/BuiltInWidgets.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 #include <wpi/StringMap.h> // for wpi::StringMap
 #include <utility> // for std::pair
 
@@ -14,8 +15,9 @@ Shooter::Shooter() {
 
 #ifdef ENABLE_SHOOTER
 
-    m_intakeTimer = frc::Timer();
-    m_intakeTimer.Start();
+    m_timer = frc::Timer();
+    m_timer.Reset();
+    m_timer.Start();
     // Invert shooter motors correctly
     m_topMotor.SetInverted(false);
     m_bottomMotor.SetInverted(true);
@@ -211,13 +213,13 @@ void Shooter::Periodic() {
         m_indexMotor.Set(TalonSRXControlMode::PercentOutput, 0.0);
     } 
 
-  if (m_LoadSensor.GetAverageVoltage() < 2.0) {
-    m_loadMotor.Set(TalonSRXControlMode::PercentOutput, ConShooter::Loader::MOTOR_SPEED);
-  } else {
-    m_loadMotor.Set(TalonSRXControlMode::PercentOutput, 0);
-  }
+    if (m_LoadSensor.GetAverageVoltage() < 2.0) {
+        m_loadMotor.Set(TalonSRXControlMode::PercentOutput, ConShooter::Loader::MOTOR_SPEED);
+    }
+    else {
+        m_loadMotor.Set(TalonSRXControlMode::PercentOutput, 0);
+    }
 #endif
- 
 }
 
 
@@ -284,10 +286,11 @@ void Shooter::StopSpinUp(){
 void Shooter::Jumble(int direction) {
   double speed = m_nte_JumblerMotorSpeed.GetDouble(ConShooter::Jumbler::MOTOR_SPEED);
   if (IsIndexSensorClear()) {
-  if (direction != 1) { speed = -speed; }
-  m_jumblerMotor.Set(TalonSRXControlMode::PercentOutput, speed);
-  m_hopperFlapper.Set(TalonSRXControlMode::PercentOutput, ConShooter::HopperFlapper::MOTOR_SPEED);
-  } else {
+    if (direction != 1) { speed = -speed; }
+    m_jumblerMotor.Set(TalonSRXControlMode::PercentOutput, speed);
+    m_hopperFlapper.Set(TalonSRXControlMode::PercentOutput, ConShooter::HopperFlapper::MOTOR_SPEED);
+  }
+  else {
     m_jumblerMotor.Set(TalonSRXControlMode::PercentOutput, 0);
   }
 }
@@ -330,37 +333,41 @@ void Shooter::SetCodriverControl(frc::XboxController *codriver_control) {
 }
 
 void Shooter::Index(int direction) {
-  #if 0 // Turned off to test TOF sensor as the index sensor
-  if (m_IndexSensor.GetRange() < 300.0 && m_IndexSensor.GetRange() > 30.0) {
-    m_loadMotor.Set(TalonSRXControlMode::Velocity, 0);
-    m_nte_DesiredIntakeSpeed.SetDouble(0.0);
-    m_lastIntake = (m_intakeTimer.Get() -  m_nte_IntakeDelay.GetDouble(0.0));
-  } else if (m_LoadSensor.GetAverageVoltage() < 2.0) //FIXME: Change
-   {
-      m_loadMotor.Set(TalonSRXControlMode::Velocity, (ConShooter::Loader::MOTOR_SPEED * direction));
-      m_lastIntake = m_intakeTimer.Get();
-      m_nte_DesiredIntakeSpeed.SetDouble(800.0);
-  } else if (m_lastIntake + m_nte_IntakeDelay.GetDouble(0.0) < m_intakeTimer.Get()) {
-    m_loadMotor.Set(TalonSRXControlMode::Velocity, 0);
-    m_nte_DesiredIntakeSpeed.SetDouble(0.0);
-  }
-  #endif
+#if 0 // Turned off to test TOF sensor as the index sensor
+    if (m_IndexSensor.GetRange() < 300.0 && m_IndexSensor.GetRange() > 30.0) {
+        m_loadMotor.Set(TalonSRXControlMode::Velocity, 0);
+        m_nte_DesiredIntakeSpeed.SetDouble(0.0);
+        m_lastIntake = (m_timer.Get() - m_nte_IntakeDelay.GetDouble(0.0));
+    }
+    else if (m_LoadSensor.GetAverageVoltage() < 2.0) { //FIXME: Change
+        m_loadMotor.Set(TalonSRXControlMode::Velocity, (ConShooter::Loader::MOTOR_SPEED * direction));
+        m_lastIntake = m_timer.Get();
+        m_nte_DesiredIntakeSpeed.SetDouble(800.0);
+    }
+    else if (m_lastIntake + m_nte_IntakeDelay.GetDouble(0.0) < m_timer.Get()) {
+        m_loadMotor.Set(TalonSRXControlMode::Velocity, 0);
+        m_nte_DesiredIntakeSpeed.SetDouble(0.0);
+    }
+#endif
 
-  #if 0
-  if (m_IndexSensor.GetRange() < 100.0 ) {
-   m_loadMotor.Set(TalonSRXControlMode::PercentOutput, (idIntakeSpeed.GetDouble(0.1)));
-    m_lastIntake = m_intakeTimer.Get();
-  } else if ((m_lastIntake + m_nte_IntakeDelay.GetDouble(0.0) < m_intakeTimer.Get())) {
-    
-    m_loadMotor.Set(TalonSRXControlMode::PercentOutput, 0);
-  }
-  #endif
-  // if (m_IndexSensor.GetRange() < 100.0) {
-  //   m_loadMotor.Set(TalonSRXControlMode::PercentOutput, m_nte_DesiredIntakeSpeed.GetDouble(0.1));
-  // } else {
-  //   m_loadMotor.Set(TalonSRXControlMode::PercentOutput, 0);
-  // }
+#if 0
+    if (m_IndexSensor.GetRange() < 100.0 ) {
+        m_loadMotor.Set(TalonSRXControlMode::PercentOutput, (m_nte_DesiredIntakeSpeed.GetDouble(0.1)));
+        m_lastIntake = m_timer.Get();
+    }
+    else if ((m_lastIntake + m_nte_IntakeDelay.GetDouble(0.0) < m_timer.Get())) {
+        m_loadMotor.Set(TalonSRXControlMode::PercentOutput, 0);
+    }
+#endif
 
+#if 0
+    if (m_IndexSensor.GetRange() < 100.0) {
+        m_loadMotor.Set(TalonSRXControlMode::PercentOutput, m_nte_DesiredIntakeSpeed.GetDouble(0.1));
+    }
+    else {
+        m_loadMotor.Set(TalonSRXControlMode::PercentOutput, 0);
+    }
+#endif
 }
 
 void Shooter::Undex() {
@@ -374,11 +381,7 @@ void Shooter::ForceIndex(int direction) {
 }
 
 bool Shooter::IsIndexSensorClear() {
-  if (m_IndexSensor.GetRange() > 300.0 && m_IndexSensor.GetRange() < 30.0) {
-    return true;
-  } else {
-    return false;
-  }
+  return (m_IndexSensor.GetRange() > 300.0 || m_IndexSensor.GetRange() < 30.0);
 }
 
 double Shooter::ShooterDelay() {

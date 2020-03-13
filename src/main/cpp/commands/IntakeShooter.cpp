@@ -8,10 +8,10 @@
 #include "commands/IntakeShooter.h"
 
 IntakeShooter::IntakeShooter(Shooter *shooter) : m_shooter(shooter) {
-  AddRequirements(shooter);
   // Use addRequirements() here to declare subsystem dependencies.
 }
 
+#ifdef ENABLE_SHOOTER
 // Called when the command is initially scheduled.
 void IntakeShooter::Initialize() {}
 
@@ -29,3 +29,4 @@ void IntakeShooter::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool IntakeShooter::IsFinished() { return false; }
+#endif // ENABLE_SHOOTER

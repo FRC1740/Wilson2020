@@ -10,7 +10,6 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include "subsystems/Shooter.h"
-#include <frc/Timer.h>
 
 /**
  * An example command.
@@ -24,6 +23,7 @@ class FireShooter
  public:
   explicit FireShooter(Shooter *shooter);
 
+#ifdef ENABLE_SHOOTER
   void Initialize() override;
 
   void Execute() override;
@@ -31,7 +31,9 @@ class FireShooter
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+#endif // ENABLE_SHOOTER
+
  private:
   Shooter *m_shooter;
-  frc::Timer m_timer;
+  double m_timerStart = 0.0;
 };

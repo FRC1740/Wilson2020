@@ -17,7 +17,6 @@
 #include <frc/Encoder.h>
 #include <frc/shuffleboard/Shuffleboard.h>
 #include <frc/shuffleboard/ShuffleboardTab.h>
-#include <frc/smartdashboard/SmartDashboard.h>
 #include <networktables/NetworkTableEntry.h>
 #include <frc/XboxController.h>
 #include <frc/AnalogInput.h>
@@ -84,6 +83,7 @@ namespace ConShooter {
         constexpr int MOTOR_ID = 2;
         constexpr double MOTOR_SPEED = 800;
         constexpr double VOLTAGE_TO_IN = 0.50142857142857;
+        constexpr double INCH_OFFSET = 1.7;
         //constexpr double INTAKE_DELAY = 1.0; //FIXME: change this delay when we put it on the actual elevator
     }
 }
@@ -166,6 +166,7 @@ class Shooter : public frc2::SubsystemBase {
   double ShooterDelay();
 
   frc::XboxController *m_codriver_control = nullptr;
+  frc::Timer m_timer;
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
@@ -205,7 +206,6 @@ class Shooter : public frc2::SubsystemBase {
   frc::TimeOfFlight m_IndexSensor{0};
   frc::AnalogInput m_LoadSensor{0};
 
-  frc::Timer m_intakeTimer;
   double m_lastIntake = 0.0;
 
 #endif // ENABLE_SHOOTER
