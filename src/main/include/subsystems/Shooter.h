@@ -71,19 +71,21 @@ namespace ConShooter {
         constexpr double MOTOR_SPEED = 0.5;
     }
     namespace HopperFlapper {
-        constexpr int MOTOR_ID = 2;
+        constexpr int MOTOR_ID = 1; //2
         constexpr double MOTOR_SPEED = 0.5;
     }
     namespace Indexer {
         constexpr int MOTOR_ID = 2; // check to make sure this isn't already populated
         constexpr double MOTOR_SPEED = 0.5;
+        constexpr double MM_TO_IN = 25.4 / (10.0/10.4);
     }
 
     namespace Loader {
         constexpr int MOTOR_ID = 2;
         constexpr double MOTOR_SPEED = 800;
         constexpr double VOLTAGE_TO_IN = 0.50142857142857;
-        constexpr double INCH_OFFSET = 1.7;
+        constexpr double INCH_OFFSET = 2.19;
+        constexpr double MIN_RANGE = 2.3;
         //constexpr double INTAKE_DELAY = 1.0; //FIXME: change this delay when we put it on the actual elevator
     }
 }

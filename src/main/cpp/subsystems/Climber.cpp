@@ -49,7 +49,7 @@ void Climber::ResetEncoder() {
 // Used only by OperateManualClimber
 void Climber::Go(double speed) {
   // If lock is engaged, OR we're beyond the encoder soft limits, DON'T RUN
-  if (m_Locked) { 
+  if (m_enabled) { 
     m_motor.Set(0.0);
   }
 
@@ -80,7 +80,8 @@ void Climber::Stop() {
 
 // Used by OperateManualClimber and EngageClimberLock
 void Climber::Lock() {
-  m_Locked = true;
+  m_locked = true;
+  m_enabled = false;
   m_motor.Set(0.0);
   m_climberLock.Set(frc::DoubleSolenoid::kForward);
 }
@@ -88,7 +89,8 @@ void Climber::Lock() {
 // Used only by OperateManualClimber
 void Climber::Unlock() {
   m_climberLock.Set(frc::DoubleSolenoid::kReverse);
-  m_Locked = false;
+  m_locked = false;
+  m_enabled = true;
 }
 
 // This method will be called once per scheduler run
@@ -96,9 +98,9 @@ void Climber::Periodic() {
   m_climberPosition = m_dutyCycleEncoder.GetDistance();
   m_nte_ClimberDistance.SetDouble(m_climberPosition);
   m_nte_ClimberSpeed.SetDouble(m_motor.Get());
-  m_nte_Locked.SetBoolean(m_Locked);
+  m_nte_Locked.SetBoolean(m_locked);
 
-  if ((!m_Locked) &&
+  if ((!m_locked) &&
      (m_codriver_control != nullptr)) {
     Climber::Go(m_codriver_control->GetRawAxis(ConLaunchPad::RIGHT_STICK_Y));
   }

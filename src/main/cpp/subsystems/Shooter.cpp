@@ -195,9 +195,9 @@ void Shooter::Periodic() {
     m_nte_BottomMotorOutputRPM.SetDouble(GetBottomMotorSpeed());
     m_nte_KickerMotorVoltage.SetDouble(GetKickerMotorVoltage());
     m_nte_KickerMotorError.SetDouble(GetKickerError());
-    m_nte_IndexSensorOutput.SetDouble(m_IndexSensor.GetRange());
+    m_nte_IndexSensorOutput.SetDouble(m_IndexSensor.GetRange() / ConShooter::Indexer::MM_TO_IN);
     m_nte_LoadSensorOutput.SetDouble(m_LoadSensor.GetAverageVoltage());
-    m_nte_LoadSensorDistance.SetDouble((m_LoadSensor.GetAverageVoltage() / ConShooter::Loader::VOLTAGE_TO_IN) + 1.7);
+    m_nte_LoadSensorDistance.SetDouble((m_LoadSensor.GetAverageVoltage() / ConShooter::Loader::VOLTAGE_TO_IN) + ConShooter::Loader::INCH_OFFSET);
     m_nte_ActualIntakeSpeed.SetDouble(0.0); //FIXME:: Make this return the Load Motor's speed
 
 #if 0 // Test code for the sensors
@@ -342,7 +342,7 @@ void Shooter::Index(int direction) {
     else if (m_LoadSensor.GetAverageVoltage() < 2.0) { //FIXME: Change
         m_loadMotor.Set(TalonSRXControlMode::Velocity, (ConShooter::Loader::MOTOR_SPEED * direction));
         m_lastIntake = m_timer.Get();
-        m_nte_DesiredIntakeSpeed.SetDouble(800.0);
+        m_nte_DesiredIntakeSpeed.SetDouble(ConShooter::Loader::MOTOR_SPEED);
     }
     else if (m_lastIntake + m_nte_IntakeDelay.GetDouble(0.0) < m_timer.Get()) {
         m_loadMotor.Set(TalonSRXControlMode::Velocity, 0);
@@ -350,8 +350,12 @@ void Shooter::Index(int direction) {
     }
 #endif
 
-#if 0
-    if (m_IndexSensor.GetRange() < 100.0 ) {
+#if 1
+
+    if (m_nte_LoadSensorDistance.GetDouble(0.0) < 3.0) {
+        m_loadMotor.Set(TalonSRXControlMode::PercentOutput, 0);
+        m_lastIntake = (m_timer.Get() - m_nte_IntakeDelay.GetDouble(0.0));
+    } else if ((1 < m_nte_IndexSensorOutput.GetDouble(0.0)) && (m_nte_IndexSensorOutput.GetDouble(0.0) < 2.5 )) {
         m_loadMotor.Set(TalonSRXControlMode::PercentOutput, (m_nte_DesiredIntakeSpeed.GetDouble(0.1)));
         m_lastIntake = m_timer.Get();
     }
@@ -376,8 +380,8 @@ void Shooter::Undex() {
 }
 
 void Shooter::ForceIndex(int direction) {
-  m_loadMotor.Set(TalonSRXControlMode::Velocity, 800 * direction);
-  m_nte_DesiredIntakeSpeed.SetDouble(800.0 * direction);
+  m_loadMotor.Set(TalonSRXControlMode::PercentOutput, m_nte_DesiredIntakeSpeed.GetDouble(0.0) * direction);
+  //m_nte_DesiredIntakeSpeed.SetDouble(800.0 * direction);
 }
 
 bool Shooter::IsIndexSensorClear() {
