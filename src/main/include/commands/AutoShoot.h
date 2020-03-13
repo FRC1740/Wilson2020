@@ -21,9 +21,11 @@
  */
 class AutoShoot
     : public frc2::CommandHelper<frc2::CommandBase, AutoShoot> {
- public:
+
+public:
   explicit AutoShoot(Shooter *shooter);
 
+#ifdef ENABLE_SHOOTER
   void Initialize() override;
 
   void Execute() override;
@@ -31,9 +33,10 @@ class AutoShoot
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+#endif // ENABLE_SHOOTER
+
  private:
   Shooter *m_shooter;
   frc::Timer m_timer;
   bool m_feeding;
-
 };

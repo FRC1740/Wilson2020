@@ -12,16 +12,17 @@ FireShooter::FireShooter(Shooter *shooter) : m_shooter(shooter) {
   AddRequirements(m_shooter);
 }
 
+#ifdef ENABLE_SHOOTER
 // Called when the command is initially scheduled.
 void FireShooter::Initialize() {
-  m_timer.Start();
+  m_timerStart = m_shooter->m_timer.Get();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void FireShooter::Execute() {
   m_shooter->ForceIndex(1);
 
-  if (m_timer.Get() > m_shooter->ShooterDelay()) {
+  if (m_shooter->m_timer.Get() - m_timerStart > m_shooter->ShooterDelay()) {
     m_shooter->ForceJumble(-1);
   }
 }
@@ -34,3 +35,4 @@ void FireShooter::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool FireShooter::IsFinished() { return false; }
+#endif // ENABLE_SHOOTER

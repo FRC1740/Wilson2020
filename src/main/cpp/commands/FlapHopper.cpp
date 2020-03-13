@@ -11,6 +11,7 @@ FlapHopper::FlapHopper(Shooter *shooter) : m_shooter(shooter) {
   // Use addRequirements() here to declare subsystem dependencies.
 }
 
+#ifdef ENABLE_SHOOTER
 // Called when the command is initially scheduled.
 void FlapHopper::Initialize() {}
 
@@ -26,3 +27,4 @@ void FlapHopper::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool FlapHopper::IsFinished() { return false; }
+#endif // ENABLE_SHOOTER

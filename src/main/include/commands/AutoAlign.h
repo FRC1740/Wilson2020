@@ -17,9 +17,12 @@ class AutoAlign
  public:
   explicit AutoAlign(DriveTrain *driveTrain, Vision *vision);
 
+#if defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
   bool IsFinished() override;
 
   void End(bool interrupted) override;
+#endif // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
+
  private:
   DriveTrain *m_driveTrain;
   Vision *m_vision;

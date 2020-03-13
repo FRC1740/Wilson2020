@@ -23,13 +23,16 @@ class DisengageClimberLock
  public:
   explicit DisengageClimberLock(Climber *climber);
 
+#ifdef ENABLE_CLIMBER
   void Initialize() override;
 
-  void Execute() override;
+  //void Execute() override;
 
-  void End(bool interrupted) override;
+  //void End(bool interrupted) override;
 
   bool IsFinished() override;
+#endif // ENABLE_CLIMBER
+
  private:
   Climber *m_climber;
 };

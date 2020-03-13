@@ -8,10 +8,10 @@
 #include "commands/UntakeShooter.h"
 
 UntakeShooter::UntakeShooter(Shooter *shooter) : m_shooter(shooter) {
-
   // Use addRequirements() here to declare subsystem dependencies.
 }
 
+#ifdef ENABLE_SHOOTER
 // Called when the command is initially scheduled.
 void UntakeShooter::Initialize() {}
 
@@ -19,7 +19,6 @@ void UntakeShooter::Initialize() {}
 void UntakeShooter::Execute() {
   m_shooter->ForceJumble(1);
   m_shooter->ForceIndex(-1);
-
 }
 
 // Called once the command ends or is interrupted.
@@ -30,3 +29,4 @@ void UntakeShooter::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool UntakeShooter::IsFinished() { return false; }
+#endif // ENABLE_SHOOTER

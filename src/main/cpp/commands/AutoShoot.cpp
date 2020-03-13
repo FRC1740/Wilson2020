@@ -12,6 +12,7 @@ AutoShoot::AutoShoot(Shooter *shooter) : m_shooter(shooter) {
   m_timer = frc::Timer();
 }
 
+#ifdef ENABLE_SHOOTER
 // Called when the command is initially scheduled.
 void AutoShoot::Initialize() {
   m_timer.Reset();
@@ -45,3 +46,4 @@ void AutoShoot::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool AutoShoot::IsFinished() { return m_timer.Get() >= 10.0; }
+#endif // ENABLE_SHOOTER

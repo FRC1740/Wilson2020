@@ -20,9 +20,11 @@
  */
 class FlapHopper
     : public frc2::CommandHelper<frc2::CommandBase, FlapHopper> {
- public:
-  FlapHopper(Shooter *shooter);
 
+public:
+  explicit FlapHopper(Shooter *shooter);
+
+#ifdef ENABLE_SHOOTER
   void Initialize() override;
 
   void Execute() override;
@@ -30,7 +32,8 @@ class FlapHopper
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+#endif // ENABLE_SHOOTER
+
  private:
   Shooter *m_shooter;
-
 };

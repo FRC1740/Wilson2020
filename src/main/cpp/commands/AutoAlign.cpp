@@ -40,6 +40,7 @@ AutoAlign::AutoAlign(DriveTrain *driveTrain, Vision *vision)
 #endif // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
                     }
 
+#if defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
 // Returns true when the command should end.
 bool AutoAlign::IsFinished() { return false; }
 
@@ -47,3 +48,4 @@ void AutoAlign::End(bool interrupted) {
   m_vision->LightOff();
   m_driveTrain->TankDrive(0, 0);
 }
+#endif // defined(ENABLE_VISION) && defined(ENABLE_DRIVETRAIN)
