@@ -5,26 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/JumbleShooter.h"
+#include "commands/DisengageClimberLock.h"
 
-JumbleShooter::JumbleShooter(Shooter *shooter, int direction) : m_shooter(shooter), m_direction(direction) {
+DisengageClimberLock::DisengageClimberLock(Climber *climber) : m_climber(climber) {
   // Use addRequirements() here to declare subsystem dependencies.
 }
 
-#ifdef ENABLE_SHOOTER
 // Called when the command is initially scheduled.
-void JumbleShooter::Initialize() {}
+void DisengageClimberLock::Initialize() {
+  m_climber->Unlock();
+}
 
 // Called repeatedly when this Command is scheduled to run
-void JumbleShooter::Execute() {
-  m_shooter->ForceJumble(m_direction);
-}
+void DisengageClimberLock::Execute() {}
 
 // Called once the command ends or is interrupted.
-void JumbleShooter::End(bool interrupted) {
-    m_shooter->Dejumble();
-}
+void DisengageClimberLock::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool JumbleShooter::IsFinished() { return false; }
-#endif // ENABLE_SHOOTER
+bool DisengageClimberLock::IsFinished() { return false; }

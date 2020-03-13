@@ -16,7 +16,7 @@ OperateManualClimber::OperateManualClimber(Climber *climber) : m_climber(climber
 #ifdef ENABLE_CLIMBER
 // Called when the command is initially scheduled.
 void OperateManualClimber::Initialize() {
-  m_climber->Unlock();
+  // m_climber->Unlock();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -28,8 +28,8 @@ void OperateManualClimber::Execute() {
 
 // Called once the command ends or is interrupted.
 void OperateManualClimber::End(bool interrupted) {
-  m_climber->Stop();
-  m_climber->Lock();
+  // m_climber->Stop();
+  // m_climber->Lock();
 }
 
 // Returns true when the command should end.

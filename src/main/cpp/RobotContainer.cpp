@@ -25,6 +25,11 @@
 #include "commands/LogDataToDashboard.h" 
 #include "commands/AutoDriveDistance.h"
 #include "commands/FlapHopper.h"
+#include "commands/IntakeShooter.h"
+#include "commands/UntakeShooter.h"
+#include "commands/FireShooter.h"
+#include "commands/EngageClimberLock.h"
+#include "commands/DisengageClimberLock.h"
 
 #include "RobotContainer.h"
 
@@ -76,7 +81,9 @@ void RobotContainer::ConfigureButtonBindings() {
 
 #ifdef ENABLE_CLIMBER
   // Climber
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::WHITE); }).WhileHeld(new OperateManualClimber(&m_climber));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::WHITE); }).WhenReleased(new DisengageClimberLock(&m_climber));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::WHITE); }).WhenPressed(new EngageClimberLock(&m_climber));
+  // frc2::Button([this] {return codriver_control.GetRawAxis(ConLaunchPad::RIGHT_STICK_Y); }).WhileActiveContinous(new EngageClimberLock(&m_climber));
 #endif // ENABLE_CLIMBER
 
 #ifdef ENABLE_SHOOTER
@@ -87,10 +94,14 @@ void RobotContainer::ConfigureButtonBindings() {
 //  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::LEFT_BUMPER); }).WhenHeld(new SpinUpShooter(&m_shooter));
 //  frc2::Button([this] {return codriver_control.GetRawButton(ConXBOXControl::RIGHT_BUMPER); }).WhenHeld(new JumbleShooter(&m_shooter));
   frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Switch::RED); }).WhenHeld(new SpinUpShooter(&m_shooter));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Switch::BLUE); }).WhenHeld(new IntakeShooter(&m_shooter));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Switch::YELLOW); }).WhileHeld(new FlapHopper(&m_shooter));
 
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); }).WhileHeld(new JumbleShooter(&m_shooter, -1));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); }).WhileHeld(new JumbleShooter(&m_shooter, 1));
-  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::YELLOW); }).WhileHeld(new FlapHopper(&m_shooter));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::RED); }).WhileHeld(new FireShooter(&m_shooter));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::BLUE); }).WhileHeld(new UntakeShooter(&m_shooter));
+  frc2::Button([this] {return codriver_control.GetRawButton(ConLaunchPad::Button::YELLOW); }).WhileHeld(new JumbleShooter(&m_shooter, 1));
+  
+  
 
 #endif // ENABLE_SHOOTER
 

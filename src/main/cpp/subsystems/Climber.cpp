@@ -30,7 +30,7 @@ Climber::Climber() {
     m_dutyCycleEncoder.Reset();
     m_climberPosition = m_dutyCycleEncoder.GetDistance();
     m_motor.BurnFlash();
-    Lock(); // Starting Configuration: Engage chain lock
+    Unlock(); // Starting Configuration: Engage chain lock
     /*
     // FIXME: is it better to keep our own timer or use the GetMatchTime() function?
     m_timer = frc::Timer();
@@ -98,6 +98,10 @@ void Climber::Periodic() {
   m_nte_ClimberSpeed.SetDouble(m_motor.Get());
   m_nte_Locked.SetBoolean(m_Locked);
 
+  if (!m_Locked) {
+    Climber::Go(m_codriver_control->GetRawAxis(ConLaunchPad::RIGHT_STICK_Y));
+  }
+
   if ((m_codriver_control != nullptr) && 
       (m_codriver_control->GetRawButton(ConLaunchPad::Switch::GREEN))) { // Nearest to climber controls
     ResetEncoder();
@@ -118,5 +122,4 @@ void Climber::Periodic() {
 void Climber::SetCodriverControl(frc::XboxController *codriver_control) {
   m_codriver_control = codriver_control;
 }
-
 #endif // ENABLE_CLIMBER

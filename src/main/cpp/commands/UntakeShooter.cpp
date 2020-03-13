@@ -5,26 +5,28 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/JumbleShooter.h"
+#include "commands/UntakeShooter.h"
 
-JumbleShooter::JumbleShooter(Shooter *shooter, int direction) : m_shooter(shooter), m_direction(direction) {
+UntakeShooter::UntakeShooter(Shooter *shooter) : m_shooter(shooter) {
+
   // Use addRequirements() here to declare subsystem dependencies.
 }
 
-#ifdef ENABLE_SHOOTER
 // Called when the command is initially scheduled.
-void JumbleShooter::Initialize() {}
+void UntakeShooter::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void JumbleShooter::Execute() {
-  m_shooter->ForceJumble(m_direction);
+void UntakeShooter::Execute() {
+  m_shooter->ForceJumble(1);
+  m_shooter->ForceIndex(-1);
+
 }
 
 // Called once the command ends or is interrupted.
-void JumbleShooter::End(bool interrupted) {
-    m_shooter->Dejumble();
+void UntakeShooter::End(bool interrupted) {
+  m_shooter->Undex();
+  m_shooter->Dejumble();
 }
 
 // Returns true when the command should end.
-bool JumbleShooter::IsFinished() { return false; }
-#endif // ENABLE_SHOOTER
+bool UntakeShooter::IsFinished() { return false; }

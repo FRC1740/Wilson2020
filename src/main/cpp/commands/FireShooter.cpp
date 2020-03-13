@@ -5,26 +5,32 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/JumbleShooter.h"
+#include "commands/FireShooter.h"
 
-JumbleShooter::JumbleShooter(Shooter *shooter, int direction) : m_shooter(shooter), m_direction(direction) {
+FireShooter::FireShooter(Shooter *shooter) : m_shooter(shooter) {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements(m_shooter);
 }
 
-#ifdef ENABLE_SHOOTER
 // Called when the command is initially scheduled.
-void JumbleShooter::Initialize() {}
+void FireShooter::Initialize() {
+  m_timer.Start();
+}
 
 // Called repeatedly when this Command is scheduled to run
-void JumbleShooter::Execute() {
-  m_shooter->ForceJumble(m_direction);
+void FireShooter::Execute() {
+  m_shooter->ForceIndex(1);
+
+  if (m_timer.Get() > m_shooter->ShooterDelay()) {
+    m_shooter->ForceJumble(-1);
+  }
 }
 
 // Called once the command ends or is interrupted.
-void JumbleShooter::End(bool interrupted) {
-    m_shooter->Dejumble();
+void FireShooter::End(bool interrupted) {
+  m_shooter->Undex();
+  m_shooter->Dejumble();
 }
 
 // Returns true when the command should end.
-bool JumbleShooter::IsFinished() { return false; }
-#endif // ENABLE_SHOOTER
+bool FireShooter::IsFinished() { return false; }
