@@ -73,8 +73,8 @@ class Climber : public frc2::SubsystemBase {
   frc::DoubleSolenoid m_climberLock{ConClimber::SOLENOID_LOCK_ID, ConClimber::SOLENOID_UNLOCK_ID};
 
   double m_climberPosition;
-  bool m_Locked;
-  bool m_FirstLock;
+  bool m_locked = false;
+  bool m_enabled = false;
   frc::Timer m_timer;
 #endif // ENABLE_CLIMBER
 };

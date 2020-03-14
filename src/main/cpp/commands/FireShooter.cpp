@@ -9,7 +9,7 @@
 
 FireShooter::FireShooter(Shooter *shooter) : m_shooter(shooter) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(m_shooter);
+  // AddRequirements(m_shooter);
 }
 
 #ifdef ENABLE_SHOOTER
